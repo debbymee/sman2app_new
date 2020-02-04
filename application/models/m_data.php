@@ -511,18 +511,7 @@ class M_data extends CI_Model
 	}
 		function tampil_namasiswa($tahun_ajaran, $id_kelas)
 	{
-		// //$results = array();
-		// $this->db->select('*');
-		// $this->db->from('siswa');
-		// $this->db->join('detail_kelas_siswa', 'siswa.id_siswa = detail_kelas_siswa.id_siswa');
-		// $this->db->join('tahun_ajaran', 'detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
-		// $this->db->join('kelas', 'detail_kelas_siswa.id_kelas = kelas.id_kelas');
-		// $this->db->where('tahun_ajaran.id_tahun_ajaran', $tahun_ajaran);
-	 // $array = array('tahun_ajaran' => $tahun_ajaran,
-  //    					'id_kelas' => $id_kelas
-  //    					);
-  //   	$this->db->where($array);
-		// return $this->db->get();
+	
 		$this->db->select('*');
 		$this->db->from('detail_kelas_siswa');
 		$this->db->join('siswa', 'detail_kelas_siswa.id_siswa = siswa.id_siswa');
@@ -535,14 +524,16 @@ class M_data extends CI_Model
 	}
 
 
-		function tampil_jadwalll($id_kelas_fk,$hariindonesia)
+		function tampil_jadwalll($id_kelas_fk,$hariindonesia,$tahun_ajaran)
 	{
 		$this->db->select('*');
 		$this->db->from('jadwal_pelajaran');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
+		$this->db->join('tahun_ajaran', 'jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
 		$this->db->group_by("kd_mapel_fk");
 		$this->db->where('jadwal_pelajaran.id_kelas_fk', $id_kelas_fk);
 		$this->db->where('jadwal_pelajaran.hari', $hariindonesia);
+		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun_ajaran);
 		return $this->db->get();
 
 		// $array = array('id_kelas_fk' => $id_kelas_fk,

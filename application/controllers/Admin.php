@@ -607,7 +607,7 @@ class Admin extends CI_Controller
 		$id_kelas_fk = $this->uri->segment(3); // mengambil get url urutan slice ke 3
 		$data['kelas'] = urldecode($urikelas); //untuk menghilangkan %
 		$data['results'] = $this->m_data->tampil_siswa2($tahun_ajaran, $id_kelas_fk);
-		$data['jadwalll'] = $this->m_data->tampil_jadwalll($id_kelas_fk,$hariindonesia)->result();
+		$data['jadwalll'] = $this->m_data->tampil_jadwalll($id_kelas_fk,$hariindonesia, $tahun_ajaran)->result();
 		$data['keterangan_presensi'] = $this->m_data->tampil_keterangan()->result();
 		$data['content']   =  'view_admin/presensi_kehadiran/inputpresensi12';
 		$this->load->view('templates/templates',$data);

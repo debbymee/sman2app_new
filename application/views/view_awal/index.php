@@ -55,7 +55,7 @@
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li class="menu-active"><a href="Loginbaru/pilih"><b style="border: solid 2px #000;background: white; padding: 15px; margin: 0; text-align: justify; line-height: 23px;"  >LOGIN</b></a></li>
+						<li class="menu-active"><a href="Loginuser/index"><b style="border: solid 2px #000;background: white; padding: 15px; margin: 0; text-align: justify; line-height: 23px;"  >LOGIN</b></a></li>
 					</ul>
 				</nav><!-- #nav-menu-container -->
 			</div>

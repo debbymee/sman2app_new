@@ -1,5 +1,5 @@
 <?php 
-class Loginbaru extends CI_Controller
+class Loginuser extends CI_Controller
 {
 
 	public function __construct() {
@@ -22,7 +22,7 @@ class Loginbaru extends CI_Controller
 			
 			$data['tahun_ajaran'] = $this->m_login->tahun_ajaran();
 			$data['judul'] = "Aplikasi Absensi SMAN2";
-			$this->load->view('templates_login/login', $data);	
+			$this->load->view('templates_login/login_user', $data);	
 		}else{
 
 			$this->login_val();
@@ -37,14 +37,7 @@ class Loginbaru extends CI_Controller
 		$pass = $this->input->post('password');
 		$password = md5($pass);
 		$tahun_ajaran = $this->input->post('tahun_ajaran');
-		if ($tahun_ajaran == null || $tahun_ajaran == '' || empty($tahun_ajaran)) 
-		{
-			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Pilih tahun ajaran </div>');
-			redirect('Loginbaru');
-	
-		}  else {
 
-	
 		
 		$cek = $this->m_login->cek_login($username,$password);
 
@@ -89,12 +82,15 @@ class Loginbaru extends CI_Controller
 						</script>');
 						redirect('siswa_admin');
 					}else{
-						$this->session->set_userdata($data);
+						 $this->session->set_userdata($data);
 						$this->session->set_flashdata('hehe', ' 
 						<script>
-		  				alert("Login Berhasil!");
+		  				alert("Anda tidak punya hak akses!");
 						</script>');
-						redirect('admin');
+						redirect('Loginuser');
+
+						// $this->session->set_flashdata('hehe','<div class="alert alert-info" role="alert">Tidak punya hak akses masuk! </div>');
+						// redirect('Loginuser');
 					}
 				}
 
@@ -119,11 +115,11 @@ class Loginbaru extends CI_Controller
 				<script>
   				alert("Username/Password Salah!");
 				</script>');
-				 redirect('Loginbaru');
+				 redirect('Loginuser');
 
 				}
 
-	}
+	
 		
 
 	}

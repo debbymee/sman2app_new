@@ -19,7 +19,7 @@
 	//return $this->db->get('guru');
 	$this->db->select('*');
 	$this->db->from('guru');
-	$this->db->join('users', 'guru.id_user_fk = users.id');
+	$this->db->join('users', 'guru.id_guru = users.id_guru_fk');
 	$this->db->where('id', $id);
 	return $this->db->get()->result();
 
@@ -56,6 +56,7 @@
 	
 	function tampil_namasiswa($id_guru)
 	{
+		
 		$this->db->select('*');
 		$this->db->from('siswa');
 		$this->db->join('kelas', 'siswa.id_kelas_fk = kelas.id_kelas');
@@ -198,11 +199,12 @@
 	return $this->db->get()->result();
     }
 
- //     function countwali(){
- //    $this->db->select('count(id_wali) as totalcount');
- //    $this->db->from('wali_kelas');
-	// return $this->db->get()->result();
- //    }
+     function countwali(){
+    $this->db->select('count(distinct(detail_kelas_siswa.id_wali_fk)) as totalcount');
+    $this->db->from('detail_kelas_siswa');
+    $this->db->join('guru', 'detail_kelas_siswa.id_wali_fk = guru.nip');
+	return $this->db->get()->result();
+    }
 
     function countsiswa(){
     $this->db->select('count(id_siswa) as totalcount');

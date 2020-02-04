@@ -36,7 +36,7 @@
             </div>
       
           </div>
- <div class="dashboard_graph">
+          <div class="dashboard_graph">
 
                 <div class="row x_title">
                   <div class="col-md-6">

@@ -14,7 +14,7 @@ class Guru extends CI_Controller
 	
 		if ($this->session->userdata('role_id_fk')!='2')
 		{
-	 		redirect(base_url('loginbaru'));
+	 		redirect(base_url('loginuser'));
 
 	 	} 
 	}
@@ -29,7 +29,7 @@ class Guru extends CI_Controller
 		$data['graph'] = $this->m_guru->graph();
 		$data['content']   =  'view_guru/dashboard';
 		$data['guru'] = $this->m_guru->countguru();
-	//	$data['wali'] = $this->m_guru->countwali();
+		$data['wali'] = $this->m_guru->countwali();
 		$data['siswa'] = $this->m_guru->countsiswa();
 		$id_guru = $this->session->userdata('id_guru');
 		$row = $this->m_guru->tampilhadirsemua($id_guru,$tgl);
@@ -133,7 +133,7 @@ class Guru extends CI_Controller
 	 
 		$this->m_guru->update_pass($data, $id);
 		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Password berhasil diubah, silahkan login kembali! </div>');
-		redirect('loginbaru');
+		redirect('loginuser');
 	
 		
 	}
