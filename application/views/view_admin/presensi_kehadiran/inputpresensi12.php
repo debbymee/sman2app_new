@@ -36,22 +36,18 @@
                        <option>Pilih</option>
                         <?php foreach ($jadwalll as $dj) : ?>
 
-                          <option value="<?php echo $dj->kd_mapel_fk ?>"><?php echo $dj->nama_pelajaran ?>
+                          <option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>
                           </option>
                         <?php endforeach ?>
            
-                  		</select></b></h2></td>
+                  		</select></b></h2> 
+        </td>
   
  	</tr>
- 	<tr>
- 		<td><h2 style="color: green " id="tgl"><b>JAM PELAJARAN</b></h2></td>
- 		<td><h2 style="color: green " id="tgl"><b> : <select class="btn btn-default dropdown-toggle jam_pelajaran" name="id_jadwal_fk" >
-                       <option>Pilih</option>
-                         </select></b></h2></td>
- 	</tr>
+ 
  	<tr>
  		<td><h2 style="color: green" id="modul_pembahasan"><b>Modul Pembahasan</b></h2></td>
- 		<TD> <B>:</B> <input type="text" name="modul_pembahasan"></TD>
+ 		<TD> <B>:</B> <input type="text" name="modul_pembahasan[]"></TD>
  	</tr>
  </table>
  <br><br>

@@ -58,11 +58,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-              <center> <img src="<?php echo base_url(); ?>foto/guru/<?php echo $this->session->userdata('foto')?> " alt="..." width=80% style="border: 3px solid white"></center>
+              <center> <img src="<?php echo base_url(); ?>public/images/sman2.png?>  " alt="..." width=85% style="border: 3px solid white"></center>
               </div>
               <div class="profile_info">
                 <font size="3px" color="white" style="font-family: arial ">Nama akun user : </font>
-                <font size="5px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('username')  ?></font>
+                <font size="5px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('username')  ?></font><br> <?php echo $this->session->userdata('id_guru')  ?>
                 
               
               </div>

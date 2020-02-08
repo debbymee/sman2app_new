@@ -24,7 +24,14 @@
  	<tr>
  		<td><h2 style="color: #000 " id="tgl"><b>TANGGAL</b></h2></td>
  		<td><h2 style="color: #000 " id="tgl"><b> : <input type="date" value="<?php echo date('Y-m-d'); ?>" readonly></b></h2></td>
- 		<td><h2 style="color: #000;margin-left: 100px" id="cekguru"><b>***Absensi Guru : <button class="btn btn-success">ON</button> || <button class="btn btn-success">OFF</button> || <button class="btn btn-success">TUGAS</button></b></h2></td>
+
+ 		<td>
+ 			<h2 style="color: #000;margin-left: 100px" >
+ 			<b>***Absensi Guru : 
+ 				<input type="radio" name="id_keterangan_guru" value="2">ON  &nbsp;&nbsp;
+ 				<input type="radio" name="id_keterangan_guru" value="1">OFF &nbsp;&nbsp;
+ 				<input type="radio" name="id_keterangan_guru" value="3">TUGAS
+ 			</b></h2></td>
  	</tr>
  	<tr>
 
@@ -39,19 +46,13 @@
                        <option>Pilih</option>
                         <?php foreach ($jadwalll as $dj) : ?>
 
-                          <option value="<?php echo $dj->kd_mapel_fk ?>"><?php echo $dj->nama_pelajaran ?>
+                          <option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>
                           </option>
                         <?php endforeach ?>
            
                   		</select></b></h2></td>
  	</tr>
- 	<tr>
- 		<td><h2 style="color: #000 " id="tgl"><b>JAM PELAJARAN</b></h2></td>
- 		<td><h2 style="color: #000 " id="jam_pelajaran"><b> : <select class="btn btn-default dropdown-toggle jam_pelajaran" name="id_jadwal_fk" >
-                       <option>Pilih</option>
-                         </select></b></h2></td>
-        
- 	</tr>
+
  	<tr>
  		<td><h2 style="color: #000 " id="modul_pembahasan"><b>MODUL </b></h2></td>
  		<td><h2 style="color: #000 "><b>:  <input type="text" name="modul_pembahasan[]"></b></h2></td>

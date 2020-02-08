@@ -12,7 +12,7 @@ class Wali_kelas extends CI_Controller
 	
 		if ($this->session->userdata('role_id_fk')!='3')
 		{
-	 		redirect(base_url('loginbaru'));
+	 		redirect(base_url('loginuser'));
 	 	} 
 	}
 	public function index()
@@ -24,7 +24,6 @@ class Wali_kelas extends CI_Controller
 		$data['wali_kelas'] = $this->m_wali->countwali();
 		$data['siswa'] = $this->m_wali->countsiswa();
         $id_wali = $this->session->userdata('id_wali');
-		$data['siswa'] = $this->m_wali->siswa_wa($id_wali,$tgl);
 		
 		$data['content']   =  'view_wali/dashboard';
         $this->load->view('templates_wali/templates_wali',$data); 
@@ -107,17 +106,23 @@ class Wali_kelas extends CI_Controller
 		);
 
 		$this->m_wali->update_pass($data, $id);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Password berhasil diubah, silahkan login kembali! </div>');
-		redirect('loginbaru');
+		$this->session->set_flashdata('hehe','<div class="alert alert-info" role="alert">Password berhasil diubah, silahkan login kembali! </div>');
+		redirect('loginuser');
 	
 		
 	}
 
 	public function lihat_presensi() 
 	{
+	// $tahun_ajaran = $this->session->userdata('tahun_ajaran');
+	// 	$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
 
-    $id_wali = $this->session->userdata('id_wali');
-	$data['presensi'] = $this->m_wali->tampil_presensi3($id_wali);
+	// 	$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+	$tahun = $this->session->userdata('tahun_ajaran');
+	$semester = $this->session->userdata('semester');
+  
+    $id_wali = $this->session->userdata('nip');
+	$data['presensi'] = $this->m_wali->tampil_presensi3($tahun,$semester,$id_wali);
 
 	$data['content']   =  'view_wali/lihat_presensi';
     $this->load->view('templates_wali/templates_wali',$data);
@@ -126,12 +131,44 @@ class Wali_kelas extends CI_Controller
 	}
 		public function input_presensi12()
 	{
+		$hari = date ("D");
+		$hariindonesia = "";
+		 
+		 if($hari == 'Sat'){
+
+		 	$hariindonesia = "Sabtu";
+		 }
+		 elseif ($hari == 'Sun') {
+		 	$hariindonesia = "Minggu";
+		 }
+		 elseif ($hari == 'Mon') {
+		 	$hariindonesia = "Senin";
+		 }
+		 elseif ($hari == 'Tue') {
+		 	$hariindonesia = "Selasa";
+		 }
+		 elseif ($hari == 'Wed' ) {
+		 	$hariindonesia = "Rabu";
+		 }
+		 elseif ($hari == 'Thu') {
+		 	$hariindonesia = "Kamis";
+		 }elseif ($hari == 'Fri') {
+		 	$hariindonesia = "Jumat";
+		 }
+
+		$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+		 $id_wali = $this->session->userdata('nip');
 		$id_guru = $this->session->userdata('id_guru');
-		$row   = $this->m_wali->get_idkelas($id_guru);
-		$id_kelas = $row->id_kelas; 
-		$data['kelas'] = $row->nama_kelas; 
-		$data['siswa'] = $this->m_wali->tampil_namasiswa($id_guru)->result();
-		$data['jadwalll'] = $this->m_wali->tampil_jadwalll($id_guru)->result();
+
+
+
+		$row2 = $this->m_wali->get_idkelas($id_guru,$tahun,$semester);
+		$id_kelas = $row2['id_kelas']; 
+		$data['kelas'] = $row2['nama_kelas']; 
+		$data['siswa'] = $this->m_wali->tampil_namasiswa($id_kelas,$tahun,$semester)->result();
+		$data['jadwalll'] = $this->m_wali->tampil_jadwalll($id_kelas,$hariindonesia, $tahun,$semester)->result();
+
 		$data['keterangan_presensi'] = $this->m_wali->tampil_keterangan()->result();
 		$data['content']   =  'view_wali/inputpresensi12';
    		$this->load->view('templates_wali/templates_wali',$data);
@@ -251,7 +288,7 @@ class Wali_kelas extends CI_Controller
     	if ($cekwa < 1) {
     		$data = array(
 
-			'id_wali_fk' => $this->session->userdata('id_wali'),
+			'nip_wali' => $this->session->userdata('nip'),
 			'id_presensi_fk' => $id_presensi,
 			'pesan' => $pesan,
 			'tanggal_terkirim' => $tgl,
@@ -259,7 +296,7 @@ class Wali_kelas extends CI_Controller
 
 		);
 
-    	$this->m_wali->wa_message_send($data, 'history_message');
+    	$this->m_wali->wa_message_send($data);
     	redirect('https://api.whatsapp.com/send?phone='.$nohp.'&text='.$pesan.''); 
     	}
     	else{
@@ -276,8 +313,11 @@ class Wali_kelas extends CI_Controller
 
     function wa_siswa(){
     	$tgl = date('Y-m-d'); // harus dipakaiin load helper (date)
-    	$id_wali = $this->session->userdata('id_wali');
-		$data['siswa'] = $this->m_wali->siswa_wa($id_wali,$tgl);
+    	$id_wali = $this->session->userdata('nip');
+    	$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+  
+		$data['siswa'] = $this->m_wali->siswa_wa($id_wali,$tahun,$semester,$tgl);
 		$this->load->view('view_wali/wa',$data);
 		
 

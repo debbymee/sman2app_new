@@ -107,17 +107,6 @@
             </div>
 
             <div class="item form-group">
-                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="nik">NIK <span class="required">*</span>
-                 </label>
-
-                  <div class="col-md-3 col-sm-6 col-xs-12">
-                  <input type="text" id="nik" name="nik" placeholder="masukkan nik siswa 10 kar"  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" value="<?php echo $siswa->nik ?>">
-
-                   <?php echo form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
-                 </div>
-          </div>
-
-            <div class="item form-group">
                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="agama">AGAMA <?php echo $siswa->agama ?> <span class="required"></span>
                 </label>
 
@@ -172,7 +161,7 @@
 
 
 
-              <div class="item form-group">
+            <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="alamat">ALAMAT <span class="required">*</span>
                     </label>
 
@@ -186,29 +175,90 @@
 
               </div>
 
-
               <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_kelas">KELAS <span class="required">*</span>
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
                     </label>
 
-                  <div class="col-md-3 col-sm-6 col-xs-12">
-                  <select name="id_kelas" class="form-control">
-                        <?php foreach ($kelas as $r ): ?>
-                         <option value="<?php echo $r->id_kelas ?>" <?php echo ($r->id_kelas)?'selected="selected"':''?>><?php echo $r->nama_kelas?></option>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
 
-                         <?php endforeach ?>
-                        </select>
+                      <input id="RT" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2"name="RT" placeholder="masukkan RT"  type="text" value="<?php echo $siswa->RT ?>">
+                                  
+                      <?php echo form_error('RT', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
-                    <?php echo form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
-                   </div>
+                    </div>
 
               </div>
-              
+              <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
+                    </label>
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+
+                      <input id="RW" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2"name="RW" placeholder="masukkan RW"  type="text" value="<?php echo $siswa->RW ?>">
+                                  
+                      <?php echo form_error('RW', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                    </div>
+
+              </div>
+              <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="dusun">DUSUN <span class="required">*</span>
+                    </label>
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+
+                      <input id="dusun" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2"name="dusun" placeholder="masukkan dusun"  type="text" value="<?php echo $siswa->dusun ?>">
+                                  
+                      <?php echo form_error('dusun', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                    </div>
+
+              </div>
+              <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelurahan">KELURAHAN <span class="required">*</span>
+                    </label>
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+
+                      <input id="kelurahan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2"name="kelurahan" placeholder="masukkan kelurahan"  type="text" value="<?php echo $siswa->kelurahan ?>">
+                                  
+                      <?php echo form_error('kelurahan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                    </div>
+
+              </div>
+              <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kecamatan">KECAMATAN <span class="required">*</span>
+                    </label>
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+
+                      <input id="kecamatan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2"name="kecamatan" placeholder="masukkan kecamatan"  type="text" value="<?php echo $siswa->kecamatan ?>">
+                                  
+                      <?php echo form_error('kecamatan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                    </div>
+
+              </div>
+              <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kode_pos">KODE POS <span class="required">*</span>
+                    </label>
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+
+                      <input id="kode_pos" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2"name="kode_pos" placeholder="masukkan kode_pos"  type="text" value="<?php echo $siswa->kode_pos ?>">
+                                  
+                      <?php echo form_error('kode_pos', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                    </div>
+
+              </div>
+
                  <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-6 col-xs-12" for="no_hp">NO HP ORANG TUA <span class="required">*</span>
+                    <label class="control-label col-md-4 col-sm-6 col-xs-12" for="no_hp_ortu">NO HP ORANG TUA <span class="required">*</span>
                     </label>
                   <div class="col-md-3 col-sm-6 col-xs-12">
-                       <input type="text" id="no_hp" name="no_hp" placeholder="masukkan no_hp siswa 10 kar"  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" value="<?php echo $siswa->no_hp_ortu ?>">
+                       <input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="masukkan no_hp siswa 10 kar"  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" value="<?php echo $siswa->no_hp_ortu ?>">
                    </div>
                  </div>
 

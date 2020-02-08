@@ -69,20 +69,23 @@
                       </div>
              
                   </div>
-              <div class="item form-group">
+            
+
+
+            <div class="item form-group">
               <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tahun_ajaran">Tahun Ajaran<span class="required">*</span>
               </label>
                    <div class="btn-group col-md-5 col-sm-6 col-xs-12">
-                      <select  class="js-example-basic-single" name="id_tahun_ajaran">
+                      <select class="js-example-basic-single" name="id_tahun_ajaran">
                         <option value="">Pilih Tahun Ajaran</option>
                         <?php foreach ($tahun as $r): ?>
-                          <option value="<?php echo $r->id_tahun_ajaran ?>"> 
-                            <?php echo $r->tahun_ajaran; ?>                          
+                          <option  value="<?php echo $r->id_tahun_ajaran ?>" > 
+                            <?php echo $r->tahun_ajaran; ?>  <?php echo $r->semester; ?>                         
                         </option>
                         <?php endforeach ?>
                       </select>
 
-                    <?php echo form_error('id_tahun_ajaran', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
+                    <?php echo form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
                       </div>
              
                   </div>

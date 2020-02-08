@@ -132,7 +132,7 @@ class Guru extends CI_Controller
 		
 	 
 		$this->m_guru->update_pass($data, $id);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Password berhasil diubah, silahkan login kembali! </div>');
+		$this->session->set_flashdata('hehe','<div class="alert alert-info" role="alert">Password berhasil diubah, silahkan login kembali! </div>');
 		redirect('loginuser');
 	
 		
@@ -145,14 +145,15 @@ class Guru extends CI_Controller
 
 	public function lihat_presensi12() 
 	{
+	$tahun = $this->session->userdata('tahun_ajaran');
+	$semester = $this->session->userdata('semester');
+
+	// $tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+	// $semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
 
 	$id_guru = $this->session->userdata('id_guru');
-	$row   = $this->m_guru->get_idkelas($id_guru);
-	$id_kelas = $row->id_kelas; 
-	$data['kelas'] = $row->nama_kelas;
-	$data['jadwal_pelajaran'] = $row->nama_pelajaran;
-	$data['presensi'] = $this->m_guru->tampil_presensi3($id_guru);
-	//$data['siswa'] = $this->m_data->tampil_psiswa()->result();
+	
+	$data['presensi'] = $this->m_guru->tampil_presensi3($tahun,$semester,$id_guru);
 	$data['content']   =  'view_guru/detail_presensi3';
     $this->load->view('templates_guru/templates_guru',$data); 
 
@@ -160,12 +161,47 @@ class Guru extends CI_Controller
 	
 	public function input_presensi12()
 	{
+
+
+		$hari = date ("D");
+		$hariindonesia = "";
+		 
+		 if($hari == 'Sat'){
+
+		 	$hariindonesia = "Sabtu";
+		 }
+		 elseif ($hari == 'Sun') {
+		 	$hariindonesia = "Minggu";
+		 }
+		 elseif ($hari == 'Mon') {
+		 	$hariindonesia = "Senin";
+		 }
+		 elseif ($hari == 'Tue') {
+		 	$hariindonesia = "Selasa";
+		 }
+		 elseif ($hari == 'Wed' ) {
+		 	$hariindonesia = "Rabu";
+		 }
+		 elseif ($hari == 'Thu') {
+		 	$hariindonesia = "Kamis";
+		 }elseif ($hari == 'Fri') {
+		 	$hariindonesia = "Jumat";
+		 }
+
+		$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+		// $tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		// $semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+
 		$id_guru = $this->session->userdata('id_guru');
-		$row   = $this->m_guru->get_idkelas($id_guru);
-		$id_kelas = $row->id_kelas; 
-		$data['kelas'] = $row->nama_kelas; 
-		$data['siswa'] = $this->m_guru->tampil_namasiswa($id_guru)->result();
-		$data['jadwalll'] = $this->m_guru->tampil_jadwalll($id_guru)->result();
+
+
+		$row2 = $this->m_guru->get_idkelas($id_guru,$tahun,$semester);
+		$id_kelas = $row2['id_kelas']; 
+		$data['kelas'] = $row2['nama_kelas']; 
+		$data['siswa'] = $this->m_guru->tampil_namasiswa($id_kelas,$tahun,$semester)->result();
+			$data['jadwalll'] = $this->m_guru->tampil_jadwalll($id_kelas,$hariindonesia, $tahun,$semester)->result();
 		$data['keterangan_presensi'] = $this->m_guru->tampil_keterangan()->result();
 		$data['content']   =  'view_guru/inputpresensi12';
    		$this->load->view('templates_guru/templates_guru',$data);
@@ -179,13 +215,16 @@ class Guru extends CI_Controller
 
 	
 			$tanggal   = $this->input->post('tgl');
-			$id_jadwal = $this->input->post('id_jadwal_fk');
+			$id_jadwal = $this->input->post('id_jadwal');
+			$modul_pembahasan = $this->input->post('modul_pembahasan');
+			//$cekguru = $this->input->post('kd_keterangan_guru_fk');
+
 			$cekpresensi  = $this->m_guru->cek_absens($id_jadwal,$tanggal);
 				
 			if($cekpresensi < 1){
 
 			$nm = $this->input->post('id_siswa');
-			$id_jadwal = $this->input->post('id_jadwal_fk');
+			$id_jadwal = $this->input->post('id_jadwal');
 			$tanggal = $this->input->post('tgl');
 		    $result = array();
 		    foreach($nm AS $key => $val){

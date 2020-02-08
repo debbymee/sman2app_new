@@ -30,17 +30,32 @@
         </div>
 
       </div>
-
-  <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tgl_lahir"> TANGGAL LAHIR <span class="required">*</span>
+         <div class="item form-group">
+        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="email">Email  <span class="required">*</span>
         </label>
+        
         <div class="col-md-3 col-sm-6 col-xs-12">
-              <input type="date" id="tgl_lahir" name="tgl_lahir" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" value="<?php echo $guru->tgl_lahir ?>"  >
-              <?php echo form_error('tgl_lahir', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
-       </div>
-  </div>
+          <input id="email" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="email" placeholder="masukkan email guru"  type="email" value="<?php echo $guru->email ?>">
+        
+          <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
+        </div>
+
+      </div>
+      <div class="item form-group">
+        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="NUPTK">NUPTK <span class="required">*</span>
+        </label>
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+
+          <input id="NUPTK" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="NUPTK" placeholder="masukkan NUPTK guru"  type="text" value="<?php echo $guru->NUPTK ?>">
+        
+          <?php echo form_error('NUPTK', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+        </div>
+
+      </div>
 
    <div class="item form-group">
         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="jk">Jenis Kelamin <span class="required">*</span>
@@ -63,6 +78,28 @@
         </div>
 
     </div>
+    <div class="item form-group">
+        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tempat_lahir"> TEMPAT LAHIR <span class="required">*</span>
+        </label>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+              <input type="text" id="tempat_lahir" name="tempat_lahir" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" value="<?php echo $guru->tempat_lahir ?>"  >
+              <?php echo form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+       </div>
+  </div>
+
+
+  <div class="item form-group">
+        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tgl_lahir"> TANGGAL LAHIR <span class="required">*</span>
+        </label>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+              <input type="date" id="tgl_lahir" name="tgl_lahir" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" value="<?php echo $guru->tgl_lahir ?>"  >
+              <?php echo form_error('tgl_lahir', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+       </div>
+  </div>
+
+
 
     <div class="item form-group">
 
@@ -74,6 +111,37 @@
             <input id="nip" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="nip" placeholder="masukkan nip guru"  type="text" value="<?php echo $guru->nip ?>">
            
           <?php echo form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+
+
+    <div class="item form-group">
+
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="jenis_ptk">JENIS PTK <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="jenis_ptk" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="jenis_ptk" placeholder="masukkan jenis_ptk guru"  type="text" value="<?php echo $guru->jenis_ptk ?>">
+           
+          <?php echo form_error('jenis_ptk', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+
+    <div class="item form-group">
+
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="agama">Agama <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="agama" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="agama" placeholder="masukkan agama guru"  type="text" value="<?php echo $guru->agama ?>">
+           
+          <?php echo form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
           </div>
 
@@ -94,6 +162,85 @@
     </div>
 
     <div class="item form-group">
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="RT" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="RT" placeholder="masukkan RT"  type="text" value="<?php echo $guru->RT ?>">
+                        
+            <?php echo form_error('RT', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+    <div class="item form-group">
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="RW" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="RW" placeholder="masukkan RW"  type="text" value="<?php echo $guru->RW ?>">
+                        
+            <?php echo form_error('RW', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+    <div class="item form-group">
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="dusun">dusun <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="dusun" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="dusun" placeholder="masukkan dusun"  type="text" value="<?php echo $guru->dusun ?>">
+                        
+            <?php echo form_error('dusun', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+    <div class="item form-group">
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelurahan">kelurahan <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="kelurahan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="kelurahan" placeholder="masukkan kelurahan"  type="text" value="<?php echo $guru->kelurahan ?>">
+                        
+            <?php echo form_error('kelurahan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+    <div class="item form-group">
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kecamatan">kecamatan <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="kecamatan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="kecamatan" placeholder="masukkan kecamatan"  type="text" value="<?php echo $guru->kecamatan ?>">
+                        
+            <?php echo form_error('kecamatan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+    <div class="item form-group">
+          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kode_pos">kode_pos <span class="required">*</span>
+          </label>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+
+            <input id="kode_pos" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="kode_pos" placeholder="masukkan kode_pos"  type="text" value="<?php echo $guru->kode_pos ?>">
+                        
+            <?php echo form_error('kode_pos', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+          </div>
+
+    </div>
+
+    <div class="item form-group">
          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="no_hp"> NO HANDPHONE <span class="required">*</span>
           </label>
         
@@ -107,36 +254,7 @@
 
     </div>
 
-             
-    <div class="item form-group">
-          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_user">NAMA AKUN<span class="required">*</span>
-          </label>
-
-          <div class="col-md-3 col-sm-6 col-xs-12">
-              <select name="id_user" class="form-control">
-               <?php foreach ($users as $ru  ): ?>
-             <option value="<?php echo $ru->id ?>" <?php echo ($ru->id == $guru->id_user_fk)?'selected="selected"':''?>><?php echo $ru->username?></option>
-
-               <?php endforeach ?>
-              </select>
-
-
-               <?php echo form_error('id_user', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
-          </div>
-
-     </div>
-
-     <div class="item form-group">
-                   <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_user"> MASUKKAN FOTO <span class="required">*</span>
-                    </label>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                       
-                     <input type="file" name="gambar" id="preview_gambar" />
-                     <br>
-                     <img src="<?php echo base_url('foto/guru/'.$guru->foto);?>" id="gambar_nodin" width="40%" height="40%" alt="Preview Gambar" />
-                      </div>
-                  </div>
+     
 
       <div class="ln_solid"></div>
           <div class="form-group">

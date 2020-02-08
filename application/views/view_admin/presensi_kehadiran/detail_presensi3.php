@@ -22,6 +22,7 @@
 				<td>KELAS</td>
          		<td>JADWAL PELAJARAN</td>
          		<td>JAM PELAJARAN</td>
+         		<td>MODUL PEMBAHASAN</td>
          		<td>KETERANGAN</td>
          		<td>LAMPIRAN</td>
          		<td>AKSI</td>
@@ -38,6 +39,7 @@
 					<td><?php echo $p->nama_kelas ?></td>
                    	<td><?php echo $p->nama_pelajaran ?></td>
                     <td><?php echo $p->jam_pelajaran  ?></td>
+                    <td><?php echo $p->modul_pembahasan; ?></td>
 					<td><?php echo $p->nama_keterangan  ?></td>
 					<td>
 						<?php if ($p->foto == '' || $p->foto==null) { ?>  

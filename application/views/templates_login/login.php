@@ -58,7 +58,10 @@
                        <?php 
                         foreach ($tahun_ajaran as $row) {                  
                         ?>
-                       <option value="<?= $row->tahun_ajaran;?>"><?= $row->tahun_ajaran;?></option>
+                       <option value="<?= $row->tahun_ajaran;?> <?= $row->semester;?>">
+                       		<?= $row->tahun_ajaran;?>
+                       		<?= $row->semester;?>		
+                       	</option>
                         <?php
                             }
                        ?>

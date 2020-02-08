@@ -24,13 +24,29 @@
   </div>
   <input type="hidden" name="kode" value="<?php echo $tahun_ajaran->id_tahun_ajaran ?>">
 
+        <div class="item form-group">
+        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="semester">Semester <span class="required">*</span>
+        </label>
+                  <div class="col-md-3 col-sm-6 col-xs-12">
 
+                     <select name="semester" class="form-control">
+                    <?php foreach ($semester as $r): ?>
+                      <option value="<?php echo $r->kd_semester ?>" <?php echo ($r->kd_semester== $tahun_ajaran->kd_semester)?'selected="selected"':''?>><?php echo $r->semester?></option>
+                    <?php endforeach ?>
+                    </select>
+                                  
+                  <?php echo form_error('status', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
+                                    
+                  </div>
+ 
+           </div>
+          
     <div class="item form-group">
         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="Status">Status <span class="required">*</span>
         </label>
                   <div class="col-md-3 col-sm-6 col-xs-12">
 
-                    <select class="btn btn-default dropdown-toggle" name="status" value="<?php echo $tahun_ajaran->status ?>">
+                    <select class="btn btn-default dropdown-toggle" name="status" >
                     
                     <?php if($tahun_ajaran->status == 'On') {?>
                       <option value="On" selected> On</option>

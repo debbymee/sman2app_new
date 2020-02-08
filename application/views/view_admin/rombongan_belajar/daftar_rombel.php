@@ -1,7 +1,9 @@
         <div class="x_panel">
 			<div class="container">
 
-		<h2 style="color: green " align="center"> DAFTAR ROMBEL</h2>
+		<h2 style="color: green " align="center"> DAFTAR ROMBEL
+			
+		</h2>
 		<hr>
 
 		<?= $this->session->flashdata('message'); ?>

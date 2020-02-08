@@ -1,7 +1,7 @@
         <div class="x_panel">
 			<div class="container">
 
-		 	<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS 12</h2>
+		 	<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS 12 </h2>
 		    <hr>
 		     <br><br>
 		           <?php if (validation_errors() ) 
@@ -42,12 +42,7 @@
            
                   		</select></b></h2></td>
  	</tr>
- 	<tr>
- 		<td><h2 style="color: green " id="tgl"><b>JAM PELAJARAN</b></h2></td>
- 		<td><h2 style="color: green " id="tgl"><b> : <select class="btn btn-default dropdown-toggle jam_pelajaran" name="id_jadwal_fk" >
-                       <option>Pilih</option>
-                         </select></b></h2></td>
- 	</tr>
+
  </table>
  <br><br>
 

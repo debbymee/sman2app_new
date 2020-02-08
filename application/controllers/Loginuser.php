@@ -15,12 +15,12 @@ class Loginuser extends CI_Controller
 	{ 
 
 
+
 		$this->form_validation->set_rules('username', 'username','required');
 		$this->form_validation->set_rules('password','password','required');
 
 		if ($this->form_validation->run() == false) {
-			
-			$data['tahun_ajaran'] = $this->m_login->tahun_ajaran();
+			//$data['tahun_ajaran'] = $this->m_login->tahun_ajaran();
 			$data['judul'] = "Aplikasi Absensi SMAN2";
 			$this->load->view('templates_login/login_user', $data);	
 		}else{
@@ -36,8 +36,13 @@ class Loginuser extends CI_Controller
 		$username = $this->input->post('username');
 		$pass = $this->input->post('password');
 		$password = md5($pass);
-		$tahun_ajaran = $this->input->post('tahun_ajaran');
+		//$tahun_ajaran = $this->input->post('tahun_ajaran');
+			$row = $this->m_login->get_tahun_ajaran();
+			$tahun_ajaran = $row->tahun_ajaran;
+			$semester = $row->semester;
 
+			$row2 = $this->m_login->get_wali();
+			$wali_kelas = $row2->wali_kelas;
 		
 		$cek = $this->m_login->cek_login($username,$password);
 
@@ -58,7 +63,10 @@ class Loginuser extends CI_Controller
 						'siswa_admin' => $cek['siswa_admin'],
 						'foto' => $cek['foto'],
 						'role' => $cek['role'],
-						'tahun_ajaran' => $tahun_ajaran
+						'tahun_ajaran' => $tahun_ajaran,
+						'semester' => $semester,
+						//'nip' => $wali_kelas,
+						'id_kelas_fk' => $cek['id_kelas_fk']
 					];
 					if ($cek['role_id_fk'] == '2') {
 						$this->session->set_userdata($data);

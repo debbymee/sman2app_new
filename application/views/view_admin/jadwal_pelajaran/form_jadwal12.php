@@ -114,7 +114,7 @@
                         <option value="">Pilih Tahun Ajaran</option>
                         <?php foreach ($tahun as $r): ?>
                           <option value="<?php echo $r->id_tahun_ajaran ?>"> 
-                            <?php echo $r->tahun_ajaran; ?>                          
+                            <?php echo $r->tahun_ajaran; ?><?php echo $r->semester; ?>                          
                         </option>
                         <?php endforeach ?>
                       </select>

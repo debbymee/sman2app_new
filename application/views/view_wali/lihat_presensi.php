@@ -1,7 +1,7 @@
                 <div class="x_panel">
 			<div class="container">
 
-		<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS 12</h2>
+		<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS 12</h2><br>
 		<hr>
 		 <br><br>
 		 <?= $this->session->flashdata('message'); ?>
@@ -37,7 +37,7 @@
 					<td><?php echo $p->nama_kelas ?></td>
                    	<td><?php echo $p->nama_pelajaran ?></td>
                     <td><?php echo $p->jam_pelajaran  ?></td>
-                    <td><?php echo $p->- ?></td>
+                    <td><?php echo $p->modul_pembahasan?></td>
 					<td><?php echo $p->nama_keterangan  ?></td>
 					<td>
 						<?php if ($p->foto == '' || $p->foto==null) { ?>  

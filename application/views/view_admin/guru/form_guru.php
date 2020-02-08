@@ -23,9 +23,64 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="nama_guru" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="nama_guru" placeholder="masukkan nama guru"  type="text" value=" <?php echo set_value('nama_guru'); ?>">
+                          name="nama_guru" placeholder="masukkan nama guru"  type="text" value="<?php echo set_value('nama_guru'); ?>">
                           <input type="hidden" name="id_guru">
                           <?php echo form_error('nama_guru', '<small class="text-danger pl-3">', '</small>'); ?> <br>	
+
+                        </div>
+
+                    </div>
+                     <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="email">EMAIL<span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="email" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="email" placeholder="masukkan email guru"  type="text" value="<?php echo set_value('email'); ?>">
+                        
+                          <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="NUPTK">NUPTK <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="NUPTK" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="NUPTK" placeholder="masukkan nuptk guru"  type="text" value="<?php echo set_value('NUPTK'); ?>">
+                          
+                          <?php echo form_error('NUPTK', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="jk">Jenis Kelamin <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <select class="btn btn-default dropdown-toggle" name="jk">
+                            <option value="laki-laki"> laki-laki</option>
+                            <option value="perempuan">Perempuan</option>
+                          </select>
+                        
+                          <?php echo form_error('jk', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
+                          
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tempat_lahir">TEMPAT LAHIR <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="tempat_lahir" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="tempat_lahir" placeholder="masukkan tempat lahir"  type="text" value="<?php echo set_value('tempat_lahir'); ?>">
+                         
+                          <?php echo form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
                         </div>
 
@@ -41,25 +96,7 @@
                             </span>
                         </div>
                         </div>
-                      </div>
-
-
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="jk">Jenis Kelamin <span class="required">*</span>
-                        </label>
-
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-
-                          <select class="btn btn-default dropdown-toggle" name="jk">
-                            <option value="laki-laki"> laki-laki</option>
-                            <option value="perempuan">Perempuan</option>
-                          </select>
-                        
-                          <?php echo form_error('jk', '<small class="text-danger pl-3">', '</small>'); ?> <br>	
-                          
-                        </div>
-
-                    </div>
+                      </div> 
 
                     <div class="item form-group">
 
@@ -76,6 +113,36 @@
                         </div>
 
                     </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="jenis_ptk">JENIS PTK <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="jenis_ptk" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="jenis_ptk" placeholder="masukkan jenis_ptk guru"  type="text" value="<?php echo set_value('jenis_ptk'); ?>">
+                         
+                          <?php echo form_error('jenis_ptk', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="agama">agama <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="agama" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="agama" placeholder="masukkan agama guru"  type="text" value="<?php echo set_value('agama'); ?>">
+                         
+                          <?php echo form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
 
                     <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="alamat">ALAMAT <span class="required">*</span>
@@ -86,6 +153,97 @@
                           name="alamat" placeholder="masukkan alamat"  type="text" value="<?php echo set_value('alamat'); ?>">
                         
                           <?php echo form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="RT" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="RT" placeholder="masukkan RT guru"  type="text" value="<?php echo set_value('RT'); ?>">
+                         
+                          <?php echo form_error('RT', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="RW" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="RW" placeholder="masukkan RW guru"  type="text" value="<?php echo set_value('RW'); ?>">
+                         
+                          <?php echo form_error('RW', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="dusun">DUSUN <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="dusun" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="dusun" placeholder="masukkan dusun guru"  type="text" value="<?php echo set_value('dusun'); ?>">
+                         
+                          <?php echo form_error('dusun', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelurahan">KELURAHAN <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="kelurahan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="kelurahan" placeholder="masukkan kelurahan guru"  type="text" value="<?php echo set_value('kelurahan'); ?>">
+                         
+                          <?php echo form_error('kelurahan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kecamatan">KECAMATAN <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="kecamatan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="kecamatan" placeholder="masukkan kecamatan guru"  type="text" value="<?php echo set_value('kecamatan'); ?>">
+                         
+                          <?php echo form_error('kecamatan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kode_pos">KODE POS <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="kode_pos" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="kode_pos" placeholder="masukkan kode_pos guru"  type="text" value="<?php echo set_value('kode_pos'); ?>">
+                         
+                          <?php echo form_error('kode_pos', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
                         </div>
 
@@ -106,34 +264,7 @@
                     </div>
 
              
-                  <div class="item form-group">
-                   <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_user"> NAMA AKUN <span class="required">*</span>
-                    </label>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <select name="id_user" class="form-control">
-                        <?php foreach ($users as $l  ): ?>
-                          <option value="<?php echo $l->id ?>"> <?php echo $l->username; ?></option>
-                        <?php endforeach ?>
-                      </select>
-
-                        <?php echo form_error('id_user', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
-                      </div>
-
-                </div>
-                <div class="item form-group">
-                   <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_user"> MASUKKAN FOTO <span class="required">*</span>
-                    </label>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                       
-                     <input type="file" name="gambar" id="preview_gambar" />
-                     <br>
-                     <img src="<?php echo base_url(); ?>public/images/sman2.png" id="gambar_nodin" width="40%" height="40%" alt="Preview Gambar" />
-                     <?php  echo "file max 3mb"; ?>
-                      </div>
-                  </div>
-
+           <!--  -->
    
                   <div class="ln_solid"></div>
                       <div class="form-group">

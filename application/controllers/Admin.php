@@ -422,8 +422,12 @@ class Admin extends CI_Controller
 
 
 	$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+	$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+	$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+
 	$data['tahun_rombel'] = $this->m_data->tampil_tahun_rombel($tahun_ajaran);
-	$data['jadwalpelajaran'] = $this->m_data->tampil_jdwl12($tahun_ajaran);
+	$data['jadwalpelajaran'] = $this->m_data->tampil_jdwl12($tahun,$semester);
 	
 	
 	//$data['rombel'] = $this->m_data->tampil_rombel();
@@ -550,8 +554,11 @@ class Admin extends CI_Controller
 	{
 
 	$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+	$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+	$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
 	
-	$data['presensi'] = $this->m_data->tampil_presensi3($tahun_ajaran);
+	$data['presensi'] = $this->m_data->tampil_presensi3($tahun,$semester);
 	//$data['guru'] = $this->m_data->tampil_pguru()->result();
 
 	$data['content']   =  'view_admin/presensi_kehadiran/detail_presensi3';
@@ -562,9 +569,13 @@ class Admin extends CI_Controller
 	public function daftarkelas_presensi3()
 	{
 		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+	
 	
 		$data['rombel'] = $this->m_data->tampil_rombelpresensi3()->result();
-		$data['lihat_presensi'] = $this->m_data->tampil_presensi3($tahun_ajaran);
+		$data['lihat_presensi'] = $this->m_data->tampil_presensi3($tahun,$semester);
 	
 		// $data['guru'] = $this->m_data->tampil_guruu()->result();
 		// $data['mata_pelajaran'] = $this->m_data->tampil_detailj()->result();
@@ -603,11 +614,15 @@ class Admin extends CI_Controller
 		 }
 
 		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+
 		$urikelas = $this->uri->segment(4);
 		$id_kelas_fk = $this->uri->segment(3); // mengambil get url urutan slice ke 3
 		$data['kelas'] = urldecode($urikelas); //untuk menghilangkan %
-		$data['results'] = $this->m_data->tampil_siswa2($tahun_ajaran, $id_kelas_fk);
-		$data['jadwalll'] = $this->m_data->tampil_jadwalll($id_kelas_fk,$hariindonesia, $tahun_ajaran)->result();
+		$data['results'] = $this->m_data->tampil_siswa2($tahun, $semester,$id_kelas_fk);
+		$data['jadwalll'] = $this->m_data->tampil_jadwalll($id_kelas_fk,$hariindonesia, $tahun,$semester)->result();
 		$data['keterangan_presensi'] = $this->m_data->tampil_keterangan()->result();
 		$data['content']   =  'view_admin/presensi_kehadiran/inputpresensi12';
 		$this->load->view('templates/templates',$data);
@@ -618,14 +633,14 @@ class Admin extends CI_Controller
 	public function tambah_presensi12()
 	{
 			$tanggal   = $this->input->post('tgl');
-			$id_jadwal = $this->input->post('id_jadwal_fk');
+			$id_jadwal = $this->input->post('id_jadwal');
 			$modul_pembahasan = $this->input->post('modul_pembahasan');
 			$cekpresensi  = $this->m_data->cek_absens($id_jadwal,$tanggal);
 				
 			if($cekpresensi < 1){
 
 			$nm = $this->input->post('id_siswa');
-			$id_jadwal = $this->input->post('id_jadwal_fk');
+			$id_jadwal = $this->input->post('id_jadwal');
 			$tanggal = $this->input->post('tgl');
 		    $result = array();
 		    foreach($nm AS $key => $val){
@@ -818,8 +833,8 @@ class Admin extends CI_Controller
 			'is_unique' => 'nomer hp tidak boleh sama !'
 			]);
 
-		$jkv = $this->input->post('jk');
-		$iduserv = $this->input->post('id_user');
+		// $jkv = $this->input->post('jk');
+		// $iduserv = $this->input->post('id_user');
 
 
 		
@@ -827,7 +842,7 @@ class Admin extends CI_Controller
 		{
 			$data['judul'] = 'Halaman Tambah Guru';
 			$data['content'] = 'view_admin/guru/form_guru_validasi';
-			$data['users'] = $this->m_data->tampil_username()->result();
+			//$data['users'] = $this->m_data->tampil_username()->result();
 
 			$data['validasi_jk'] =$jkv; 
 			$data['validasi_akun']=$iduserv;
@@ -835,44 +850,98 @@ class Admin extends CI_Controller
 
 			
 		}else{
-		// $id_user = $this->input->post('id_guru');
-			$config['upload_path']      = 'foto/guru/';
-            $config['allowed_types']    = 'gif|jpg|png';
-            $config['max_size']         = '2000';
-            $config['max_width']        = '3000';
-            $config['max_height']       = '3000';       
-                $this->upload->initialize($config);
-                if(!$this->upload->do_upload('gambar'))
-                {
-                    $gambar="";
-                    $error = $this->upload->display_errors();
-                }else{
-                    $gambar=$this->upload->file_name;
-                }
+		
+			// $config['upload_path']      = 'foto/guru/';
+   //          $config['allowed_types']    = 'gif|jpg|png';
+   //          $config['max_size']         = '2000';
+   //          $config['max_width']        = '3000';
+   //          $config['max_height']       = '3000';       
+   //              $this->upload->initialize($config);
+   //              if(!$this->upload->do_upload('gambar'))
+   //              {
+   //                  $gambar="";
+   //                  $error = $this->upload->display_errors();
+   //              }else{
+   //                  $gambar=$this->upload->file_name;
+   //              }
 
+	
+		// $tgl_lahir = $this->input->post('tgl_lahir');
+		// $myTime = strtotime($tgl_lahir); 
+  //       $dateconvert = date("Y-m-d", $myTime);
+		
 		$nama_guru = $this->input->post('nama_guru');
+		$email = $this->input->post('email');
+		$nuptk = $this->input->post('NUPTK');
+		$jk = $this->input->post('jk');
+		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
+
 		$myTime = strtotime($tgl_lahir); 
         $dateconvert = date("Y-m-d", $myTime);
-		$jk = $this->input->post('jk');
+
 		$nip = $this->input->post('nip');
+		$jenis_ptk = $this->input->post('jenis_ptk');
+		$agama = $this->input->post('agama');
 		$alamat = $this->input->post('alamat');
+		$rt = $this->input->post('RT');
+		$rw = $this->input->post('RW');
+		$dusun = $this->input->post('dusun');
+		$kelurahan = $this->input->post('kelurahan');
+		$kecamatan = $this->input->post('kecamatan');
+		$kode_pos = $this->input->post('kode_pos');
 		$no_hp = $this->input->post('no_hp');
-		$id_user = $this->input->post('id_user');
+		
 
-		$data = array(
+		//$data = array(
 
-			'nama_guru'=> $this->input->post('nama_guru', true),
-			'tgl_lahir' => $dateconvert,
-			'jk'=> $this->input->post('jk', true),
-			'nip' => $this->input->post('nip', true),
-			'alamat'=> $this->input->post('alamat'),
-			'no_hp' => $this->input->post('no_hp'),
-			'id_user_fk' => $this->input->post('id_user'),
-			'foto' => $gambar
+			//'nama_guru'=> $this->input->post('nama_guru', true),
+			//'tgl_lahir' => $dateconvert,
+
+
+			// 'nama_guru' => $this->input->post('nama_guru', true),
+			// 'emai' => $this->input->post('email', true),
+			// 'NUPTK' => $this->input->post('NUPTK', true),
+			// 'jk' => $this->input->post('jk', true),
+			// 'tempat_lahir' => $this->input->post('tempat_lahir', true),
+			// 'tgl_lahir' => $dateconvert,
+			// 'nip' => $this->input->post('nip', true),
+			// 'jenis_ptk' => $this->input->post('jenis_ptk', true),
+			// 'agama' => $this->input->post('agama', true),
+			// 'alamat' => $this->input->post('alamat', true),
+			// 'RT' => $this->input->post('RT', true),
+			// 'RW' => $this->input->post('RW', true),
+			// 'dusun' => $this->input->post('dusun', true),
+			// 'kelurahan' => $this->input->post('kelurahan', true),
+			// 'kecamatan' => $this->input->post('kecamatan', true),
+			// 'kode_pos' => $this->input->post('kode_pos', true),
+			// 'no_hp' => $this->input->post('no_hp', true)
+			
+			$data = array(
+			
+			'nama_guru'=> $nama_guru,
+			'email' =>$email,
+			'NUPTK' => $nuptk,
+			'jk' => $jk,
+			'tempat_lahir' => $tempat_lahir,
+			'tgl_lahir'=> $tgl_lahir,
+			'nip' => $nip,
+			'jenis_ptk' => $jenis_ptk,
+			'agama' => $agama,
+			'alamat'=> $alamat,
+			'RT' => $rt,
+			'RW' => $rw,
+			'dusun' => $dusun,
+			'kelurahan' => $kelurahan,
+			'kecamatan' => $kecamatan,
+			'kode_pos' => $kode_pos,
+			'no_hp' => $no_hp
 			
 
-			);
+
+		);
+
+		//	);
 		$this->m_data->input_guru($data, 'guru');
 		
 		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Guru Berhasil Ditambahkan! </div>');
@@ -884,7 +953,7 @@ class Admin extends CI_Controller
 
 	public function edit_guru($id_guru)
 	{
-		$data['users'] = $this->m_data->tampil_username()->result();
+		//$data['users'] = $this->m_data->tampil_username()->result();
 		$data['guru'] = $this->m_data->edit_guru($id_guru);
 		$data['content'] = 'view_admin/guru/edit_guru';
 
@@ -894,40 +963,60 @@ class Admin extends CI_Controller
 	}
 	public function update_guru()
 	{
-	//$data['pembelajaran'] = $this->m_data->update_angkatan();
-		$config['upload_path']      = 'foto/guru/';
-            $config['allowed_types']    = 'gif|jpg|png';
-            $config['max_size']         = '2000';
-            $config['max_width']        = '3000';
-            $config['max_height']       = '3000';       
-                $this->upload->initialize($config);
-                if(!$this->upload->do_upload('gambar')){
-                    $gambar="";
-                    $error = $this->upload->display_errors();
-                }else{
-                    $gambar=$this->upload->file_name;
-                }
+	
+		// $config['upload_path']      = 'foto/guru/';
+  //           $config['allowed_types']    = 'gif|jpg|png';
+  //           $config['max_size']         = '2000';
+  //           $config['max_width']        = '3000';
+  //           $config['max_height']       = '3000';       
+  //               $this->upload->initialize($config);
+  //               if(!$this->upload->do_upload('gambar')){
+  //                   $gambar="";
+  //                   $error = $this->upload->display_errors();
+  //               }else{
+  //                   $gambar=$this->upload->file_name;
+  //               }
 
 		$kode2 = $this->input->post('kode');
 		$nama_guru = $this->input->post('nama_guru');
-		$tgl_lahir = $this->input->post('tgl_lahir');
+		$email = $this->input->post('email');
+		$nuptk = $this->input->post('NUPTK');
 		$jk = $this->input->post('jk');
+		$tempat_lahir = $this->input->post('tempat_lahir');
+		$tgl_lahir = $this->input->post('tgl_lahir');
 		$nip = $this->input->post('nip');
+		$jenis_ptk = $this->input->post('jenis_ptk');
+		$agama = $this->input->post('agama');
 		$alamat = $this->input->post('alamat');
+		$rt = $this->input->post('RT');
+		$rw = $this->input->post('RW');
+		$dusun = $this->input->post('dusun');
+		$kelurahan = $this->input->post('kelurahan');
+		$kecamatan = $this->input->post('kecamatan');
+		$kode_pos = $this->input->post('kode_pos');
 		$no_hp = $this->input->post('no_hp');
-		$id_user = $this->input->post('id_user');
+		
 
 	 
 		$data = array(
 			
 			'nama_guru'=> $nama_guru,
+			'email' =>$email,
+			'NUPTK' => $nuptk,
+			'jk' => $jk,
+			'tempat_lahir' => $tempat_lahir,
 			'tgl_lahir'=> $tgl_lahir,
-			'jk'=> $jk,
 			'nip' => $nip,
+			'jenis_ptk' => $jenis_ptk,
+			'agama' => $agama,
 			'alamat'=> $alamat,
-			'no_hp' => $no_hp,
-			'id_user_fk' =>$id_user,
-			'foto' => $gambar
+			'RT' => $rt,
+			'RW' => $rw,
+			'dusun' => $dusun,
+			'kelurahan' => $kelurahan,
+			'kecamatan' => $kecamatan,
+			'kode_pos' => $kode_pos,
+			'no_hp' => $no_hp
 			
 
 
@@ -955,7 +1044,7 @@ class Admin extends CI_Controller
 			
            }
            else{
-           	$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Tidak Bisa Di Hapus!!!! </div>');
+           	$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data Tidak Bisa Di Hapus!!!! </div>');
 
     		redirect('admin/daftar_guru');
            }
@@ -1072,9 +1161,13 @@ class Admin extends CI_Controller
 
 	public function daftar_siswa()
 	{
-		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
 		
-		$data['siswa'] =  $this->m_data->tampil_siswa($tahun_ajaran);
+		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+
+		$data['siswa'] =  $this->m_data->tampil_siswa($tahun,$semester);
 		$data['content'] = 'view_admin/data_siswa/daftar_siswa';
 
 
@@ -1165,9 +1258,13 @@ class Admin extends CI_Controller
 	public function form_siswa()
 	{
 
-		
+		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+
 		$data['kelas'] = $this->m_data->tampil_kelas();
-		$data['siswa'] = $this->m_data->tampil_siswa();
+		$data['siswa'] = $this->m_data->tampil_siswa($tahun,$semester);
 		$data['content'] = 'view_admin/data_siswa/form_siswa';
 
 
@@ -1179,22 +1276,28 @@ class Admin extends CI_Controller
 	{
 	
 		$this->form_validation->set_rules('nama_siswa', 'nama_siswa', 'required|trim');
-		$this->form_validation->set_rules('nipd', 'nipd', 'required|trim|numeric|min_length[5]|max_length[5]');
+		$this->form_validation->set_rules('nipd', 'nipd', 'required|trim|numeric|min_length[4]|max_length[4]');
 		$this->form_validation->set_rules('nisn', 'nisn', 'required|trim|numeric|min_length[10]|max_length[10]');
-		$idkelasv = $this->input->post('id_kelas');
-		$jkv = $this->input->post('jk');
-		$agamav = $this->input->post('agama');
+		// $idkelasv = $this->input->post('id_kelas');
+		// $jkv = $this->input->post('jk');
+		// $agamav = $this->input->post('agama');
 
 		
 		if ($this->form_validation->run() == false) 
 		{
+
+			$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+			$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+			$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+
 
 			$data['judul'] = 'Halaman Tambah Siswa';
 			$data['content'] = 'view_admin/data_siswa/form_siswa_validasi';
 			
 			$data['validasi_kelas'] = $idkelasv;
             $data['kelas'] = $this->m_data->tampil_kelas();
-		    $data['siswa'] = $this->m_data->tampil_siswa();
+		    $data['siswa'] = $this->m_data->tampil_siswa($tahun,$semester);
 		    $data['validasi_jk'] =$jkv;
 		    $data['validasi_agama']=$agamav;
 
@@ -1211,29 +1314,61 @@ class Admin extends CI_Controller
 		$nisn = $this->input->post('nisn');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
-		$nik = $this->input->post('nik');
+		$myTime = strtotime($tgl_lahir); 
+        $dateconvert = date("Y-m-d", $myTime);
+
 		$agama = $this->input->post('agama');
 		$alamat = $this->input->post('alamat');
-		$id_kelas = $this->input->post('id_kelas');
-		$no_hp = $this->input->post('no_hp');
+		$rt = $this->input->post('RT');
+		$rw = $this->input->post('RW');
+		$dusun = $this->input->post('dusun');
+		$kelurahan = $this->input->post('kelurahan');
+		$kecamatan = $this->input->post('kecamatan');
+		$kode_pos = $this->input->post('kode_pos');	
+		$no_hp_ortu = $this->input->post('no_hp_ortu');
 	
 
-		$data = array(
+		// $data = array(
 
-			'nama_siswa'=> $this->input->post('nama_siswa', true),
-			'nipd' => $this->input->post('nipd', true),
-			'jk'=> $this->input->post('jk', true),
-			'nisn' => $this->input->post('nisn'),
-			'tempat_lahir' => $this->input->post('tempat_lahir'),
-			'tgl_lahir' => $this->input->post('tgl_lahir'),
-			'nik' => $this->input->post('nik'),
-			'agama' => $this->input->post('agama'),
-			'alamat'=> $this->input->post('alamat'),
-			'id_kelas_fk' => $this->input->post('id_kelas'),
-			'no_hp_ortu' => $this->input->post('no_hp')
+		// 	// 'nama_siswa'=> $this->input->post('nama_siswa', true),
+		// 	// 'nipd' => $this->input->post('nipd', true),
+		// 	// 'jk'=> $this->input->post('jk', true),
+		// 	// 'nisn' => $this->input->post('nisn'),
+		// 	// 'tempat_lahir' => $this->input->post('tempat_lahir'),
+		// 	// 'tgl_lahir' => $dateconvert,
+		// 	// 'agama' => $this->input->post('agama'),
+		// 	// 'alamat'=> $this->input->post('alamat'),
+		// 	// 'RT' => $this->input->post('RT'),
+		// 	// 'RW' => $this->input->post('RW'),
+		// 	// 'dusun' => $this->input->post('dusun'),
+		// 	// 'kelurahan' => $this->input->post('kelurahan'),
+		// 	// 'kecamatan' => $this->input->post('kecamatan'),
+		// 	// 'kode_pos' => $this->input->post('kode_pos'),
+		// 	// 'no_hp_ortu' => $this->input->post('no_hp_ortu')
 						
 
-			);
+		// 	);
+
+		$data = array(
+			
+			'nama_siswa'=> $nama_siswa,
+			'nipd' => $nipd,
+			'jk'=> $jk,
+			'nisn' => $nisn,
+			'tempat_lahir' => $tempat_lahir,
+			'tgl_lahir' =>$dateconvert,
+			'agama'=>$agama,
+			'alamat'=> $alamat,
+			'RT' => $rt,
+			'RW' => $rw,
+			'dusun' => $dusun,
+			'kelurahan' => $kelurahan,
+			'kecamatan' => $kecamatan,
+			'kode_pos' => $kode_pos,
+			'no_hp_ortu' => $no_hp_ortu
+
+		);
+
 		$this->m_data->input_siswa($data, 'siswa');
 		//$this->m_data->input_guru($this->input->post());
 		
@@ -1265,11 +1400,15 @@ class Admin extends CI_Controller
 		$nisn = $this->input->post('nisn');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
-		$nik = $this->input->post('nik');
 		$agama = $this->input->post('agama');
 		$alamat = $this->input->post('alamat');
-		$id_kelas = $this->input->post('id_kelas');
-		$no_hp = $this->input->post('no_hp');
+		$rt = $this->input->post('RT');
+		$rw = $this->input->post('RW');
+		$dusun = $this->input->post('dusun');
+		$kelurahan = $this->input->post('kelurahan');
+		$kecamatan = $this->input->post('kecamatan');
+		$kode_pos = $this->input->post('kode_pos');
+		$no_hp = $this->input->post('no_hp_ortu');
 	
 	 
 		$data = array(
@@ -1280,10 +1419,14 @@ class Admin extends CI_Controller
 			'nisn' => $nisn,
 			'tempat_lahir' => $tempat_lahir,
 			'tgl_lahir' =>$tgl_lahir,
-			'nik'=> $nik,
 			'agama'=>$agama,
 			'alamat'=> $alamat,
-			'id_kelas_fk' => $id_kelas,
+			'RT' => $rt,
+			'RW' => $rw,
+			'dusun' => $dusun,
+			'kelurahan' => $kelurahan,
+			'kecamatan' => $kecamatan,
+			'kode_pos' => $kode_pos,
 			'no_hp_ortu' => $no_hp
 
 		);
@@ -1346,6 +1489,7 @@ class Admin extends CI_Controller
 	{
 		
 		$data['tahun_ajaran'] = $this->m_data->edit_tahun($id_tahun_ajaran);
+		$data['semester'] = $this->m_data->tampil_semester();
 		//$data['status'] = $this->m_data->tampil_status_tahun();
 		$data['content']   =  'view_admin/tahun_ajaran/edit_tahun';
 
@@ -1357,6 +1501,7 @@ class Admin extends CI_Controller
 		//$id_tahun_ajaran = $this->input->post('id_tahun_ajaran');
 		$kode2 = $this->input->post('kode');
 		$tahun_ajaran = $this->input->post('tahun_ajaran');
+		$semester = $this->input->post('semester');
 		$status = $this->input->post('status');
 
 	
@@ -1364,6 +1509,7 @@ class Admin extends CI_Controller
 			
 			'tahun_ajaran' => $tahun_ajaran,
 			'status' =>$status,
+			'kd_semester' =>$semester
 			
 
 			);
@@ -1421,9 +1567,13 @@ class Admin extends CI_Controller
  	public function daftar_rombel()
 	{
 
-
+		
 		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
-		$data['rombel'] = $this->m_data->tampil_rombel($tahun_ajaran);
+		$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+
+		$data['rombel'] = $this->m_data->tampil_rombel($tahun,$semester);
 		$data['tahun_rombel'] = $this->m_data->tampil_tahun_rombel($tahun_ajaran);
 	
 		$data['content']   =  'view_admin/rombongan_belajar/daftar_rombel';
@@ -1456,6 +1606,7 @@ class Admin extends CI_Controller
 		$kelas = $this->input->post('id_kelas');
 		$wali = $this->input->post('nip');
 		$tahun = $this->input->post('id_tahun_ajaran');
+	//	$semester = $this->input->post('kd');
 
 		$data = array(
 			

@@ -21,6 +21,7 @@ class Loginbaru extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			
 			$data['tahun_ajaran'] = $this->m_login->tahun_ajaran();
+			
 			$data['judul'] = "Aplikasi Absensi SMAN2";
 			$this->load->view('templates_login/login', $data);	
 		}else{
@@ -37,6 +38,7 @@ class Loginbaru extends CI_Controller
 		$pass = $this->input->post('password');
 		$password = md5($pass);
 		$tahun_ajaran = $this->input->post('tahun_ajaran');
+	
 		if ($tahun_ajaran == null || $tahun_ajaran == '' || empty($tahun_ajaran)) 
 		{
 			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Pilih tahun ajaran </div>');
@@ -65,7 +67,8 @@ class Loginbaru extends CI_Controller
 						'siswa_admin' => $cek['siswa_admin'],
 						'foto' => $cek['foto'],
 						'role' => $cek['role'],
-						'tahun_ajaran' => $tahun_ajaran
+						'tahun_ajaran' => $tahun_ajaran,
+						
 					];
 					if ($cek['role_id_fk'] == '2') {
 						$this->session->set_userdata($data);

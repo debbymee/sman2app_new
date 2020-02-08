@@ -9,16 +9,19 @@ class M_wali extends CI_Model
 	
  // model di dashboard
 
-	function siswa_wa($id_wali,$tgl)
+	function siswa_wa($id_wali,$tahun,$semester,$tgl)
 	{
-		$data = $this->db->query("SELECT * FROM `presensi` JOIN siswa ON presensi.id_siswa_fk = siswa.id_siswa 
+		$data = $this->db->query("SELECT * FROM `presensi` 
+			JOIN detail_kelas_siswa ON presensi.id_siswa_fk = detail_kelas_siswa.id_siswa
+			JOIN siswa ON detail_kelas_siswa.id_siswa = siswa.id_siswa 
+            JOIN guru on detail_kelas_siswa.id_wali_fk = guru.nip
 		JOIN jadwal_pelajaran ON presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal 
 		JOIN kelas ON jadwal_pelajaran.id_kelas_fk = kelas.id_kelas
 		JOIN keterangan_presensi ON presensi.kd_keterangan_fk = keterangan_presensi.kd_keterangan 
 		LEFT JOIN history_message ON presensi.id_presensi = history_message.id_presensi_fk
-		where kelas.id_wali_fk = '$id_wali'
-		and presensi.kd_keterangan_fk = 'A' and presensi.tgl = '$tgl'
-			GROUP BY siswa.id_siswa
+        JOIN tahun_ajaran ON detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran
+        JOIN keterangan_semester ON tahun_ajaran.kd_semester = keterangan_semester.kd_semester
+		  WHERE detail_kelas_siswa.id_wali_fk = '$id_wali' AND tahun_ajaran.tahun_ajaran = '$tahun' AND keterangan_semester.semester='$semester'AND presensi.tgl='$tgl'
 		 ");
 		return $data->result();
 	}
@@ -51,8 +54,9 @@ class M_wali extends CI_Model
     }
 
      function countwali(){
-    $this->db->select('count(id_wali) as totalcount');
-    $this->db->from('wali_kelas');
+    $this->db->select('count(distinct(detail_kelas_siswa.id_wali_fk)) as totalcount');
+    $this->db->from('detail_kelas_siswa');
+    $this->db->join('guru', 'detail_kelas_siswa.id_wali_fk = guru.nip');
 	return $this->db->get()->result();
     }
 
@@ -70,24 +74,32 @@ class M_wali extends CI_Model
 	//return $this->db->get('guru');
 	$this->db->select('*');
 	$this->db->from('guru');
-	$this->db->join('users', 'guru.id_user_fk = users.id');
-	$this->db->join('wali_kelas', 'guru.id_guru = wali_kelas.id_guru_fk');
-	$this->db->where('id_user_fk', $id);
+	$this->db->join('users', 'guru.id_guru = users.id_guru_fk');
+	$this->db->join('detail_kelas_siswa', 'guru.nip = detail_kelas_siswa.id_wali_fk');
+	$this->db->where('users.id', $id);
 	return $this->db->get()->result();
 
 	}
 	
-	 function get_idkelas($id_guru)
+	  function get_idkelas($id_guru,$tahun,$semester)
     {
-      $this->db->select(' kelas.nama_kelas, kelas.id_kelas,mata_pelajaran.nama_pelajaran');    
-      $this->db->from('kelas');
-      $this->db->join('jadwal_pelajaran', 'kelas.id_kelas = jadwal_pelajaran.id_kelas_fk');
-      $this->db->join('mata_pelajaran', 'mata_pelajaran.kd_mapel = jadwal_pelajaran.kd_mapel_fk');
-      $this->db->where('jadwal_pelajaran.id_guru_fk', $id_guru);
-      $this->db->group_by('jadwal_pelajaran.kd_mapel_fk');
-      $query=$this->db->get();
-      return $query->row();
+     
+
+    	
+		$sql = "SELECT * FROM  kelas JOIN jadwal_pelajaran ON kelas.id_kelas = jadwal_pelajaran.id_kelas_fk 
+JOIN tahun_ajaran ON jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran
+JOIN keterangan_semester ON tahun_ajaran.kd_semester = keterangan_semester.kd_semester
+JOIN guru ON jadwal_pelajaran.id_guru_fk = guru.id_guru WHERE guru.id_guru = '$id_guru' AND tahun_ajaran.tahun_ajaran = '$tahun' and keterangan_semester.semester = '$semester'";
+
+		
+		$row = $this->db->query($sql);
+		return $row->row_array();
+
+    	   // $this->db->where('tahun_ajaran.tahun_ajaran', $tahun_ajaran);
+ 
+     
     }
+   
 
     function get_kelaswali($id_wali){
       $this->db->select('*');    
@@ -201,15 +213,21 @@ class M_wali extends CI_Model
 		$this->db->where('id_presensi', $id_presensi);
 		return $this->db->get()->result();
 	}
-	function tampil_namasiswa($id_guru)
+
+	function tampil_namasiswa($id_kelas,$tahun,$semester)
 	{
 		$this->db->select('*');
 		$this->db->from('siswa');
-		$this->db->join('kelas', 'siswa.id_kelas_fk = kelas.id_kelas');
-		$this->db->join('jadwal_pelajaran', 'kelas.id_kelas = jadwal_pelajaran.id_kelas_fk');
-		$this->db->where('jadwal_pelajaran.id_guru_fk', $id_guru);
+		 $this->db->join('detail_kelas_siswa', 'siswa.id_siswa = detail_kelas_siswa.id_siswa');
+     	$this->db->join('kelas', 'detail_kelas_siswa.id_kelas = kelas.id_kelas');
+		$this->db->join('tahun_ajaran', 'detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
+		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
+		$this->db->where('detail_kelas_siswa.id_kelas', $id_kelas);
+		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
+		$this->db->where('keterangan_semester.semester', $semester);
 		$this->db->group_by('siswa.id_siswa');
 		return $this->db->get();
+	
 	
 	}
 	function tampil_keterangan()
@@ -217,30 +235,52 @@ class M_wali extends CI_Model
 		return $this->db->get('keterangan_presensi');
 	
 	}
-	function tampil_jadwalll($id_guru)
+	 function tampil_jadwalll($id_kelas,$tahun,$semester,$hariindonesia)
 	{
 		$this->db->select('*');
 		$this->db->from('jadwal_pelajaran');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
-		$this->db->where(' jadwal_pelajaran.id_guru_fk',$id_guru);
+
+		$this->db->join('tahun_ajaran', 'jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
+		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
+		$this->db->where('jadwal_pelajaran.id_kelas_fk', $id_kelas);
+		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
+		$this->db->where('keterangan_semester.semester', $semester);
+		$this->db->where('jadwal_pelajaran.hari', $hariindonesia);
+
+	
 		$this->db->group_by('jadwal_pelajaran.kd_mapel_fk');
 		return $this->db->get();
 	}
-		function tampil_presensi3($id_wali)
+
+		function tampil_presensi3($tahun,$semester,$id_wali)
 	{   
 
 
+		// $this->db->select('*');
+		// $this->db->from('presensi');
+		// $this->db->join('siswa', 'presensi.id_siswa_fk = siswa.id_siswa');
+		// $this->db->join('kelas', 'siswa.id_kelas_fk = kelas.id_kelas');
+		// $this->db->join('keterangan_presensi', 'presensi.kd_keterangan_fk = keterangan_presensi.kd_keterangan');
+		// $this->db->join('jadwal_pelajaran', ' presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal');
+		// $this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
+		// $this->db->where('kelas.id_wali_fk',$id_wali);
+		// $this->db->order_by('presensi.id_presensi', 'desc');
+
 		$this->db->select('*');
 		$this->db->from('presensi');
-		$this->db->join('siswa', 'presensi.id_siswa_fk = siswa.id_siswa');
-		$this->db->join('kelas', 'siswa.id_kelas_fk = kelas.id_kelas');
+		$this->db->join('detail_kelas_siswa', 'presensi.id_siswa_fk = detail_kelas_siswa.id_siswa');
+		$this->db->join('siswa', 'detail_kelas_siswa.id_siswa = siswa.id_siswa');
+		$this->db->join('kelas', 'detail_kelas_siswa.id_kelas = kelas.id_kelas');
 		$this->db->join('keterangan_presensi', 'presensi.kd_keterangan_fk = keterangan_presensi.kd_keterangan');
 		$this->db->join('jadwal_pelajaran', ' presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
-		$this->db->where('kelas.id_wali_fk',$id_wali);
+		$this->db->join('tahun_ajaran', 'detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
+		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
+		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
+		$this->db->where('keterangan_semester.semester', $semester);
+		$this->db->where('detail_kelas_siswa.id_wali_fk', $id_wali);
 		$this->db->order_by('presensi.id_presensi', 'desc');
-
-
 
 		 return $this->db->get()->result();
 		
@@ -253,8 +293,9 @@ class M_wali extends CI_Model
 		$this->db->select('*');
 		$this->db->from('jadwal_pelajaran');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
-		$this->db->join('kelas', 'jadwal_pelajaran.id_kelas_fk = kelas.id_kelas');
-		$this->db->where('kelas.id_wali_fk',$id_wali);
+		$this->db->join('guru', 'jadwal_pelajaran.id_guru_fk = guru.id_guru');
+		$this->db->join('detail_kelas_siswa', 'guru.nip = detail_kelas_siswa.id_wali_fk');
+		$this->db->where('detail_kelas_siswa.id_wali_fk',$id_wali);
 		return $this->db->get();
 	}
 

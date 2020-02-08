@@ -19,6 +19,7 @@
 			<tr align="center">
 				<td>No</td>
 				<td>Tahun Ajaran</td>
+				<td>Semester</td>
 				<td>Status</td>
 				<td>Aksi</td>
 			</tr>
@@ -33,6 +34,7 @@
 			 <tr>
 			 	<td><?php echo $no++ ?></td>
 			 	<td><?php echo $row->tahun_ajaran ?></td>
+			 	<td><?php echo $row->semester ?></td>
 			 	<td><?php echo $row->status ?></td>
 			 	<td>
 			 	<a href="<?php echo site_url('admin/edit_tahun/'.$row->id_tahun_ajaran); ?>" class="btn btn-sm btn-info">Edit</a>

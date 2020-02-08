@@ -1,7 +1,7 @@
                 <div class="x_panel">
 			<div class="container">
 
-		<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS - <?php echo $kelas?> - <?php echo $jadwal_pelajaran?> </h2>
+		<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS <?php echo $this->session->userdata('tahun_ajaran');?> <?php echo $this->session->userdata('semester');?></h2> 
 		<hr>
 		 <br><br>
 		 <?= $this->session->flashdata('message'); ?>

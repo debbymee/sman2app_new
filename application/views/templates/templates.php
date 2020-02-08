@@ -54,7 +54,7 @@
              
                   <i class="fas fa-school"></i>
                   
-                </i> <span>SMAN 2</span>
+                </i> <span>SMAN 2  </span>
 
               </a>
             </div>
@@ -63,10 +63,12 @@
               <div class="profile_pic" >
                 <center><img src="<?php echo base_url(); ?>public/images/sman2.png " alt="..."  width=95% ></center>
               </div>
-              <div class="profile_info">
-                <font size="3px" color="white" style="font-family: arial ">Nama akun user : </font>
-                <font size="5px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('username')  ?> <br><?php echo $this->session->userdata('tahun_angkatan') ?></font>
-                
+              <div class="profile_info" style="margin-top: -20px">
+                <font size="3px" color="white" style="font-family: calibri ">Nama akun user : </font>
+                <font size="2px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('username')  ?> </font><br>
+
+                <font size="3px" color="white" style="font-family: calibri ">Tahun Ajaran : </font>
+                 <font size="2px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('tahun_ajaran')  ?>  </font>
               
               </div>
             </div>
