@@ -2,6 +2,9 @@
 			<div class="container">
 
 		 	<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS 12 </h2>
+		 
+
+
 		    <hr>
 		     <br><br>
 		           <?php if (validation_errors() ) 
@@ -36,11 +39,15 @@
                        <option>Pilih</option>
                         <?php foreach ($jadwalll as $dj) : ?>
 
-                          <option value="<?php echo $dj->kd_mapel_fk ?>"><?php echo $dj->nama_pelajaran ?>
+                          <option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>
                           </option>
                         <?php endforeach ?>
            
                   		</select></b></h2></td>
+ 	</tr>
+ 	<tr>
+ 		<td><h2 style="color: green" id="modul_pembahasan"><b>Modul Pembahasan</b></h2></td>
+ 		<TD> <B>:</B> <input type="text" name="modul_pembahasan"></TD>
  	</tr>
 
  </table>

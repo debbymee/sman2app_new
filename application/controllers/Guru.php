@@ -158,6 +158,25 @@ class Guru extends CI_Controller
     $this->load->view('templates_guru/templates_guru',$data); 
 
 	}
+
+	public function daftarkelas_presensi3()
+	{
+		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+		$id_guru = $this->session->userdata('id_guru');
+	
+		$data['rombel'] = $this->m_guru->tampil_rombelpresensi3($id_guru);
+		$data['lihat_presensi'] = $this->m_guru->tampil_presensi3($tahun,$semester,$id_guru);
+	
+		// $data['guru'] = $this->m_data->tampil_guruu()->result();
+		// $data['mata_pelajaran'] = $this->m_data->tampil_detailj()->result();
+		$data['content']   =  'view_guru/daftarkelas_presensi3';
+		$this->load->view('templates/templates',$data);
+
+
+	}
 	
 	public function input_presensi12()
 	{
@@ -196,13 +215,18 @@ class Guru extends CI_Controller
 
 		$id_guru = $this->session->userdata('id_guru');
 
-
-		$row2 = $this->m_guru->get_idkelas($id_guru,$tahun,$semester);
-		$id_kelas = $row2['id_kelas']; 
-		$data['kelas'] = $row2['nama_kelas']; 
+		$urikelas = $this->uri->segment(4);
+		$id_kelas_fk = $this->uri->segment(3); // mengambil get url urutan slice ke 3
+		$data['kelas'] = urldecode($urikelas);
+		$id_kelas = $id_kelas_fk;
 		$data['siswa'] = $this->m_guru->tampil_namasiswa($id_kelas,$tahun,$semester)->result();
-			$data['jadwalll'] = $this->m_guru->tampil_jadwalll($id_kelas,$hariindonesia, $tahun,$semester)->result();
+			$data['jadwalll'] = $this->m_guru->tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)->result();
 		$data['keterangan_presensi'] = $this->m_guru->tampil_keterangan()->result();
+
+		
+		$data['hariindonesia'] = $hariindonesia;
+		
+
 		$data['content']   =  'view_guru/inputpresensi12';
    		$this->load->view('templates_guru/templates_guru',$data);
 	
@@ -232,6 +256,7 @@ class Guru extends CI_Controller
 				    "tgl"  => $tanggal,
 				    "kd_keterangan_fk"  => $_POST['kd_keterangan'][$key],
 				    "id_jadwal_fk"  => $id_jadwal,
+				     "modul_pembahasan" => $modul_pembahasan,
 				    "id_siswa_fk"  => $_POST['id_siswa'][$key]
 			    );
 			}

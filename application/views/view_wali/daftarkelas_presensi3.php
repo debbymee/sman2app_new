@@ -22,7 +22,7 @@
           <td><?php echo $no++ ?></td>
           <TD><?php echo $r->nama_kelas  ?> </TD>
           <td>
-               <?php echo anchor('guru/input_presensi12/'.$r->id_kelas.'/'.$r->nama_kelas,'<i class="fas fa-plus-square"></i>'); ?>
+               <?php echo anchor('Wali_kelas/input_presensi12/'.$r->id_kelas.'/'.$r->nama_kelas,'<i class="fas fa-plus-square"></i>'); ?>
               
             </td>
        

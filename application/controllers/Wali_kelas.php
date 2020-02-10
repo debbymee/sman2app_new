@@ -122,13 +122,54 @@ class Wali_kelas extends CI_Controller
 	$semester = $this->session->userdata('semester');
   
     $id_wali = $this->session->userdata('nip');
-	$data['presensi'] = $this->m_wali->tampil_presensi3($tahun,$semester,$id_wali);
+    $id_guru = $this->session->userdata('id_guru');
+	
+	$data['presensi'] = $this->m_wali->tampil_presensi3($tahun,$semester,$id_guru);
 
 	$data['content']   =  'view_wali/lihat_presensi';
     $this->load->view('templates_wali/templates_wali',$data);
 
 		
 	}
+	public function lihat_presensi_kelas() 
+	{
+	// $tahun_ajaran = $this->session->userdata('tahun_ajaran');
+	// 	$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+	// 	$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+	$tahun = $this->session->userdata('tahun_ajaran');
+	$semester = $this->session->userdata('semester');
+  
+    $id_wali = $this->session->userdata('nip');
+    $id_guru = $this->session->userdata('id_guru');
+	
+	$data['presensi'] = $this->m_wali->tampil_presensi_kelas($tahun,$semester,$id_wali);
+
+	$data['content']   =  'view_wali/lihat_presensi_kelas';
+    $this->load->view('templates_wali/templates_wali',$data);
+
+		
+	}
+	public function daftarkelas_presensi3()
+	{
+		$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$tahun = substr($tahun_ajaran,0,9); //muncul tahun_ajaran saja
+
+		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
+		$id_guru = $this->session->userdata('id_guru');
+	
+		$data['rombel'] = $this->m_wali->tampil_rombelpresensi3($id_guru);
+		$data['lihat_presensi'] = $this->m_wali->tampil_presensi3($tahun,$semester,$id_guru);
+	
+		// $data['guru'] = $this->m_data->tampil_guruu()->result();
+		// $data['mata_pelajaran'] = $this->m_data->tampil_detailj()->result();
+		$data['content']   =  'view_wali/daftarkelas_presensi3';
+		$this->load->view('templates/templates',$data);
+
+
+	}
+	
+
 		public function input_presensi12()
 	{
 		$hari = date ("D");
@@ -158,21 +199,59 @@ class Wali_kelas extends CI_Controller
 
 		$tahun = $this->session->userdata('tahun_ajaran');
 		$semester = $this->session->userdata('semester');
-		 $id_wali = $this->session->userdata('nip');
+		$id_wali = $this->session->userdata('nip');
 		$id_guru = $this->session->userdata('id_guru');
 
+		$urikelas = $this->uri->segment(4);
+		$id_kelas_fk = $this->uri->segment(3); // mengambil get url urutan slice ke 3
+		$data['kelas'] = urldecode($urikelas);
+		$id_kelas = $id_kelas_fk;
 
-
-		$row2 = $this->m_wali->get_idkelas($id_guru,$tahun,$semester);
-		$id_kelas = $row2['id_kelas']; 
-		$data['kelas'] = $row2['nama_kelas']; 
 		$data['siswa'] = $this->m_wali->tampil_namasiswa($id_kelas,$tahun,$semester)->result();
-		$data['jadwalll'] = $this->m_wali->tampil_jadwalll($id_kelas,$hariindonesia, $tahun,$semester)->result();
+		$data['jadwalll'] = $this->m_wali->tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)->result();
 
 		$data['keterangan_presensi'] = $this->m_wali->tampil_keterangan()->result();
 		$data['content']   =  'view_wali/inputpresensi12';
    		$this->load->view('templates_wali/templates_wali',$data);
 	}
+
+		public function tambah_presensi12()
+	{
+
+	
+			$tanggal   = $this->input->post('tgl');
+			$id_jadwal = $this->input->post('id_jadwal');
+			$modul_pembahasan = $this->input->post('modul_pembahasan');
+			//$cekguru = $this->input->post('kd_keterangan_guru_fk');
+
+			$cekpresensi  = $this->m_wali->cek_absens($id_jadwal,$tanggal);
+				
+			if($cekpresensi < 1){
+
+			$nm = $this->input->post('id_siswa');
+			$id_jadwal = $this->input->post('id_jadwal');
+			$tanggal = $this->input->post('tgl');
+		    $result = array();
+		    foreach($nm AS $key => $val){
+			    $result[] = array(
+				    "tgl"  => $tanggal,
+				    "kd_keterangan_fk"  => $_POST['kd_keterangan'][$key],
+				    "id_jadwal_fk"  => $id_jadwal,
+				     "modul_pembahasan" => $modul_pembahasan,
+				    "id_siswa_fk"  => $_POST['id_siswa'][$key]
+			    );
+			}
+		
+			$this->m_wali->input_presensi12($result);
+			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert"> Berhasil Dibuat! </div>');
+			redirect('Wali_kelas/lihat_presensi12');
+		}
+		else{
+			$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> Data Presensi Sudah Ada </div>');
+			redirect('Wali_kelas/lihat_presensi');
+		}
+    }
+	
 		
 
 	function get_jadwalpresensi(){

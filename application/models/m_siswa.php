@@ -182,6 +182,8 @@ class M_siswa extends CI_model
 		//$where = "kd_keterangan_fk='A' OR kd_keterangan_fk='D' AND tgl = '$tgl'";
 
 		$where = "tgl = '$tgl' AND (kd_keterangan_fk = 'S' OR kd_keterangan_fk = 'A' OR kd_keterangan_fk = 'D' OR kd_keterangan_fk = 'I')";
+
+		$this->db->group_by('siswa.id_siswa');
 		$this->db->where($where);
 		return $this->db->get()->result();
 	}

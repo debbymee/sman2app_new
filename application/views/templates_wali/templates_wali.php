@@ -9,6 +9,11 @@
   <link rel="icon" href="../public/images/favicon.ico" type="image/ico" />
 
     <title> Halaman Wali Kelas </title>
+    <style type="text/css">
+      .none {
+  display: none;
+}
+    </style>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url('public') ?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -95,6 +100,7 @@
                     <ul class="nav child_menu">
              
                       <li><a href="<?php echo base_url();?>wali_kelas/lihat_presensi">Data Presensi</a></li>
+                      <li><a href="<?php echo base_url();?>wali_kelas/lihat_presensi_kelas">Data Presensi Kelas</a></li>
                     </ul>
                   </li>
 
@@ -286,6 +292,31 @@ function()
 {
 $('#data').load('/sman2app/wali_kelas/wa_siswa');
 }, 3000);
+</script>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+          var table=$('#exampledr').DataTable({
+            initComplete: function () {
+            }
+       });
+       $(".filterhead").each(function (i) {
+                 if (i != 15  && i != 16 ) {
+                     var select = $('<select class="form-control" style="margin-top:10px"><option value="">All Data</option></select>')
+                         .appendTo($(this).empty())
+                         .on('change', function () {
+                             var term = $(this).val();
+                             table.column(i).search(term, false, false).draw();
+                         });
+                     table.column(i).data().unique().sort().each(function (d, j) {
+                         select.append('<option value="' + d + '">' + d + '</option>')
+                     });
+                 } else {
+                    $(this).empty();
+                 }
+             });
+    } );
+
 </script>
 
   

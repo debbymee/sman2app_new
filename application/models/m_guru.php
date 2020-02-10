@@ -75,14 +75,14 @@
 	{
 		$this->db->select('*');
 		$this->db->from('presensi');
-		$this->db->join('siswa', 'presensi.id_siswa_fk = siswa.id_siswa');
-		$this->db->join('kelas','siswa.id_kelas_fk = kelas.id_kelas');
+		$this->db->join('detail_kelas_siswa', 'presensi.id_siswa_fk = detail_kelas_siswa.id_siswa');
+		$this->db->join('siswa','detail_kelas_siswa.id_siswa = siswa.id_siswa');
+		$this->db->join('kelas', 'detail_kelas_siswa.id_kelas = kelas.id_kelas');
 		$this->db->join('jadwal_pelajaran', 'presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
 		$this->db->where('id_presensi', $id_presensi);
 		return $this->db->get()->result();
 
-	
 	
 	
 	}
@@ -92,7 +92,7 @@
 		return $this->db->get('keterangan_presensi');
 	
 	}
-	 function tampil_jadwalll($id_kelas,$tahun,$semester,$hariindonesia)
+	 function tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)
 	{
 		$this->db->select('*');
 		$this->db->from('jadwal_pelajaran');
@@ -101,6 +101,7 @@
 		$this->db->join('tahun_ajaran', 'jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
 		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
 		$this->db->where('jadwal_pelajaran.id_kelas_fk', $id_kelas);
+		$this->db->where('jadwal_pelajaran.id_guru_fk', $id_guru);
 		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
 		$this->db->where('keterangan_semester.semester', $semester);
 		$this->db->where('jadwal_pelajaran.hari', $hariindonesia);
@@ -152,14 +153,16 @@
 		
 	}
 
-	// function tampil_rombelpresensi3()
-	// {
-	// 	$this->db->select('*');
-	// 	$this->db->from('kelas');
-	// //	$this->db->where('tingkat_kelas = 12');
-	// 	return $this->db->get();
+	function tampil_rombelpresensi3($id_guru)
+	{
+		$this->db->select('*');
+		$this->db->from('kelas');
+		$this->db->join('jadwal_pelajaran', 'kelas.id_kelas = jadwal_pelajaran.id_kelas_fk');
+		$this->db->where('jadwal_pelajaran.id_guru_fk', $id_guru);
+		$this->db->group_by('kelas.id_kelas');
+		return $this->db->get()->result();
 	
-	// }
+	}
 	function input_presensi12($result)
 	{
 		$this->db->insert_batch('presensi',$result);
@@ -172,7 +175,7 @@
 		
 	}
 
-	 function get_idkelas($id_guru,$tahun,$semester)
+	 function get_idkelas($id_guru,$tahun,$semester,$hariindonesia)
     {
      
 
@@ -180,7 +183,7 @@
 		$sql = "SELECT * FROM  kelas JOIN jadwal_pelajaran ON kelas.id_kelas = jadwal_pelajaran.id_kelas_fk 
 JOIN tahun_ajaran ON jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran
 JOIN keterangan_semester ON tahun_ajaran.kd_semester = keterangan_semester.kd_semester
-JOIN guru ON jadwal_pelajaran.id_guru_fk = guru.id_guru WHERE guru.id_guru = '$id_guru' AND tahun_ajaran.tahun_ajaran = '$tahun' and keterangan_semester.semester = '$semester'";
+JOIN guru ON jadwal_pelajaran.id_guru_fk = guru.id_guru WHERE guru.id_guru = '$id_guru' AND tahun_ajaran.tahun_ajaran = '$tahun' and keterangan_semester.semester = '$semester' AND jadwal_pelajaran.hari = '$hariindonesia'";
 
 		
 		$row = $this->db->query($sql);

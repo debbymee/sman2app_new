@@ -17,7 +17,7 @@
 		      
 
 		
-		 <form action="<?php echo base_url(); ?>wali_kelas/tambah_presensi12" method ="post"  class="form-horizontal form-label-left" enctype="multipart/form-data" >
+		 <form action="<?php echo base_url(); ?>Wali_kelas/tambah_presensi12" method ="post"  class="form-horizontal form-label-left" enctype="multipart/form-data" >
 
 
  <table>
@@ -36,22 +36,16 @@
                        <option>Pilih</option>
                         <?php foreach ($jadwalll as $dj) : ?>
 
-                          <option value="<?php echo $dj->kd_mapel_fk ?>"><?php echo $dj->nama_pelajaran ?>
+                          <option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>
                           </option>
                         <?php endforeach ?>
            
                   		</select></b></h2></td>
  	</tr>
- 	<tr>
- 		<td><h2 style="color: green " id="tgl"><b>JAM PELAJARAN</b></h2></td>
- 		<td><h2 style="color: green " id="jam_pelajaran"><b> : <select class="btn btn-default dropdown-toggle jam_pelajaran" name="id_jadwal_fk" >
-                       <option>Pilih</option>
-                         </select></b></h2></td>
-        
- 	</tr>
+
  	<tr>
  		<td><h2 style="color: green " id="modul_pembahasan"><b>Modul Pembahasan &nbsp;&nbsp;:</b></h2></td>
- 		<td> <b><input type="text" name="modul_pembahasan[]"></b></td>
+ 		<td> <b><input type="text" name="modul_pembahasan"></b></td>
  	</tr>
  </table>
  <br><br>

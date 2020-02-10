@@ -4,15 +4,22 @@
 		<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS 12</h2><br>
 		<hr>
 		 <br><br>
-		 <?= $this->session->flashdata('message'); ?>
-		 	<a href="<?php echo base_url(); ?>wali_kelas/daftarkelas_presensi3"> <button type="button" class="btn btn-success btn-lg"  > + INPUTKAN PRESENSI</button> </a>
-		 <br><br>
+		
      		
 	<form>
-		<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+		 <table>
+                <tr>
+                    <label style="margin-left:1%" for="filter">Filter Bulan</label>
+                    <th class="filterhead"></th>
+                   
+                </tr>
+            </table><br>
+
+		<table id="exampledr" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
 			<thead>
 
 			<tr align="center"> 
+				<td class="none">BULAN</td>
 				<td>NO</td>
 				<td>TANGGAL</td>
 				<td>NAMA SISWA</td>
@@ -31,6 +38,12 @@
             $no = 1; 
             foreach($presensi as $p) { ?>
 				<tr>
+					<td class="none"><?php $date=date_create($p->tgl);
+echo date_format($date,"F");
+					?>
+						
+						
+					</td>
 					<td><?php echo $no++ ?></td>
 					<td><?php echo $p->tgl  ?></td>
 					<td><?php echo $p->nama_siswa  ?></td>
