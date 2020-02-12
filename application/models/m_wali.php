@@ -104,18 +104,35 @@ JOIN guru ON jadwal_pelajaran.id_guru_fk = guru.id_guru WHERE guru.id_guru = '$i
     function get_kelaswali($id_wali){
       $this->db->select('*');    
       $this->db->from('kelas');
-      $this->db->where('id_wali_fk', $id_wali);
+      $this->db->join('detail_kelas_siswa', 'kelas.id_kelas = detail_kelas_siswa.id_kelas');
+      $this->db->where('detail_kelas_siswa.id_wali_fk', $id_wali);
       $query=$this->db->get();
       return $query->row();
     }
 
-     function get_jadwal($id_jadwal){
-      $this->db->select('*');    
-      $this->db->from('jadwal_pelajaran');
-      $this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
-      $this->db->where('jadwal_pelajaran.id_jadwal', $id_jadwal);
-      $query=$this->db->get();
-      return $query->row();
+     function get_jadwal($tahun,$semester,$hariindonesia){
+      // $this->db->select('*');    
+      // $this->db->from('jadwal_pelajaran');
+      // $this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
+      // $this->db->where('jadwal_pelajaran.id_jadwal', $id_jadwal);
+      // $query=$this->db->get();
+      // return $query->row();
+
+		$this->db->select('*');
+		$this->db->from('jadwal_pelajaran');
+		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
+
+		$this->db->join('tahun_ajaran', 'jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
+		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
+		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
+		$this->db->where('keterangan_semester.semester', $semester);
+		$this->db->where('jadwal_pelajaran.hari', $hariindonesia);
+
+	
+		$this->db->group_by('jadwal_pelajaran.kd_mapel_fk');
+		return $this->db->get();
+	
+
     }
 	
 	
@@ -338,7 +355,8 @@ JOIN guru ON jadwal_pelajaran.id_guru_fk = guru.id_guru WHERE guru.id_guru = '$i
 	{
 		$this->db->select('siswa.nama_siswa,keterangan_presensi.nama_keterangan');
 		$this->db->from('presensi');
-		$this->db->join('siswa', 'presensi.id_siswa_fk = siswa.id_siswa');
+		$this->db->join('detail_kelas_siswa', 'presensi.id_siswa_fk = detail_kelas_siswa.id_siswa');
+		$this->db->join('siswa','detail_kelas_siswa.id_siswa = siswa.id_siswa');
 		$this->db->join('keterangan_presensi', 'presensi.kd_keterangan_fk = keterangan_presensi.kd_keterangan');
 		$array = array('presensi.tgl' => $tgl, 'presensi.id_jadwal_fk' => $id_jadwal);
         $this->db->where($array);

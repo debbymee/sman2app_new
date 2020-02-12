@@ -20,11 +20,24 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="tahun_ajaran" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="tahun_ajaran" placeholder=""  type="text">
+                          name="tahun_ajaran" placeholder="Masukkan Tahun Ajaran Baru"  type="text"> 
                           <input type="hidden" name="id_tahun_ajaran">
-                        </div>
-                    </div>
+                        </div><?php echo "Contoh : 2019/2020 "; ?>
+            </div>
 
+            <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="semester">Semester <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                        <select name="semester" class="form-control">
+                          <?php foreach ($semester as $r): ?>
+                            <option value="<?php echo $r->kd_semester ?>"> <?php echo $r->semester; ?>
+                            </option>
+                          <?php endforeach ?>
+                        </select>
+                        </div>
+            </div>
 
    					<div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="status">Status <span class="required">*</span>

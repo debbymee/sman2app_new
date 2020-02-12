@@ -102,6 +102,13 @@
                                     
                                   </li>
                 <!--  -->
+                 <li><a> <i class="fas fa-users"></i> &nbsp;&nbsp;  Kelas <span class="fa fa-chevron-down"> </span></a>
+                                    <ul class="nav child_menu">
+                                      <li><a href="<?php echo base_url(); ?>admin/daftar_kelas"> Daftar Kelas </a></li>
+                                    </ul>
+                                    
+                                  </li>
+                <!--  -->
                
 
                    <li><a><i class="fas fa-chalkboard-teacher"></i>&nbsp;&nbsp;  &nbsp; Data Guru Pengajar<span class="fa fa-chevron-down"></span></a>

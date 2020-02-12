@@ -20,9 +20,8 @@
 		<table id="datatable" class="table table-striped table-bordered">
 			<thead>
 			<tr align="center">
-				<td>No</td>
+			
 				<td>Kelas</td>
-				<td>Nama Siswa</td>
 				<td>Wali Kelas</td>
 
 				<td>Aksi</td>
@@ -45,10 +44,9 @@
 
 			 ?>
 			 <tr>
-			 	<td><?php echo $no++ ?></td>
+			 
 	
 			 	<td><?php echo $row->nama_kelas ?></td>
-			 	<td><?php echo $row->nama_siswa ?></td>
 			 	<td><?php echo $row->nama_guru ?></td>
 			 	<td>
 			 	<a href="<?php echo site_url('admin/edit_rombel/'.$row->id_detail); ?>" class="btn btn-sm btn-info">Edit</a>

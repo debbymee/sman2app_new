@@ -314,7 +314,7 @@ class Wali_kelas extends CI_Controller
 	 public function lihat_laporan() 
 	{
 
-	    $id_wali = $this->session->userdata('id_wali');
+	    $id_wali = $this->session->userdata('nip');
     	$data['jadwalll'] = $this->m_wali->tampil_jadwal_laporan($id_wali)->result();
     	$data['content']   =  'view_wali/formlaporan';
    		$this->load->view('templates_wali/templates_wali',$data);
@@ -324,6 +324,31 @@ class Wali_kelas extends CI_Controller
 
 
     function lihat_laporan_presensi(){
+
+    	$hari = date ("D");
+		$hariindonesia = "";
+		 
+		 if($hari == 'Sat'){
+
+		 	$hariindonesia = "Sabtu";
+		 }
+		 elseif ($hari == 'Sun') {
+		 	$hariindonesia = "Minggu";
+		 }
+		 elseif ($hari == 'Mon') {
+		 	$hariindonesia = "Senin";
+		 }
+		 elseif ($hari == 'Tue') {
+		 	$hariindonesia = "Selasa";
+		 }
+		 elseif ($hari == 'Wed' ) {
+		 	$hariindonesia = "Rabu";
+		 }
+		 elseif ($hari == 'Thu') {
+		 	$hariindonesia = "Kamis";
+		 }elseif ($hari == 'Fri') {
+		 	$hariindonesia = "Jumat";
+		 }
 
     	$this->load->library('Pdf');
 		$data['nama'] = $this->session->userdata('nama_guru');
@@ -336,7 +361,7 @@ class Wali_kelas extends CI_Controller
 	    $id_kelas = $row->id_kelas; 
 	    $data['kelas'] = $row->nama_kelas;
 
-	    $rowjadwal   = $this->m_wali->get_jadwal($id_jadwal);
+	    $rowjadwal   = $this->m_wali->get_jadwal($tahun,$semester,$hariindonesia);
 	    $data['jam_pelajaran'] = $rowjadwal->jam_pelajaran;
 	    $data['nama_pelajaran'] = $rowjadwal->nama_pelajaran;
 

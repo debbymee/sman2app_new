@@ -64,7 +64,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/templates',$data); 
 	
 		}
-		// KONDISI JIKA SISWA ADMIN TIDAK DITAMBAHKAN VALUENYA
+		// KONDISI JIKA SISWA ADMIN DAN GURU TIDAK DITAMBAHKAN VALUENYA
 		elseif ($this->input->post('siswa_admin') == '' || $this->input->post('siswa_admin') == null || $this->form_validation->run() == false)
 		{
 			if($this->input->post('guru') == '' || $this->input->post('guru') == null)
@@ -88,7 +88,7 @@ class Admin extends CI_Controller
 		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
 		redirect('admin/daftar_user');
 		}
-		else{
+		else{ // TIDAK ISI SISWA ADMIN SAJA, TAPI NGINPUT GURU
 
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
@@ -115,7 +115,7 @@ class Admin extends CI_Controller
 	//	$id = $this->input->post('id');
 		
 		}
-		else{
+		else{ // TIDAK ISI GURU, TAPI NGINPUT SISWA ADMIN
 
 		if($this->input->post('guru') == '' || $this->input->post('guru') == null){
 		$username = $this->input->post('username');
@@ -141,7 +141,7 @@ class Admin extends CI_Controller
          
 
         }
-        else{
+        else{ // NGINPUTKAN SEMUANYA
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$siswa_admin = $this->input->post('siswa_admin');
@@ -1523,6 +1523,7 @@ class Admin extends CI_Controller
 	public function form_tahun()
 	{
 		$data['tahun_ajaran'] = $this->m_data->tampil_tahun()->result();
+		$data['semester'] = $this->m_data->tampil_semester();
 		$data['content'] = 'view_admin/tahun_ajaran/form_tahun';
 
 		$this->load->view('templates/templates', $data);
@@ -1531,6 +1532,8 @@ class Admin extends CI_Controller
 	public function tambah_tahun()
 	{
 	
+	
+
 		$this->form_validation->set_rules('tahun_ajaran', 'tahun_ajaran', 'required|trim');
 
 		
@@ -1545,12 +1548,14 @@ class Admin extends CI_Controller
 
 		$tahun_ajaran = $this->input->post('tahun_ajaran');
 		$status = $this->input->post('status');
-
+		$semester = $this->input->post('semester');
+		
 
 		$data = array(
 			
 			'tahun_ajaran' => $tahun_ajaran,
 			'status' =>$status,
+			'kd_semester' =>$semester
 			
 
 			);
@@ -1563,7 +1568,112 @@ class Admin extends CI_Controller
 
 		}
 	}
-	// CONTROLLER DAFTAR KELAS
+
+	// CONTROLLER KELAS SISWA
+	public function daftar_kelas()
+	{
+
+		
+		
+
+		$data['kelas'] = $this->m_data->tampil_kelas();
+		//$data['tahun_rombel'] = $this->m_data->tampil_tahun_rombel($tahun,$semester);
+	
+		$data['content']   =  'view_admin/data_kelas/daftar_kelas';
+        $this->load->view('templates/templates',$data); 
+		
+	}
+	public function form_kelas()
+	{
+
+		
+		//$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$data['kelas'] = $this->m_data->tampil_kelas();
+
+		$data['content'] = 'view_admin/data_kelas/form_kelas';
+
+
+		$this->load->view('templates/templates', $data);
+
+
+	}
+	public function tambah_kelas()
+	{
+		$this->form_validation->set_rules('nama_kelas', 'nama_kelas','required|trim|is_unique[kelas.nama_kelas]', [
+			'is_unique' => 'Nama Kelas ini sudah terdaftar!']);
+		
+		
+		if ($this->form_validation->run() == false) {
+			$data['judul'] = 'Halaman Tambah Rombel';
+			$data['content'] = 'view_admin/data_kelas/form_kelas';
+
+
+		$this->load->view('templates/templates', $data);
+
+		
+
+	} else {
+		$this->m_data->input_kelas($this->input->post());
+		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil Ditambah! </div>');
+		redirect('admin/daftar_kelas');
+	}
+		
+	}
+	public function edit_kelas($id_kelas)
+	{
+		$data['kelas'] = $this->m_data->edit_kelas($id_kelas)->row(1);
+
+		$data['content']   =  'view_admin/data_kelas/edit_kelas';
+
+		$this->load->view('templates/templates',$data);
+		
+
+	}
+	public function update_kelas()
+	{
+	
+
+		$id_kelas = $this->input->post('id_kelas');
+		$nama_kelas = $this->input->post('nama_kelas');
+		// $jumlah_siswa = $this->input->post('jumlah_siswa');
+		// $jurusan = $this->input->post('jurusan');
+		$tingkat_kelas = $this->input->post('tingkat_kelas');
+		$ruangan = $this->input->post('ruangan');
+		
+
+	 
+		$data = array(
+			'id_kelas' => $id_kelas,
+			'nama_kelas' => $nama_kelas,
+			// 'jumlah_siswa' => $jumlah_siswa,
+			// 'jurusan' => $jurusan,
+			'tingkat_kelas' => $tingkat_kelas,
+			'ruangan' => $ruangan,
+		
+
+			);
+		
+	 
+		 $this->m_data->update_kelas($data, $id_kelas);
+
+		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Kelas Baru Berhasil Ditambah! </div>');
+		redirect('admin/daftar_kelas');
+	
+		
+	}
+	public function hapus_kelas()
+	{
+
+		$this->db->delete('kelas', array('id_kelas'=> $this->input->get('id_kelas', FALSE)));
+
+		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil Dihapus! </div>');
+		redirect('admin/daftar_kelas');
+	}	
+
+
+
+	// CONTROLLER DETAIL KELAS SISWA
+
  	public function daftar_rombel()
 	{
 
@@ -1574,7 +1684,7 @@ class Admin extends CI_Controller
 		$semester = substr($tahun_ajaran, strrpos($tahun_ajaran, ' ' )+1); //semester
 
 		$data['rombel'] = $this->m_data->tampil_rombel($tahun,$semester);
-		$data['tahun_rombel'] = $this->m_data->tampil_tahun_rombel($tahun_ajaran);
+		$data['tahun_rombel'] = $this->m_data->tampil_tahun_rombel($tahun,$semester);
 	
 		$data['content']   =  'view_admin/rombongan_belajar/daftar_rombel';
         $this->load->view('templates/templates',$data); 
@@ -1601,29 +1711,56 @@ class Admin extends CI_Controller
 	public function tambah_rombel()
 	{
 	
+			if($this->input->post('id_siswa') == '' || $this->input->post('id_siswa') == null)
+			{
+			//$siswa = $this->input->post('id_siswa');
+			$kelas = $this->input->post('id_kelas');
+			$wali = $this->input->post('nip');
+			$tahun = $this->input->post('id_tahun_ajaran');
 
-		$siswa = $this->input->post('id_siswa');
-		$kelas = $this->input->post('id_kelas');
-		$wali = $this->input->post('nip');
-		$tahun = $this->input->post('id_tahun_ajaran');
-	//	$semester = $this->input->post('kd');
+			$data = array(
+				
+			//	'id_siswa' => $siswa,
+				'id_kelas' =>$kelas,
+				'id_wali_fk' => $wali,
+				'id_tahun_ajaran_fk' => $tahun
 
-		$data = array(
+
+				
+
+				);
+		 
+			$this->m_data->input_detail($data,'detail_kelas_siswa');
 			
-			'id_siswa' => $siswa,
-			'id_kelas' =>$kelas,
-			'id_wali_fk' => $wali,
-			'id_tahun_ajaran_fk' => $tahun
+			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Tahun Ajaran Baru Berhasil Ditambah! </div>');
+			redirect('admin/daftar_rombel');	         
+
+       		}
+	        else{ // NGINPUTKAN SEMUANYA
+
+			$siswa = $this->input->post('id_siswa');
+			$kelas = $this->input->post('id_kelas');
+			$wali = $this->input->post('nip');
+			$tahun = $this->input->post('id_tahun_ajaran');
+
+			$data = array(
+				
+				'id_siswa' => $siswa,
+				'id_kelas' =>$kelas,
+				'id_wali_fk' => $wali,
+				'id_tahun_ajaran_fk' => $tahun
 
 
+				
+
+				);
+		 
+			$this->m_data->input_detail($data,'detail_kelas_siswa');
 			
-
-			);
-	 
-		$this->m_data->input_detail($data);
+			$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Tahun Ajaran Baru Berhasil Ditambah! </div>');
+			redirect('admin/daftar_rombel');
+			}
 		
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Tahun Ajaran Baru Berhasil Ditambah! </div>');
-		redirect('admin/daftar_rombel');
 	}
 	public function edit_rombel($id_detail)
 	{

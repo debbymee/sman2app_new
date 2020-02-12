@@ -33,23 +33,6 @@
                       </div>
 
                     </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="nama_siswa">Nama siswa <span class="required">*</span>
-                        </label>
-                         <div class="btn-group col-md-5 col-sm-6 col-xs-12">
-                      <select  class="js-example-basic-single" name="id_siswa" >
-                        <option value="">Pilih Nama Siswa</option>
-                        <?php foreach ($siswa as $r): ?>
-                          <option value="<?php echo $r->id_siswa ?>"> <?php echo $r->nama_siswa; ?>
-                          </option>
-                        <?php endforeach ?>
-                      </select>
-
-                    <?php echo form_error('id_siswa', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
-                      </div>
-
-                    </div>
-
 
 
    					<div class="item form-group">
@@ -69,9 +52,8 @@
                       </div>
              
                   </div>
-            
 
-
+                  
             <div class="item form-group">
               <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tahun_ajaran">Tahun Ajaran<span class="required">*</span>
               </label>
@@ -89,6 +71,8 @@
                       </div>
              
                   </div>
+
+          
 
                   <div class="ln_solid"></div>
                       <div class="form-group">

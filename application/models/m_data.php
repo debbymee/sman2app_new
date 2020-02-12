@@ -406,6 +406,14 @@ class M_data extends CI_Model
         $query = $this->db->get();
         return $query->result();
 	}
+	function tampil_kelas1()
+	{
+		$this->db->select('*');    
+        $this->db->from('kelas');
+        $this->db->limit(1); 
+        $query = $this->db->get();
+        return $query->result();
+	}
 	function input_jadwal($data)
 	{
 		$this->db->insert('jadwal_pelajaran',$data);
@@ -627,11 +635,47 @@ class M_data extends CI_Model
 		$this->db->insert('tahun_ajaran',$data);
 		
 	}
+
+	//MODEL KELAS
+
+	function tampil_data_kelas($tahun,$semester)
+	{
+	  	$this->db->select('*');
+		$this->db->from('kelas');
+		$this->db->join('detail_kelas_siswa', 'kelas.id_kelas = detail_kelas_siswa.id_kelas');
+		$this->db->join('tahun_ajaran', 'detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran' );
+ 	  	$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester
+ 	  		' );
+ 		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
+ 		$this->db->where('keterangan_semester.semester', $semester);
+ //		$this->db->group_by('detail_kelas_siswa.id_kelas'); // Order by
+ 		
+		
+		return $this->db->get()->result();
+		
+	}
+	function input_kelas($data)
+	{
+		$this->db->insert('kelas',$data);
+		
+	}
+	function edit_kelas($id_kelas)
+	{
+		return $this->db->get_where('kelas',array('id_kelas' => $id_kelas));
+	}
+	function update_kelas($data,$id_kelas)
+	{
+
+	$this->db->where('id_Kelas', $id_kelas);
+	$this->db->update('kelas',$data);
+	}
+
+
 	// MODEL ROMBONGAN BELAJAR SISWA
 
 	function tampil_rombel($tahun,$semester)
 	{
-	  $this->db->select('detail_kelas_siswa.id_detail,siswa.nama_siswa, kelas.nama_kelas, tahun_ajaran.tahun_ajaran, guru.nama_guru');
+	  $this->db->select('*');
 		$this->db->from('siswa');
 		$this->db->join('detail_kelas_siswa', 'siswa.id_siswa = detail_kelas_siswa.id_siswa');
 		$this->db->join('kelas', 'detail_kelas_siswa.id_kelas = kelas.id_kelas');
@@ -642,13 +686,15 @@ class M_data extends CI_Model
  	  		' );
  		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
  		$this->db->where('keterangan_semester.semester', $semester);
+ 		$this->db->group_by('detail_kelas_siswa.id_kelas'); // Order by
+ 		
 		
 		return $this->db->get()->result();
 		
 	}
 
 
-	function tampil_tahun_rombel($tahun_ajaran)
+	function tampil_tahun_rombel($tahun_ajaran,$semester)
 	{
 	  $this->db->select('detail_kelas_siswa.id_detail,siswa.nama_siswa, kelas.nama_kelas, tahun_ajaran.tahun_ajaran, guru.nama_guru');
 		$this->db->from('siswa');
@@ -657,7 +703,10 @@ class M_data extends CI_Model
 		$this->db->join('tahun_ajaran', 'detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran' );
  	  	$this->db->join('guru', 'detail_kelas_siswa.id_wali_fk = guru.nip
  	  		' );
+ 	  	$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester
+ 	  		' );
  		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun_ajaran);
+ 		$this->db->where('keterangan_semester.semester', $semester);
  	    $this->db->order_by('tahun_ajaran.id_tahun_ajaran'); // Order by
         $this->db->limit(1); 
 		
