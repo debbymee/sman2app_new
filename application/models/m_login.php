@@ -5,7 +5,7 @@
 	 */
 	class M_login extends CI_Model
 	{	
-		function cek_login($username,$password)
+		function cek_login($username)
 		{	
 			
 			$sql = "SELECT * FROM `users` 
@@ -14,7 +14,7 @@
 					LEFT JOIN detail_kelas_siswa ON guru.nip = detail_kelas_siswa.id_wali_fk 
 					-- LEFT JOIN tahun_ajaran ON detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran 
 					-- LEFT JOIN keterangan_semester ON tahun_ajaran.kd_semester = keterangan_semester.kd_semester
-					where users.username = '$username' and users.password='$password'
+					where users.username = '$username' 
 					";
 			$cek = $this->db->query($sql);
 			return $cek->row_array();

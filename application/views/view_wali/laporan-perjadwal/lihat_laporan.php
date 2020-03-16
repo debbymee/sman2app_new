@@ -86,6 +86,7 @@
         <div style="margin-right:2%" class="text-right">
         	<h5>Mojokerto,  <?php echo date('d-m-Y', strtotime($jadwal)) ?></h5>
 	        <h5><b>Wali Kelas</b></h5><br><br><br>
+            <h5><b><?php echo $ttd->nama_guru ?></b></h5>
 	        <hr style="border:1px solid #000;width: 20%;margin-left:550px">	
         </div>
         

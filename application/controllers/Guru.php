@@ -173,7 +173,7 @@ class Guru extends CI_Controller
 		// $data['guru'] = $this->m_data->tampil_guruu()->result();
 		// $data['mata_pelajaran'] = $this->m_data->tampil_detailj()->result();
 		$data['content']   =  'view_guru/daftarkelas_presensi3';
-		$this->load->view('templates/templates',$data);
+		$this->load->view('templates_guru/templates_guru',$data);
 
 
 	}
@@ -220,7 +220,7 @@ class Guru extends CI_Controller
 		$data['kelas'] = urldecode($urikelas);
 		$id_kelas = $id_kelas_fk;
 		$data['siswa'] = $this->m_guru->tampil_namasiswa($id_kelas,$tahun,$semester)->result();
-			$data['jadwalll'] = $this->m_guru->tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)->result();
+		$data['jadwalll'] = $this->m_guru->tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)->result();
 		$data['keterangan_presensi'] = $this->m_guru->tampil_keterangan()->result();
 
 		

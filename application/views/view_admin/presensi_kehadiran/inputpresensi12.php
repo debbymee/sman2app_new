@@ -35,9 +35,15 @@
 
                        <option>Pilih</option>
                         <?php foreach ($jadwalll as $dj) : ?>
+ 						
+                         	
+		                      
+		                         	<option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?> | <?php echo $dj->jam_pelajaran; ?> || <?php echo $result = substr_count( $dj->jam_pelajaran, ",") +1;  ?> jam
+                                   </option>
+		                         	
 
-                          <option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>
-                          </option>
+
+                         
                         <?php endforeach ?>
            
                   		</select></b></h2> 
@@ -47,7 +53,9 @@
  
  	<tr>
  		<td><h2 style="color: green" id="modul_pembahasan"><b>Modul Pembahasan</b></h2></td>
- 		<TD> <B>:</B> <input type="text" name="modul_pembahasan[]"></TD>
+ 		  
+ 		<TD> <B>:</B> <input type="text" name="modul_pembahasan"></TD>
+ 		<span style="float: right;font-size: 20px"><input type="checkbox"  name="checkedAll" id="checkedAll" /> <b>Hadir Semua </b> </span>
  	</tr>
  </table>
  <br><br>
@@ -58,16 +66,21 @@
          <?= $this->session->flashdata('message'); ?>
 
 		<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+
 			<thead>
+
 			<tr> 
+
 				<td>NO</td>
 				<td>NAMA SISWA</td>
-         		<td>KETERANGAN</td>
+         		<td>KETERANGAN </td>
+
          		
          		
 			</tr>
 			</thead>
 			<tbody>
+
             <?php 
             $no=1;
             
@@ -81,13 +94,19 @@
 
 					<td>
 						<div class="col-md-8 col-sm-6 col-xs-12">
-                       
+                    
                         <?php foreach ($keterangan_presensi as $kj): ?>
                         	
-
-                        <input type="checkbox" name="kd_keterangan[]" value="<?php echo $kj->kd_keterangan ?>"><?php echo $kj->kd_keterangan ?>&nbsp;&nbsp;&nbsp;
-                        <?php endforeach ?>
-           
+                         <?php if ($kj->kd_keterangan == "H") { ?>
+                         	 <input type="radio" class="checkSingle" name="kd_keterangan-<?php echo $data->id_siswa?>" value="<?php echo $kj->kd_keterangan ?>"><?php echo $kj->kd_keterangan ?>&nbsp;&nbsp;&nbsp;
+                     
+                         <?php } else {?>
+                         	
+                         	 <input type="radio" name="kd_keterangan-<?php echo $data->id_siswa?>" value="<?php echo $kj->kd_keterangan ?>"><?php echo $kj->kd_keterangan ?>&nbsp;&nbsp;&nbsp;
+                       
+                         <?php }?>
+                       
+              <?php endforeach ?>
                   	
                           
                   

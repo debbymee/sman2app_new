@@ -27,6 +27,50 @@ class M_data extends CI_Model
 	return $this->db->get()->result();
     }
 
+    //model pemberitahuan
+    function count_pemberitahuan(){
+    $this->db->select('count(id_history_guru) as jumlah');
+    $this->db->from('history_guru');
+    $where = "status = '0' and (kd_keterangan_guru_fk = 1 or kd_keterangan_guru_fk = 3)";
+    $this->db->where($where);
+	return $this->db->get()->row();
+    }
+
+    function update_notif_model($id_history_guru){
+    	  $this->db->set('status', 1);
+        $this->db->where('id_history_guru', $id_history_guru);
+		$this->db->update('history_guru');
+
+    }
+
+     function pemberitahuan(){
+      $data = $this->db->query("SELECT history_guru.id_history_guru, guru.nama_guru, history_guru.tgl, mata_pelajaran.nama_pelajaran, keterangan_guru.keterangan_guru FROM `history_guru`
+		JOIN presensi ON history_guru.tgl = presensi.tgl
+		JOIN jadwal_pelajaran ON presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal
+		JOIN mata_pelajaran ON jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel
+		JOIN keterangan_guru ON history_guru.kd_keterangan_guru_fk = keterangan_guru.kd_keterangan_guru
+		JOIN detail_kelas_siswa ON presensi.id_siswa_fk = detail_kelas_siswa.id_siswa
+		JOIN guru ON detail_kelas_siswa.id_wali_fk = guru.nip
+
+		WHERE STATUS = 0 AND (kd_keterangan_guru_fk = 1 or kd_keterangan_guru_fk = 3) AND history_guru.id_jadwal_fk=presensi.id_jadwal_fk
+		GROUP BY history_guru.id_history_guru DESC");
+		return $data->result();
+    }
+
+    function pemberitahuan_detail(){
+    	$data = $this->db->query("SELECT history_guru.id_history_guru, guru.nama_guru, history_guru.tgl, mata_pelajaran.nama_pelajaran, keterangan_guru.keterangan_guru,kelas.nama_kelas, jadwal_pelajaran.jam_pelajaran FROM `history_guru`
+		JOIN presensi ON history_guru.tgl = presensi.tgl
+		JOIN jadwal_pelajaran ON presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal
+		JOIN mata_pelajaran ON jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel
+		JOIN keterangan_guru ON history_guru.kd_keterangan_guru_fk = keterangan_guru.kd_keterangan_guru
+		JOIN detail_kelas_siswa ON presensi.id_siswa_fk = detail_kelas_siswa.id_siswa
+		JOIN kelas ON detail_kelas_siswa.id_kelas = kelas.id_kelas
+		JOIN guru ON detail_kelas_siswa.id_wali_fk = guru.nip
+        AND history_guru.id_jadwal_fk=presensi.id_jadwal_fk WHERE (kd_keterangan_guru_fk = 1 or kd_keterangan_guru_fk = 3) 
+		GROUP BY history_guru.id_history_guru DESC");
+		return $data->result();
+    }
+
 	// validasi aktivasi user
 
 	function cek_validasi($id_user,$nip, $tgl_lahir)
@@ -284,7 +328,7 @@ class M_data extends CI_Model
 		return $this->db->get()->result();
 		
 	}
-	function tampil_siswa2($tahun_ajaran,$semester,$id_kelas_fk)
+	function tampil_siswa2($tahun_ajaran,$semester,$id_kelas)
 	{
 		$this->db->select('*');
 		$this->db->from('siswa');
@@ -294,7 +338,7 @@ class M_data extends CI_Model
 		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
 		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun_ajaran);
 		$this->db->where('keterangan_semester.semester', $semester);
-		$this->db->where('detail_kelas_siswa.id_kelas', $id_kelas_fk);
+		$this->db->where('detail_kelas_siswa.id_kelas', $id_kelas);
 		return $this->db->get()->result();
 		
 	}
@@ -310,6 +354,30 @@ class M_data extends CI_Model
 		return $this->db->get()->result();
 		//return $this->db->get()->result();
 		
+	}
+	function tampil_siswa_before()
+	{
+
+		$data = $this->db->query("SELECT siswa.id_siswa,siswa.nama_siswa,siswa.tgl_lahir,siswa.jk,siswa.nipd,siswa.nisn FROM siswa 
+			left JOIN detail_kelas_siswa ON siswa.id_siswa = detail_kelas_siswa.id_siswa
+			left JOIN tahun_ajaran ON detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran 
+			left JOIN keterangan_semester ON tahun_ajaran.kd_semester = keterangan_semester.kd_semester 
+			WHERE YEAR(CREATED_ADD) BETWEEN YEAR(DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR)) AND YEAR(CURRENT_DATE) AND detail_kelas_siswa.id_detail is null
+		 ");
+		return $data->result();
+
+
+        
+	}
+
+	function get_idtahunajaran($tahun_ajaran,$semester){
+		$this->db->select('*');
+	$this->db->from('tahun_ajaran');
+	$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
+
+	$this->db->where('tahun_ajaran.tahun_ajaran', $tahun_ajaran);
+	$this->db->where('keterangan_semester.semester', $semester);
+	return $this->db->get()->row();
 	}
 
 		function input_siswa($data)
@@ -558,16 +626,20 @@ class M_data extends CI_Model
 
 		function tampil_jadwalll($id_kelas_fk,$hariindonesia,$tahun,$semester)
 	{
-		$this->db->select('*');
+		$this->db->select("(CHAR_LENGTH(jadwal_pelajaran.jam_pelajaran) - CHAR_LENGTH(REPLACE(jadwal_pelajaran.jam_pelajaran, ',', '')) + 1) as total,
+			jadwal_pelajaran.*,mata_pelajaran.*");
 		$this->db->from('jadwal_pelajaran');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
 		$this->db->join('tahun_ajaran', 'jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
 		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
-
+	
 		$this->db->where('jadwal_pelajaran.id_kelas_fk', $id_kelas_fk);
 		$this->db->where('jadwal_pelajaran.hari', $hariindonesia);
 		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
 		$this->db->where('keterangan_semester.semester', $semester);
+		
+		$this->db->order_by('jadwal_pelajaran.jam_pelajaran', 'asc');
+		
 		return $this->db->get();
 
 		// $array = array('id_kelas_fk' => $id_kelas_fk,
@@ -675,18 +747,19 @@ class M_data extends CI_Model
 
 	function tampil_rombel($tahun,$semester)
 	{
-	  $this->db->select('*');
-		$this->db->from('siswa');
-		$this->db->join('detail_kelas_siswa', 'siswa.id_siswa = detail_kelas_siswa.id_siswa');
-		$this->db->join('kelas', 'detail_kelas_siswa.id_kelas = kelas.id_kelas');
-		$this->db->join('tahun_ajaran', 'detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran' );
- 	  	$this->db->join('guru', 'detail_kelas_siswa.id_wali_fk = guru.nip
+	  	$this->db->select('*');
+		$this->db->from('kelas');
+		$this->db->join('detail_kelas_siswa', 'kelas.id_kelas = detail_kelas_siswa.id_kelas');
+		$this->db->join('guru', 'detail_kelas_siswa.id_wali_fk = guru.nip
  	  		' );
+		$this->db->join('tahun_ajaran', 'detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran' );
+ 	  	
  	  	$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester
  	  		' );
  		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
  		$this->db->where('keterangan_semester.semester', $semester);
  		$this->db->group_by('detail_kelas_siswa.id_kelas'); // Order by
+ 		$this->db->order_by('detail_kelas_siswa.id_kelas', 'desc');
  		
 		
 		return $this->db->get()->result();
@@ -740,5 +813,13 @@ class M_data extends CI_Model
             return false;
         }
 	}
+
+	public function cek_insert_jadwal($hari,$jam_pelajaran,$kd_mapel_fk,$id_kelas_fk,$id_tahun_ajaran_fk){
+		$sql = "SELECT * FROM `jadwal_pelajaran` WHERE hari = '$hari' AND jam_pelajaran = '$jam_pelajaran' AND kd_mapel_fk = '$kd_mapel_fk' and id_kelas_fk = '$id_kelas_fk' and id_tahun_ajaran_fk = '$id_tahun_ajaran_fk'";
+			$cek = $this->db->query($sql);
+			return $cek->row_array();
+	}
+
+
 }
 

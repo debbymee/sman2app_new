@@ -64,12 +64,12 @@
         <div class="col-md-3 col-sm-6 col-xs-12">
 
           <select class="btn btn-default dropdown-toggle" name="jk" value="<?php echo $guru->jk ?>">
-          <?php if($guru->jk == 'laki-laki') {?>
-            <option value="laki-laki" selected> laki-laki</option>
-            <option value="perempuan">Perempuan</option>
+          <?php if($guru->jk == 'L') {?>
+            <option value="L" selected> L</option>
+            <option value="P">P</option>
           <?php } else { ?>
-              <option value="laki-laki"> laki-laki</option>
-            <option value="perempuan" selected>Perempuan</option>
+              <option value="L"> L</option>
+            <option value="P" selected>P</option>
             <?php } ?>
           </select>
                         
@@ -162,7 +162,7 @@
     </div>
 
     <div class="item form-group">
-          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
+          <label class="control-label col-md-5 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
           </label>
 
           <div class="col-md-3 col-sm-6 col-xs-12">
@@ -175,7 +175,7 @@
 
     </div>
     <div class="item form-group">
-          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
+          <label class="control-label col-md-5 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
           </label>
 
           <div class="col-md-3 col-sm-6 col-xs-12">
@@ -188,7 +188,7 @@
 
     </div>
     <div class="item form-group">
-          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="dusun">dusun <span class="required">*</span>
+          <label class="control-label col-md-5 col-sm-3 col-xs-12" for="dusun">dusun <span class="required">*</span>
           </label>
 
           <div class="col-md-3 col-sm-6 col-xs-12">
@@ -201,7 +201,7 @@
 
     </div>
     <div class="item form-group">
-          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelurahan">kelurahan <span class="required">*</span>
+          <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kelurahan">kelurahan <span class="required">*</span>
           </label>
 
           <div class="col-md-3 col-sm-6 col-xs-12">
@@ -214,7 +214,7 @@
 
     </div>
     <div class="item form-group">
-          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kecamatan">kecamatan <span class="required">*</span>
+          <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kecamatan">kecamatan <span class="required">*</span>
           </label>
 
           <div class="col-md-3 col-sm-6 col-xs-12">
@@ -227,7 +227,7 @@
 
     </div>
     <div class="item form-group">
-          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kode_pos">kode_pos <span class="required">*</span>
+          <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kode_pos">kode_pos <span class="required">*</span>
           </label>
 
           <div class="col-md-3 col-sm-6 col-xs-12">

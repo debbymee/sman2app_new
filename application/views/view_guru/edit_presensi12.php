@@ -38,7 +38,8 @@
 				<td>KELAS</td>
 				<td>JADWAL PELAJARAN</td>
          		<td>JAM PELAJARAN</td>
-         		<td width="40%">KETERANGAN</td>
+         		<td>MODUL PEMBAHASAN</td>
+         		<td width="15%">KETERANGAN</td>
          		<td>LAMPIRAN</td>	
          		
 			</tr>
@@ -55,6 +56,7 @@
 					<td>
 						<input type="text" value="<?php echo $data->jam_pelajaran ?>" readonly >
 					</td>
+					<td><?php echo $data->modul_pembahasan ?></td>
 
 			
 					<td>

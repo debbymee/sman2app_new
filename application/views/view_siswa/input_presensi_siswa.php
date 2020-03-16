@@ -55,7 +55,7 @@
 
  	<tr>
  		<td><h2 style="color: #000 " id="modul_pembahasan"><b>MODUL </b></h2></td>
- 		<td><h2 style="color: #000 "><b>:  <input type="text" name="modul_pembahasan[]"></b></h2></td>
+ 		<td><h2 style="color: #000 "><b>:  <input type="text" name="modul_pembahasan"></b></h2></td>
  	</tr>
  </table>
  <br><br>

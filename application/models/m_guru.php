@@ -21,6 +21,7 @@
 	$this->db->from('guru');
 	$this->db->join('users', 'guru.id_guru = users.id_guru_fk');
 	$this->db->where('id', $id);
+	$this->db->limit(1);
 	return $this->db->get()->result();
 
 	}
@@ -94,20 +95,21 @@
 	}
 	 function tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)
 	{
-		$this->db->select('*');
+		$this->db->select('TIMEDIFF (CURRENT_TIME,master_jam_pelajaran.waktu_mulai) as batas_input,
+			jadwal_pelajaran.*,mata_pelajaran.*');
 		$this->db->from('jadwal_pelajaran');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
-
 		$this->db->join('tahun_ajaran', 'jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
 		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
+		$this->db->join('master_jam_pelajaran', 'jadwal_pelajaran.jam_pelajaran_dimulai = master_jam_pelajaran.jam_pelajaran_dimulai');
 		$this->db->where('jadwal_pelajaran.id_kelas_fk', $id_kelas);
 		$this->db->where('jadwal_pelajaran.id_guru_fk', $id_guru);
 		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
 		$this->db->where('keterangan_semester.semester', $semester);
 		$this->db->where('jadwal_pelajaran.hari', $hariindonesia);
-
-	
 		$this->db->group_by('jadwal_pelajaran.kd_mapel_fk');
+		$this->db->order_by('jadwal_pelajaran.jam_pelajaran', 'asc');
+		
 		return $this->db->get();
 	}
 

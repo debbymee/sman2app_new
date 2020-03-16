@@ -286,6 +286,32 @@ $(function(){
  
 </script>
 
+<script type="text/javascript">
+   $(document).ready(function() {
+          var table=$('#exampledr').DataTable({
+            "order": [[ 1, "asc" ]],
+            initComplete: function () {
+            }
+       });
+       $(".filterhead").each(function (i) {
+                 if (i != 15  && i != 16 ) {
+                     var select = $('<select class="form-control" style="margin-top:10px"><option value="">All Data</option></select>')
+                         .appendTo($(this).empty())
+                         .on('change', function () {
+                             var term = $(this).val();
+                             table.column(i).search(term, false, false).draw();
+                         });
+                     table.column(i).data().unique().sort().each(function (d, j) {
+                         select.append('<option value="' + d + '">' + d + '</option>')
+                     });
+                 } else {
+                    $(this).empty();
+                 }
+             });
+    } );
+
+</script>
+
 </body>
 
 </html>

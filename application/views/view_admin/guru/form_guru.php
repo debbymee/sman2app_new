@@ -49,7 +49,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="NUPTK" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="NUPTK" placeholder="masukkan nuptk guru"  type="text" value="<?php echo set_value('NUPTK'); ?>">
+                          name="NUPTK" placeholder="masukkan nuptk guru 16 angka"  type="text" value="<?php echo set_value('NUPTK'); ?>">
                           
                           <?php echo form_error('NUPTK', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
@@ -63,8 +63,8 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <select class="btn btn-default dropdown-toggle" name="jk">
-                            <option value="laki-laki"> laki-laki</option>
-                            <option value="perempuan">Perempuan</option>
+                            <option value="L"> L</option>
+                            <option value="P">P</option>
                           </select>
                         
                           <?php echo form_error('jk', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
@@ -89,7 +89,7 @@
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tgl_lahir"> TANGGAL LAHIR <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class='input-group date' id='myDatepicker4' name="tgl_lahir">
+                        <div class='input-group date' id='myDatepickerguru' name="tgl_lahir">
                             <input type='text' class="form-control" name="tgl_lahir" readonly="readonly" />
                             <span class="input-group-addon">
                                <span class="glyphicon glyphicon-calendar"></span>
@@ -106,7 +106,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="nip" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="nip" placeholder="masukkan nip guru"  type="text" value="<?php echo set_value('nip'); ?>">
+                          name="nip" placeholder="masukkan nip guru 18 angka"  type="text" value="<?php echo set_value('nip'); ?>">
                          
                           <?php echo form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
@@ -135,10 +135,18 @@
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
-                          <input id="agama" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="agama" placeholder="masukkan agama guru"  type="text" value="<?php echo set_value('agama'); ?>">
+                       
+                            <select class="btn btn-default dropdown-toggle" name="agama" value="">
                          
-                          <?php echo form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+                            <option value="Islam"> Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Protestan">Protestan</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Buddha">Buddha</option>
+
+
+                       
+                          </select>
 
                         </div>
 
@@ -159,7 +167,7 @@
                     </div>
                     <div class="item form-group">
 
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
+                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
                         </label>
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -174,7 +182,7 @@
                     </div>
                     <div class="item form-group">
 
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
+                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
                         </label>
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -189,7 +197,7 @@
                     </div>
                     <div class="item form-group">
 
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="dusun">DUSUN <span class="required">*</span>
+                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="dusun">DUSUN <span class="required">*</span>
                         </label>
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -205,7 +213,7 @@
 
                     <div class="item form-group">
 
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelurahan">KELURAHAN <span class="required">*</span>
+                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kelurahan">KELURAHAN <span class="required">*</span>
                         </label>
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -220,7 +228,7 @@
                     </div>
                     <div class="item form-group">
 
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kecamatan">KECAMATAN <span class="required">*</span>
+                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kecamatan">KECAMATAN <span class="required">*</span>
                         </label>
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -235,13 +243,13 @@
                     </div>
                     <div class="item form-group">
 
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kode_pos">KODE POS <span class="required">*</span>
+                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kode_pos">KODE POS <span class="required">*</span>
                         </label>
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="kode_pos" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="kode_pos" placeholder="masukkan kode_pos guru"  type="text" value="<?php echo set_value('kode_pos'); ?>">
+                          name="kode_pos" placeholder="masukkan kode pos guru 5 digit "  type="text" value="<?php echo set_value('kode_pos'); ?>">
                          
                           <?php echo form_error('kode_pos', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 

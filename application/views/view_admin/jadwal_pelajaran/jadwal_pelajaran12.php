@@ -15,7 +15,7 @@
 			<table id="datatable" class="table table-striped table-bordered">
 			<thead>
 			<tr align="center">
-				
+				<td>NO</td>
 				<td>Hari</td>
 				<td>Jam Pelajaran</td>
 				<td>Mata Pelajaran</td>
@@ -43,7 +43,7 @@
 
 			?>
 				<tr>
-				
+					<td><?php echo $no++; ?></td>
 					<td><?php echo $jd->hari ?></td>
 					<td><?php echo $jd->jam_pelajaran ?></td>
 					<td><?php echo $jd->nama_pelajaran ?></td>

@@ -38,7 +38,7 @@
 				<td>KELAS</td>
 				<td>JADWAL PELAJARAN</td>
          		<td>JAM PELAJARAN</td>
-         		<td width="40%">KETERANGAN</td>
+         		<td width="15%">KETERANGAN</td>
          		<td>LAMPIRAN</td>	
          		
 			</tr>

@@ -9,13 +9,34 @@
       
 		<a href="<?php echo base_url(); ?>admin/daftarkelas_presensi3"> <button type="button" class="btn btn-success btn-lg"  > + INPUTKAN PRESENSI</button> </a>
 		 <br><br>
+		 <br>
 
+	<form>
 
+		 <table>
+                <tr>
+                    <label style="margin-left:1%; color:black;font-style: italic;" for="filter">Filter By Kelas</label>
+                    <th class="filterhead"></th>
+                     <th class="filterhead" style="display: none" ></th>
 
-			<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-			<thead>
-		
+                     <label style="margin-left:3%;color:black;font-style: italic;" for="filter">Filter By Tanggal</label>
+                     <th>
+                     	<input type="date" class="form-control" id="date_selected_search" style="margin-top:5.5%"></input>
+                     </th>
+                     <label style="margin-left:6%;color:black;font-style: italic;" for="filter">Filter By Siswa</label>
+                    <th class="filterhead" style="display: none"></th>
+                    <th class="filterhead"></th>
+                    <label style="margin-left:17%;color:black;font-style: italic;" for="filter">Filter By Jadwal</label>
+                    <th class="filterhead" style="display: none"></th>
+                    <th class="filterhead"></th>
+                    
+                   
+                </tr>
+            </table><br>
+		<table id="exampledr" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+		<thead>
 			<tr> 
+				<td class="none">KELAS</td>
 				<td>NO</td>
 				<td>TANGGAL</td>
 				<td>NAMA SISWA</td>
@@ -33,6 +54,10 @@
             $no = 1; 
             foreach($presensi as $p) { ?>
 				<tr>
+					<td class="none"><?php 
+					echo $p->nama_kelas
+					?>	
+					</td>
 					<td><?php echo $no++ ?></td>
 					<td><?php echo $p->tgl  ?></td>
 					<td><?php echo $p->nama_siswa  ?></td>

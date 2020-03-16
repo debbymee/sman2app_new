@@ -44,7 +44,7 @@ class Loginuser extends CI_Controller
 			$row2 = $this->m_login->get_wali();
 			$wali_kelas = $row2->wali_kelas;
 		
-		$cek = $this->m_login->cek_login($username,$password);
+		$cek = $this->m_login->cek_login($username);
 
 
 		if ($cek > 0) {
@@ -66,7 +66,7 @@ class Loginuser extends CI_Controller
 						'tahun_ajaran' => $tahun_ajaran,
 						'semester' => $semester,
 						//'nip' => $wali_kelas,
-						'id_kelas_fk' => $cek['id_kelas_fk']
+						'id_kelas' => $cek['id_kelas']
 					];
 					if ($cek['role_id_fk'] == '2') {
 						$this->session->set_userdata($data);

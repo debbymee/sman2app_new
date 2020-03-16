@@ -35,7 +35,7 @@ class Wali_kelas extends CI_Controller
 	
 		$data['wali'] = $this->m_wali->tampil_wali($id);
 		
-		$data['content']   =  'view_wali/bio_wali';
+		$data['content']   =  'view_wali/biodata/bio_wali';
         $this->load->view('templates_wali/templates_wali',$data);
 
 	}
@@ -83,7 +83,7 @@ class Wali_kelas extends CI_Controller
 			//$where = array('id' => $id );
 
 		$data['login'] = $this->m_wali->edit_pass($id);
-		$data['content']   =  'view_wali/edit_pass';
+		$data['content']   =  'view_wali/biodata/edit_pass';
         $this->load->view('templates_wali/templates_wali',$data);
 
 		
@@ -126,7 +126,7 @@ class Wali_kelas extends CI_Controller
 	
 	$data['presensi'] = $this->m_wali->tampil_presensi3($tahun,$semester,$id_guru);
 
-	$data['content']   =  'view_wali/lihat_presensi';
+	$data['content']   =  'view_wali/presensi/lihat_presensi';
     $this->load->view('templates_wali/templates_wali',$data);
 
 		
@@ -145,7 +145,7 @@ class Wali_kelas extends CI_Controller
 	
 	$data['presensi'] = $this->m_wali->tampil_presensi_kelas($tahun,$semester,$id_wali);
 
-	$data['content']   =  'view_wali/lihat_presensi_kelas';
+	$data['content']   =  'view_wali/presensi/lihat_presensi_kelas';
     $this->load->view('templates_wali/templates_wali',$data);
 
 		
@@ -163,9 +163,8 @@ class Wali_kelas extends CI_Controller
 	
 		// $data['guru'] = $this->m_data->tampil_guruu()->result();
 		// $data['mata_pelajaran'] = $this->m_data->tampil_detailj()->result();
-		$data['content']   =  'view_wali/daftarkelas_presensi3';
-		$this->load->view('templates/templates',$data);
-
+		$data['content']   =  'view_wali/presensi/daftarkelas_presensi3';
+		$this->load->view('templates_wali/templates_wali',$data);
 
 	}
 	
@@ -211,7 +210,7 @@ class Wali_kelas extends CI_Controller
 		$data['jadwalll'] = $this->m_wali->tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)->result();
 
 		$data['keterangan_presensi'] = $this->m_wali->tampil_keterangan()->result();
-		$data['content']   =  'view_wali/inputpresensi12';
+		$data['content']   =  'view_wali/presensi/inputpresensi12';
    		$this->load->view('templates_wali/templates_wali',$data);
 	}
 
@@ -244,7 +243,7 @@ class Wali_kelas extends CI_Controller
 		
 			$this->m_wali->input_presensi12($result);
 			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert"> Berhasil Dibuat! </div>');
-			redirect('Wali_kelas/lihat_presensi12');
+			redirect('Wali_kelas/lihat_presensi');
 		}
 		else{
 			$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> Data Presensi Sudah Ada </div>');
@@ -269,7 +268,7 @@ class Wali_kelas extends CI_Controller
 		$data['siswa'] = $this->m_wali->eTampilPresensi($id_prensensi);
 		$data['keterangan_presensi'] = $this->m_wali->tampil_keterangan()->result();
 
-		$data['content']   =  'view_wali/edit_presensi12';
+		$data['content']   =  'view_wali/presensi/edit_presensi12';
    		$this->load->view('templates_wali/templates_wali',$data);
 
 	
@@ -311,17 +310,28 @@ class Wali_kelas extends CI_Controller
 	}
 
 // cetak pdf 
+	// perJadwal
 	 public function lihat_laporan() 
 	{
+		$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+		$data['nama'] = $this->session->userdata('nama_guru');
+        $tgl = $this->input->post('tgl');
+        $data['jadwal'] = $this->input->post('tgl');
+        $id_jadwal = $this->input->post('id_jadwal');
+        $id_wali = $this->session->userdata('nip');
+        
+        $row   = $this->m_wali->get_kelaswali($id_wali);
+	    $id_kelas = $row->id_kelas; 
+	    $data['kelas'] = $row->nama_kelas;
 
 	    $id_wali = $this->session->userdata('nip');
-    	$data['jadwalll'] = $this->m_wali->tampil_jadwal_laporan($id_wali)->result();
-    	$data['content']   =  'view_wali/formlaporan';
+    	$data['jadwalll'] = $this->m_wali->tampil_jadwal_laporan($tahun, $semester,$id_kelas)->result();
+    	$data['content']   =  'view_wali/laporan-perjadwal/formlaporan';
    		$this->load->view('templates_wali/templates_wali',$data);
 
 		
 	}
-
 
     function lihat_laporan_presensi(){
 
@@ -351,31 +361,174 @@ class Wali_kelas extends CI_Controller
 		 }
 
     	$this->load->library('Pdf');
+    	$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
 		$data['nama'] = $this->session->userdata('nama_guru');
         $tgl = $this->input->post('tgl');
         $data['jadwal'] = $this->input->post('tgl');
         $id_jadwal = $this->input->post('id_jadwal');
-        $id_wali = $this->session->userdata('id_wali');
+        $id_wali = $this->session->userdata('nip');
         
         $row   = $this->m_wali->get_kelaswali($id_wali);
 	    $id_kelas = $row->id_kelas; 
 	    $data['kelas'] = $row->nama_kelas;
 
-	    $rowjadwal   = $this->m_wali->get_jadwal($tahun,$semester,$hariindonesia);
+	    $rowjadwal   = $this->m_wali->get_jadwal($tahun,$semester,$id_kelas,$id_jadwal);
 	    $data['jam_pelajaran'] = $rowjadwal->jam_pelajaran;
 	    $data['nama_pelajaran'] = $rowjadwal->nama_pelajaran;
 
 
 
     	$data['siswa'] = $this->m_wali->tampil_presensi_laporan($id_jadwal,$tgl)->result();
-    	$data['content']   =  'view_wali/lihat_laporan';
+    	$data['ttd'] = $this->m_wali->get_kelaswali($id_wali);
+    	$data['content']   =  'view_wali/laporan-perjadwal/lihat_laporan';
 
 
    		$html = $this->load->view('templates_wali/templates_wali',$data); 
 	    $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "laporan-petanikode.pdf";
-        $this->pdf->load_view('view_wali/lihat_laporan', $data);
+        $this->pdf->filename = "laporan-presensi";
+        $this->pdf->load_view('view_wali/laporan-perjadwal/lihat_laporan', $data);
     }
+
+
+//ini home laporan 
+	 public function view_laporan() 
+	{
+		
+    	$data['content']   =  'view_wali/home-laporan/form_home_laporan';
+   		$this->load->view('templates_wali/templates_wali',$data);
+
+		
+	}
+
+// cetak per hari
+     public function view_laporan_perhari() 
+	{
+		$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+		$id_wali = $this->session->userdata('nip');
+		$row   = $this->m_wali->get_kelaswali($id_wali);
+	    $data['kelas'] = $row->nama_kelas;
+		$data['siswa'] =  $this->m_wali->tampil_siswa($tahun,$semester,$id_wali);
+    	$data['content']   =  'view_wali/laporan-perhari/formperhari';
+   		$this->load->view('templates_wali/templates_wali',$data);
+
+		
+	}
+
+    function laporan_perhari(){
+
+
+		$id_kelas = $this->input->post('id_kelas');
+		$id_siswa = implode(",",$this->input->post('id'));
+		$tgl_awal = $this->input->post('tgl_awal');//ini
+		$tgl_akhir = $this->input->post('tgl_akhir');//ini
+		
+
+		$data['detailsiswa'] = $this->m_wali->tampil_persiswa1($id_kelas,$id_siswa);
+    
+      	$data['detailsiswa2'] = $this->m_wali->tampil_persiswa2($id_siswa,$tgl_awal,$tgl_akhir);//ini
+
+
+    	$data['content']   =  'view_wali/laporan-perhari/lihat_laporan_perhari';
+    	 $this->load->library('Pdf');
+    	$html = $this->load->view('templates_wali/templates_wali',$data); 
+	    $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan-perhari";
+        $this->pdf->load_view('view_wali/laporan-perhari/lihat_laporan_perhari', $data); 
+    }
+
+	
+
+	public function view_laporan_perbulan() 
+	{
+		$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+		$id_wali = $this->session->userdata('nip');
+		$row   = $this->m_wali->get_kelaswali($id_wali);
+	    $data['kelas'] = $row->nama_kelas;
+		$data['siswa'] =  $this->m_wali->tampil_siswa($tahun,$semester,$id_wali);
+    	$data['content']   =  'view_wali/laporan-perbulan/formperbulan';
+   		$this->load->view('templates_wali/templates_wali',$data);
+
+		
+	}
+
+    function laporan_perbulan(){
+		$bulan = $this->input->post('bulan');
+    	$id_kelas = $this->session->userdata('id_kelas');
+    	$tahun_ajaran = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+		$data['semestercek'] = $this->session->userdata('semester');
+		$id_wali = $this->session->userdata('nip');
+		 //$bulan = '02';
+		$data['bulan'] = $bulan;
+		$data['month'] = $bulan;
+		$data['year'] = date("Y");
+
+		$id_siswa = implode(",",$this->input->post('id'));
+	    $data['data_siswa'] = $this->m_wali->get_siswa($id_kelas,$tahun_ajaran,$semester,$id_siswa);
+		$data['pres'] = $this->m_wali->bulan($bulan,$id_kelas,$tahun_ajaran,$semester,$id_siswa);
+		$data['ttd'] = $this->m_wali->tampil_ttd($id_wali);
+   
+
+    	$data['content']   =  'view_wali/laporan-perbulan/lihat_laporan_perbulan';
+    	 $this->load->library('Pdf');
+    	$html = $this->load->view('templates_wali/templates_wali',$data); 
+	    $this->pdf->setPaper('Legal', 'landscape');
+        $this->pdf->filename = "laporan-presensi";
+        $this->pdf->load_view('view_wali/laporan-perbulan/lihat_laporan_perbulan', $data); 
+    }
+
+	function detail_cetak_siswa($id_siswa){
+
+
+	
+
+    	$data['siswa'] = $this->m_wali->tampil_detail_siswa($id_siswa);
+    	$data['content']   =  'view_wali/laporan-persiswa/detail_cetak_siswa';
+
+
+   		// $html = $this->load->view('templates_wali/templates_wali',$data); 
+	    // $this->pdf->setPaper('A4', 'potrait');
+     //    $this->pdf->filename = "laporan-presensi";
+        $this->load->view('templates_wali/templates_wali',$data);
+    }
+
+  
+
+	
+
+
+// cetak laporan per semester
+	function view_laporan_persemester(){
+
+
+		$tahun = $this->session->userdata('tahun_ajaran');
+		$semester = $this->session->userdata('semester');
+		$id_wali = $this->session->userdata('nip');
+		$row   = $this->m_wali->get_kelaswali($id_wali);
+	    $data['kelas'] = $row->nama_kelas;
+		$data['siswa'] =  $this->m_wali->tampil_siswa($tahun,$semester,$id_wali);
+    	$data['content']   =  'view_wali/laporan-persemester/formpersemester';
+   		$this->load->view('templates_wali/templates_wali',$data);
+	}
+
+	function laporan_persemester()
+	{
+		$data['id_siswa'] = implode(",",$this->input->post('id'));
+		$data['semester'] = $this->input->post('semester');
+		$data['content']   =  'view_wali/laporan-persemester/lihat_laporan_persemester';
+    	$this->load->library('Pdf');
+    	$html = $this->load->view('templates_wali/templates_wali',$data); 
+	    $this->pdf->setPaper('Legal', 'landscape');
+        $this->pdf->filename = "laporan-presensi";
+        $this->pdf->load_view('view_wali/laporan-persemester/lihat_laporan_persemester', $data);
+	}
+
+
+
+ 		
 
     // whatsapp gateway
 
@@ -426,5 +579,15 @@ class Wali_kelas extends CI_Controller
 		
 
     }
-	
+
+    function testingtemplate(){
+    	$data['content']   =  'view_wali/lihat_laporan_persiswa';
+    	 $this->load->library('Pdf');
+    	$html = $this->load->view('templates_wali/templates_wali',$data); 
+	    $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan-presensi";
+        $this->pdf->load_view('view_wali/lihat_laporan_persiswa', $data); 
+    }
+
+   
 }

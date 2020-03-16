@@ -36,7 +36,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nipd">NIPD <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nipd" name="nipd" placeholder="masukkan nipd siswa 5 kar" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('nipd'); ?>">
+                          <input type="text" id="nipd" name="nipd" placeholder="masukkan nipd siswa 4 kar" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('nipd'); ?>">
                         </div>
                       </div>
 
@@ -66,7 +66,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nisn">NISN <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nisn" name="nisn" placeholder="masukkan nisn siswa 10 kar"  required="required" minlength="10" class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('nisn'); ?>">
+                          <input type="text" id="nisn" name="nisn" placeholder="masukkan nisn siswa 8 kar"  required="required"  class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('nisn'); ?>">
                         </div>
                       </div>
                       

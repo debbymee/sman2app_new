@@ -189,7 +189,7 @@
 
               </div>
               <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
+                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
                     </label>
 
                     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -202,7 +202,7 @@
 
               </div>
               <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="dusun">DUSUN <span class="required">*</span>
+                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="dusun">DUSUN <span class="required">*</span>
                     </label>
 
                     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -215,7 +215,7 @@
 
               </div>
               <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelurahan">KELURAHAN <span class="required">*</span>
+                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kelurahan">KELURAHAN <span class="required">*</span>
                     </label>
 
                     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -228,7 +228,7 @@
 
               </div>
               <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kecamatan">KECAMATAN <span class="required">*</span>
+                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kecamatan">KECAMATAN <span class="required">*</span>
                     </label>
 
                     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -241,7 +241,7 @@
 
               </div>
               <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kode_pos">KODE POS <span class="required">*</span>
+                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="kode_pos">KODE POS <span class="required">*</span>
                     </label>
 
                     <div class="col-md-3 col-sm-6 col-xs-12">

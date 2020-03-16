@@ -15,7 +15,7 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
 
               <input id="tahun_ajaran" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-              name="tahun_ajaran" placeholder="" required="required" type="text" value="<?php echo $tahun_ajaran->tahun_ajaran ?>">
+              name="tahun_ajaran" placeholder="" readonly required="required" type="text" value="<?php echo $tahun_ajaran->tahun_ajaran ?>">
 
           
               <?php echo form_error('tahun_ajaran', '<small class="text-danger pl-3">', '</small>'); ?> <br>  

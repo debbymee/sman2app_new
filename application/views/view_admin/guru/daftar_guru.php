@@ -1,5 +1,4 @@
 
-              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
 			<div class="container">
 
@@ -48,15 +47,9 @@
   </form>
 
       </div>
+      <hr>
 
-    </div>
-<div class="well">
-
-	
-
-</div>
-
-	<form>
+      <form>
 		<table id="datatable" class="table table-striped table-bordered">
 			<thead>
 			<tr align="center">
@@ -115,9 +108,11 @@
 			<?php } ?>
 		</table>
 		</tbody>
+	</form>
+
+    </div>
 
 
-</form>
+	
 
-</div>
 

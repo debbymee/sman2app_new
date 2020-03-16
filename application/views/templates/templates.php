@@ -166,7 +166,53 @@
               </div>
               
               <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo base_url(); ?>index/logout" onclick="return confirm('Apakah Anda Yakin ?')"> Log Out</a></li>
+                    <li> <a href="<?php echo base_url(); ?>index/logout" onclick="return confirm('Apakah Anda Yakin ?')" class="user-profile "aria-expanded="false">
+                    <img src="<?php echo base_url('foto') ?>/logout.png" alt="">
+                    
+                    <b>LOGOUT</b>
+                  </a>
+                  </li>
+
+                  <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge bg-green"><?php echo $count_pemberitahuan; ?></span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                  <?php 
+
+                  $no = 1;
+                  foreach($pemberitahuan as $row) {
+
+                  ?>
+                    <li>
+                      <a href="<?php echo site_url('admin/update_notif/'.$row->id_history_guru) ?>">
+                        <span class="image"><img src="<?php echo base_url('public') ?>/images/sman2.png" alt="Profile Image" /></span>
+                        <span>
+
+                          <span><?php echo $row->nama_guru ?></span>
+                          <span class="time"><?php echo $row->tgl ?></span>
+                        </span>
+                        <span class="message"> Saat Mata Pelajaran :
+                          <?php echo $row->nama_pelajaran; ?>
+                        </span>
+                         <span class="message" style="margin-left: 15%"> Keterangan Guru :
+                          <?php echo $row->keterangan_guru; ?>
+                        </span>
+                      </a>
+                    </li>
+                    <?php } ?>
+                  
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
               </ul>
               
 
@@ -446,6 +492,14 @@ $("#preview_gambar").change(function(){
         minDate: new Date('2003/01/01'),
     });
 
+    $('#myDatepickerguru').datetimepicker({
+              format: 'DD/MM/YYYY',
+        ignoreReadonly: true,
+        allowInputToggle: true,
+        maxDate: new Date('1999/12/31'),
+        minDate: new Date('1962/01/01'),
+    });
+
     $('#datetimepicker6').datetimepicker();
     
     $('#datetimepicker7').datetimepicker({
@@ -459,6 +513,81 @@ $("#preview_gambar").change(function(){
     $("#datetimepicker7").on("dp.change", function(e) {
         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
     });
+</script>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+          var table=$('#exampledr').DataTable({
+             "order": [[1, "asc" ]],
+            initComplete: function () {
+            }
+       });
+
+          ///ini untuk filter siswa ,jadwal,kelas
+
+       $(".filterhead").each(function (i) {
+                 if (i != 15  && i != 16 ) {
+                     var select = $('<select class="form-control" style="margin-top:10px"><option value="">All Data</option></select>')
+                         .appendTo($(this).empty())
+                         .on('change', function () {
+                             var term = $(this).val();
+                             table.column(i).search(term, false, false).draw();
+                         });
+                     table.column(i).data().unique().sort().each(function (d, j) {
+                         select.append('<option value="' + d + '">' + d + '</option>')
+                     });
+                 } else {
+                    $(this).empty();
+                 }
+             });
+       //ini untuk filter tanggal
+
+  $('#date_selected_search').on( 'change', function () {
+ 
+    var v =$(this).val();  // getting search input value
+ 
+    table.columns(2).search(v).draw();
+} );
+    } );
+
+</script>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+          var table=$('#exampledr2').DataTable({
+             "order": [[1, "asc" ]],
+            initComplete: function () {
+            }
+       });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $("#checkedAll").change(function(){
+    if(this.checked){
+      $(".checkSingle").each(function(){
+        this.checked=true;
+      })              
+    }else{
+      $(".checkSingle").each(function(){
+        this.checked=false;
+      })              
+    }
+  });
+
+  $(".checkSingle").click(function () {
+    if ($(this).is(":checked")){
+      var isAllChecked = 0;
+      $(".checkSingle").each(function(){
+        if(!this.checked)
+           isAllChecked = 1;
+      })              
+      if(isAllChecked == 0){ $("#checkedAll").prop("checked", true); }     
+    }else {
+      $("#checkedAll").prop("checked", false);
+    }
+  });
+});
 </script>
 
   

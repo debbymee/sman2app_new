@@ -18,13 +18,13 @@
                         </label>
                         <div class="btn-group col-md-6 col-sm-6 col-xs-12">
              
-                        <select class="js-example-basic-single" name="hari" >
+                        <select class="js-example-basic-single" style="width: 100px;" name="hari" >
                         <option value="">Pilih Hari</option>
-                        <option>Senin</option>
-                        <option>Selasa</option>
-                        <option>Rabu</option>
-                        <option>Kamis</option>
-                        <option>Jumat</option>
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
            
                          </select>
                     </div>
@@ -35,22 +35,23 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
 <!--         -->                     
-                        <select class="js-example-basic-single col-md-3" name="jam_pelajaran" >
+                        <select class="js-example-basic-single col-md-3" name="jam_pelajaran[]" multiple style="width: 150px;">
                         <option value="">Pilih Jam Pelajaran</option>
-                        <option>jam ke-1</option>
-                        <option>jam ke-2</option>
-                        <option>jam ke-3</option>
-                        <option>jam ke-4</option>
-                        <option>jam ke-5</option>
-                        <option>jam ke-6</option>
-                        <option>jam ke-7</option>
-                        <option>jam ke-8</option>
-                        <option>jam ke-9</option>
-                        <option>jam ke-10</option>
-                        <option>jam ke-11</option>
+                        <option value="jam ke-1">jam ke-1</option>
+                        <option value="jam ke-2">jam ke-2</option>
+                        <option value="jam ke-3">jam ke-3</option>
+                        <option value="jam ke-4">jam ke-4</option>
+                        <option value="jam ke-5">jam ke-5</option>
+                        <option value="jam ke-6">jam ke-6</option>
+                        <option value="jam ke-7">jam ke-7</option>
+                        <option value="jam ke-8">jam ke-8</option>
+                        <option value="jam ke-9">jam ke-9</option>
+                        <option value="jam ke-10">jam ke-10</option>
+                        <option value="jam ke-11">jam ke-11</option>
            
                          </select>
                            </div>
+                           
                       </div>
 
             
@@ -59,7 +60,7 @@
                         </label>
                         <div class="btn-group col-md-6 col-sm-6 col-xs-12">
              
-                        <select class="js-example-basic-single col-md-3" name="kd_mapel" >
+                        <select class="js-example-basic-single col-md-3" style="width: 150px;" name="kd_mapel" >
                         <option value="">Pilih Mata Pelajaran</option>
                         <?php foreach ($mata_pelajaran as $dj): ?>
                          
@@ -76,7 +77,7 @@
                         </label>
                         <div class="btn-group col-md-6 col-sm-6 col-xs-12">
              
-                        <select class="js-example-basic-single" name="id_kelas" >
+                        <select class="js-example-basic-single" name="id_kelas" style="width: 100px;" >
                         <option value="">Pilih Kelas</option>
                         <?php foreach ($kelas as $rl): ?>
                        
@@ -110,7 +111,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tahun_ajaran">Tahun Ajaran<span class="required">*</span>
               </label>
                    <div class="btn-group col-md-6 col-sm-6 col-xs-12">
-                      <select  class="js-example-basic-single" name="id_tahun_ajaran">
+                      <select  class="js-example-basic-single" style="width: 150px;" name="id_tahun_ajaran">
                         <option value="">Pilih Tahun Ajaran</option>
                         <?php foreach ($tahun as $r): ?>
                           <option value="<?php echo $r->id_tahun_ajaran ?>"> 

@@ -1,7 +1,7 @@
         <div class="x_panel">
 			<div class="container">
 
-		 	<h2 style="color: green " align="center"> LAPORAN PRESENSI SISWA KELAS 12</h2>
+		 	<h2 style="color: green " align="center"> LAPORAN PRESENSI SISWA KELAS 12</h2> <?php echo $this->session->userdata('nama_guru'); ?> || <?php echo $this->session->userdata('nip'); ?> 
 		    <hr>
 		     <br><br>
 		           
@@ -19,7 +19,7 @@
 
 			<div class="form-group">
 
-                        <div class="col-md-8">
+                      <div class="col-md-8">
                       <label>Masukkan Jadwal Pelajaran</label>
                       <select class="btn btn-default dropdown-toggle form-control" id="jadwal" name="id_jadwal" >
 

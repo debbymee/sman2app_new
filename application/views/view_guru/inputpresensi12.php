@@ -36,13 +36,53 @@
  		<td><h2 style="color: green " id="jadwal_pelajaran"><b>JADWAL PELAJARAN</b></h2></td>
  		<td><h2 style="color: green " id="jadwal_pelajaran"><b>  : <select class="btn btn-default dropdown-toggle" id="jadwal" name="id_jadwal" >
 
-                       <option>Pilih</option>
+                          <option>Pilih</option>
                         <?php foreach ($jadwalll as $dj) : ?>
+                        <?php $jumlah_waktu = substr_count( $dj->jam_pelajaran, ",") +1;  ?>
+ 						<?php if ($jumlah_waktu == "3") { ?>
+                         	
+		                        <?php if ($dj->batas_input >= "03:00:00") { ?>
+		                        	<option value="<?php echo $dj->id_jadwal ?>" disabled><?php echo $dj->nama_pelajaran ?>  || <?php echo $jumlah_waktu; ?> jam 
+                                   </option>
+                                    <option disabled style="font-style:italic">&nbsp;&nbsp;&nbsp;(...Jam Sudah Kelewat,Silahkan hub admin)</option> 
+		                         
+		                        <?php } else {?>
+		                         	<option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>  || <?php echo $jumlah_waktu; ?> jam
+                                   </option>
+		                         	 
+		                        <?php  }?>
 
-                          <option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>
-                          </option>
+                        <?php } else if ($jumlah_waktu == "2") {?>
+
+                         	   <?php if ($dj->batas_input >= "02:00:00") { ?>
+		                        	<option value="<?php echo $dj->id_jadwal ?>" disabled><?php echo $dj->nama_pelajaran ?>  || <?php echo $jumlah_waktu; ?> jam 
+                                   </option>
+                                    <option disabled style="font-style:italic">&nbsp;&nbsp;&nbsp;(...Jam Sudah Kelewat,Silahkan hub admin)</option> 
+		                         
+		                        <?php } else {?>
+		                         	<option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>  || <?php echo $jumlah_waktu; ?> jam
+                                   </option>
+		                         	 
+		                        <?php  }?>
+                         	 
+
+                        <?php } else if ($jumlah_waktu == "1") {?>
+                        		<?php if ($dj->batas_input >= "01:00:00") { ?>
+		                        	<option value="<?php echo $dj->id_jadwal ?>" disabled><?php echo $dj->nama_pelajaran ?>  || <?php echo $jumlah_waktu; ?> jam
+                                   </option>
+                                    <option disabled style="font-style:italic">&nbsp;&nbsp;&nbsp;(...Jam Sudah Kelewat,Silahkan hub admin)</option> 
+		                         
+		                        <?php } else {?>
+		                         	<option value="<?php echo $dj->id_jadwal ?>"><?php echo $dj->nama_pelajaran ?>  || <?php echo $jumlah_waktu; ?> jam
+                                   </option>
+		                         	 
+		                        <?php  }?>
+
+                        <?php  }?>
+
+
+                         
                         <?php endforeach ?>
-           
                   		</select></b></h2></td>
  	</tr>
  	<tr>

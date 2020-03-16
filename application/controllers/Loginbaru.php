@@ -68,6 +68,7 @@ class Loginbaru extends CI_Controller
 						'foto' => $cek['foto'],
 						'role' => $cek['role'],
 						'tahun_ajaran' => $tahun_ajaran,
+						'id_kelas_fk' => $cek['id_kelas_fk']
 						
 					];
 					if ($cek['role_id_fk'] == '2') {

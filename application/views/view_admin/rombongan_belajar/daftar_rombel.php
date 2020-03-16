@@ -49,7 +49,7 @@
 			 	<td><?php echo $row->nama_kelas ?></td>
 			 	<td><?php echo $row->nama_guru ?></td>
 			 	<td>
-			 	<a href="<?php echo site_url('admin/edit_rombel/'.$row->id_detail); ?>" class="btn btn-sm btn-info">Edit</a>
+			 	<a href="<?php echo site_url('admin/detail_anggota/'.$row->id_kelas.'/'.$row->nama_guru.'/'.$row->nama_kelas.'/'.$row->nip); ?>" class="btn btn-sm btn-info">Detail Anggota</a>
 				 
 				</td>
 			 </tr>

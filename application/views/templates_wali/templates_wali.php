@@ -69,7 +69,7 @@
               </div>
               <div class="profile_info">
                 <font size="3px" color="white" style="font-family: arial ">Nama akun user : </font>
-                <font size="3px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('username')  ?></font><br>
+                <font size="3px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('username')  ?> <?php echo $this->session->userdata('id_kelas') ?></font><br>
                 
                 
               
@@ -106,8 +106,8 @@
 
                   <li><a><i class="fa fa-bar-chart-o"></i> Laporan Presensi <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-             
-                      <li><a href="<?php echo base_url();?>wali_kelas/lihat_laporan">Data Laporan Presensi</a></li>
+
+                       <li><a href="<?php echo base_url();?>wali_kelas/view_laporan"> Cetak Laporan Presensi</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -297,6 +297,7 @@ $('#data').load('/sman2app/wali_kelas/wa_siswa');
 <script type="text/javascript">
    $(document).ready(function() {
           var table=$('#exampledr').DataTable({
+            "order": [[ 1, "asc" ]],
             initComplete: function () {
             }
        });
@@ -317,6 +318,62 @@ $('#data').load('/sman2app/wali_kelas/wa_siswa');
              });
     } );
 
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  var x ;
+
+  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+
+    document.getElementById("dateawal").value = picker.startDate.format('YYYY-MM-DD');
+    document.getElementById("dateakhir").value = picker.endDate.format('YYYY-MM-DD');
+  });
+
+  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+});
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $("#checkedAll").change(function(){
+    if(this.checked){
+      $(".checkSingle").each(function(){
+        this.checked=true;
+      })              
+    }else{
+      $(".checkSingle").each(function(){
+        this.checked=false;
+      })              
+    }
+  });
+
+  $(".checkSingle").click(function () {
+    if ($(this).is(":checked")){
+      var isAllChecked = 0;
+      $(".checkSingle").each(function(){
+        if(!this.checked)
+           isAllChecked = 1;
+      })              
+      if(isAllChecked == 0){ $("#checkedAll").prop("checked", true); }     
+    }else {
+      $("#checkedAll").prop("checked", false);
+    }
+  });
+});
 </script>
 
   

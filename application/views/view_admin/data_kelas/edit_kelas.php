@@ -33,12 +33,24 @@
                    </label>
              <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="btn btn-default dropdown-toggle" name="tingkat_kelas">
-                        
-                            <option value="10">10</option>
+                          <?php if($kelas->tingkat_kelas == '10') {?>
+                            <option value="10" selected>10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
-                           
-                          </select> 
+                          
+                           <?php  } else if ($kelas->tingkat_kelas == '11') { ?>
+                            <option value="10">10</option>
+                            <option value="11" selected>11</option>
+                            <option value="12">12</option>
+
+                          <?php  } else if ($kelas->tingkat_kelas == '12') { ?>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12"selected>12</option>
+
+                          <?php } ?>
+
+                      </select> 
                   </div>
               </div>
               <div class="item form-group">

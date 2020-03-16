@@ -8,13 +8,24 @@
       
 		<a href="<?php echo base_url(); ?>guru/daftarkelas_presensi3"> <button type="button" class="btn btn-success btn-lg"  > + INPUTKAN PRESENSI</button> </a>
 		 <br><br>
+	<form>
 
+ 		<table>
+                <tr>
+                	
+                    <label style="margin-left:1%" for="filter">Filter By Kelas</label>
 
-			<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <th class="filterhead"></th>
+                   
+                </tr>
+            </table><br>
+		<table id="exampledr" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
 			<thead>
 		
-			<tr> 
+			<tr align="center"> 
+				<td class="none">KELAS</td>
 				<td>NO</td>
+				
 				<td>TANGGAL</td>
 				<td>NAMA SISWA</td>
 				<td>KELAS</td>
@@ -31,7 +42,13 @@
             $no = 1; 
             foreach($presensi as $p) { ?>
 				<tr>
+					<td class="none"><?php 
+					echo $p->nama_kelas
+					?>
+					</td>
 					<td><?php echo $no++ ?></td>
+					
+					
 					<td><?php echo $p->tgl  ?></td>
 					<td><?php echo $p->nama_siswa  ?></td>
 					<td><?php echo $p->nama_kelas ?></td>

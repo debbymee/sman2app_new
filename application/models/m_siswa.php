@@ -21,7 +21,7 @@ class M_siswa extends CI_model
 	join kelas on detail_kelas_siswa.id_kelas = kelas.id_kelas
 	join tahun_ajaran on detail_kelas_siswa.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran
 	join keterangan_semester on tahun_ajaran.kd_semester = keterangan_semester.kd_semester
-	where id_detail = '$id_detail' AND tahun_ajaran.tahun_ajaran = '$tahun' and keterangan_semester.semester = '$semester' ";
+	where detail_kelas_siswa.id_detail = '$id_detail' AND tahun_ajaran.tahun_ajaran = '$tahun' and keterangan_semester.semester = '$semester' ";
 
 	// $query=$this->db->get();
 	// return $query($sql)->row();
@@ -75,18 +75,7 @@ class M_siswa extends CI_model
 	
 	}
 
-	function do_your_transaction()
-   {
-       $this->db->trans_start();
-       $id = $this->insert_multiple();
-       $this->update_query_using($id);
-       $this->db->trans_complete();
-
-       if($this->db->trans_status() === FALSE ) {
-        // do something falsy
-       }
-       else { /* do something if true. */   }
-   }
+	
 	
 	public function insert_multiple($result){
 		$this->db->insert_batch('presensi', $result);

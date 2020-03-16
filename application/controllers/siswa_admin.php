@@ -19,6 +19,7 @@ class Siswa_Admin extends CI_Controller
 	public function index()
 	{ 
 		$id_detail = $this->session->userdata('siswa_admin');
+		$id_kelas = $this->session->userdata('id_kelas');
 		
 		$tahun = $this->session->userdata('tahun_ajaran');
 		$semester=$this->session->userdata('semester');
@@ -83,7 +84,7 @@ class Siswa_Admin extends CI_Controller
 				    "tgl"  => $tanggal,
 				    "kd_keterangan_fk"  => $_POST['kd_keterangan'][$key],
 				    "id_jadwal_fk"  => $id_jadwal,
-				    "modul_pembahasan" => $_POST['modul_pembahasan'][$key],
+				    "modul_pembahasan" => $modul_pembahasan,
 				    "id_siswa_fk"  => $_POST['id_siswa'][$key]
 				);
 				  
@@ -91,8 +92,8 @@ class Siswa_Admin extends CI_Controller
 
 			$dataketeranganguru = array(
 			'tgl' => $this->input->post('tgl'),
-			'id_presensi_fk' => $this->input->post('kd_keterangan', true),
-			'kd_keterangan_guru_fk' => $this->input->post('id_keterangan_guru', true)
+			'id_jadwal_fk' => $this->input->post('id_jadwal'),
+			'kd_keterangan_guru_fk' => $this->input->post('id_keterangan_guru')
 			
 			);
 		

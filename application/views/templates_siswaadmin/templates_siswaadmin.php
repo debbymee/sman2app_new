@@ -67,7 +67,7 @@
                 <font size="3px" color="white" style="font-family: calibri "><?php echo $this->session->userdata('username')  ?></font><br>
                 <?php echo $this->session->userdata('tahun_ajaran'); ?> 
                   <?php echo $this->session->userdata('semester'); ?><br>
-                  <?php echo $this->session->userdata('siswa_admin'); ?>
+                  <?php echo $this->session->userdata('siswa_admin') ?>
                 
                 
               

@@ -32,11 +32,12 @@
 
                     </div>
 
+                   
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nipd">NIPD <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nipd" name="nipd" placeholder="masukkan nipd siswa 5 kar" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('nipd'); ?>">
+                          <input type="text" id="nipd" name="nipd" placeholder="masukkan nipd siswa 4 kar" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('nipd'); ?>">
                         </div>
                       </div>
 
@@ -45,16 +46,16 @@
                         </label>
 
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="btn btn-default dropdown-toggle" name="jk" value="<?php echo $siswa->jk ?>">
 
-                          <?php if($validasi_jk == 'laki-laki') {?>
-                          <option value="laki-laki" selected> laki-laki</option>
-                          <option value="perempuan" >Perempuan</option>
-                        <?php } else { ?>
+                          <select class="btn btn-default dropdown-toggle" name="jk" value="<?php echo $siswa->jk ?>">
+                          <?php if($validas_jk->jk == 'laki-laki') {?>
                             <option value="laki-laki" > laki-laki</option>
-                          <option value="perempuan" selected>Perempuan</option>
-                          <?php } ?>
-                        </select>
+                            <option value="perempuan" selected>Perempuan</option>
+                          <?php } else { ?>
+                              <option value="laki-laki" selected> laki-laki</option>
+                            <option value="perempuan" >Perempuan</option>
+                            <?php } ?>
+                          </select>
                           <?php echo form_error('jk', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
                           
                         </div>
@@ -66,7 +67,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nisn">NISN <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nisn" name="nisn" placeholder="masukkan nisn siswa 10 kar"  required="required" minlength="10" class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('nisn'); ?>">
+                          <input type="text" id="nisn" name="nisn" placeholder="masukkan nisn siswa 8 kar"  required="required" class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('nisn'); ?>">
                         </div>
                       </div>
                       
@@ -82,16 +83,13 @@
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tgl_lahir"> TANGGAL LAHIR <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="date" id="tgl_lahir" name="tgl_lahir" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('tgl_lahir'); ?>">
+                       <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class='input-group date' id='myDatepicker4' name="tgl_lahir">
+                            <input type='text' class="form-control" name="tgl_lahir" readonly="readonly" />
+                            <span class="input-group-addon">
+                               <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
-                      </div>
-
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nik">NIK <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nik" name="nik" placeholder="masukkan nik siswa 10 kar"  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('nik'); ?>">
                         </div>
                       </div>
 
@@ -101,46 +99,18 @@
 
                         <div class="col-md-6 col-sm-6 col-xs-12">
 
-                         <select class="btn btn-default dropdown-toggle" name="agama" value="<?php echo $siswa->agama ?>">
+                       
 
-                         <?php if($validasi_agama == 'Islam') {?>
-                            <option value="Islam" selected>Islam</option>
-                            <option value="Kristen" >Kristen</option>
+                            <select class="btn btn-default dropdown-toggle" name="agama" value="">
+                         
+                            <option value="Islam"> Islam</option>
+                            <option value="Kristen">Kristen</option>
                             <option value="Protestan">Protestan</option>
                             <option value="Hindu">Hindu</option>
                             <option value="Buddha">Buddha</option>
 
-                          <?php  } else if ($validasi_agama == 'Kristen') { ?>
-                            <option value="Islam" > Islam</option>
-                            <option value="Kristen" selected>Kristen</option>
-                            <option value="Protestan">Protestan</option>
-                            <option value="Hindu">Hindu</option>
-                            <option value="Buddha">Buddha</option>
 
-                          <?php  } else if ($validasi_agama == 'Protestan') { ?>
-                            <option value="Islam" > Islam</option>
-                            <option value="Kristen" >Kristen</option>
-                            <option value="Protestan" selected>Protestan</option>
-                            <option value="Hindu">Hindu</option>
-                            <option value="Buddha">Buddha</option>
-
-                           <?php } else if ($validasi_agama == 'Hindu') { ?>
-                            <option value="Islam" > Islam</option>
-                            <option value="Kristen" >Kristen</option>
-                            <option value="Protestan">Protestan</option>
-                            <option value="Hindu" selected>Hindu</option>
-                            <option value="Buddha">Buddha</option>       
-
-                           <?php }  else if ($validasi_agama == 'Buddha') { ?>
-                            <option value="Islam" > Islam</option>
-                            <option value="Kristen" >Kristen</option>
-                            <option value="Protestan">Protestan</option>
-                            <option value="Hindu" >Hindu</option>
-                            <option value="Buddha" selected>Buddha</option>   
-                            <?php } ?>
-                          
-
-                          
+                       
                           </select>
                                         
                           <?php echo form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
@@ -157,29 +127,104 @@
                         </div>
                       </div>
 
+                      <div class="item form-group">
 
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_kelas">KELAS <span class="required">*</span>
-                      </label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RT">RT <span class="required">*</span>
+                        </label>
 
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                         <select name="id_kelas" class="form-control">
-                         <?php foreach ($kelas as $r ): ?>
-                       <option value="<?php echo $r->id_kelas ?>" <?php echo ($r->id_kelas == $validasi_kelas)?'selected="selected"':''?>><?php echo $r->nama_kelas?></option>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
 
-                         <?php endforeach ?>
-                        </select>
+                          <input id="RT" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="RT" placeholder="masukkan RT "  type="text" value="<?php echo set_value('RT'); ?>">
+                         
+                          <?php echo form_error('RT', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
-                          <?php echo form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
-                      </div>
+                        </div>
 
                     </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="RW">RW <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="RW" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="RW" placeholder="masukkan RW "  type="text" value="<?php echo set_value('RW'); ?>">
+                         
+                          <?php echo form_error('RW', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="dusun">DUSUN <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="dusun" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="dusun" placeholder="masukkan dusun "  type="text" value="<?php echo set_value('dusun'); ?>">
+                         
+                          <?php echo form_error('dusun', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelurahan">KELURAHAN <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="kelurahan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="kelurahan" placeholder="masukkan kelurahan "  type="text" value="<?php echo set_value('kelurahan'); ?>">
+                         
+                          <?php echo form_error('kelurahan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kecamatan">KECAMATAN <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="kecamatan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="kecamatan" placeholder="masukkan kecamatan "  type="text" value="<?php echo set_value('kecamatan'); ?>">
+                         
+                          <?php echo form_error('kecamatan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+                    <div class="item form-group">
+
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kode_pos">KODE POS <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                          <input id="kode_pos" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
+                          name="kode_pos" placeholder="masukkan kode_pos"  type="text" value="<?php echo set_value('kode_pos'); ?>">
+                         
+                          <?php echo form_error('kode_pos', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+
+                        </div>
+
+                    </div>
+
 
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="no_hp_ortu">NO HP ORANG TUA <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="no_hp" name="no_hp_ortu" placeholder="masukkan no_hp siswa 10 kar"  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('no_hp_ortu'); ?>">
+                          <input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="masukkan no_hp_ortu siswa 10 kar"  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12"  value="<?php echo set_value('no_hp_ortu'); ?>">
                         </div>
                      </div>
 
