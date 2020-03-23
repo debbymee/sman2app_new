@@ -310,22 +310,26 @@ class Wali_kelas extends CI_Controller
 	}
 
 // cetak pdf 
-	// perJadwal
-	 public function lihat_laporan() 
+	// Laporan per jadwal 
+
+	 function view_laporan_perjadwal() 
 	{
 		$tahun = $this->session->userdata('tahun_ajaran');
 		$semester = $this->session->userdata('semester');
 		$data['nama'] = $this->session->userdata('nama_guru');
-        $tgl = $this->input->post('tgl');
-        $data['jadwal'] = $this->input->post('tgl');
+        // $tgl = $this->input->post('tgl');
+        // $data['jadwal'] = $this->input->post('tgl');
+
+
         $id_jadwal = $this->input->post('id_jadwal');
         $id_wali = $this->session->userdata('nip');
         
         $row   = $this->m_wali->get_kelaswali($id_wali);
 	    $id_kelas = $row->id_kelas; 
 	    $data['kelas'] = $row->nama_kelas;
+		$data['siswa'] =  $this->m_wali->tampil_siswa($tahun,$semester,$id_wali);
 
-	    $id_wali = $this->session->userdata('nip');
+
     	$data['jadwalll'] = $this->m_wali->tampil_jadwal_laporan($tahun, $semester,$id_kelas)->result();
     	$data['content']   =  'view_wali/laporan-perjadwal/formlaporan';
    		$this->load->view('templates_wali/templates_wali',$data);
@@ -333,63 +337,47 @@ class Wali_kelas extends CI_Controller
 		
 	}
 
-    function lihat_laporan_presensi(){
+    function laporan_perjadwal(){
 
-    	$hari = date ("D");
-		$hariindonesia = "";
-		 
-		 if($hari == 'Sat'){
 
-		 	$hariindonesia = "Sabtu";
-		 }
-		 elseif ($hari == 'Sun') {
-		 	$hariindonesia = "Minggu";
-		 }
-		 elseif ($hari == 'Mon') {
-		 	$hariindonesia = "Senin";
-		 }
-		 elseif ($hari == 'Tue') {
-		 	$hariindonesia = "Selasa";
-		 }
-		 elseif ($hari == 'Wed' ) {
-		 	$hariindonesia = "Rabu";
-		 }
-		 elseif ($hari == 'Thu') {
-		 	$hariindonesia = "Kamis";
-		 }elseif ($hari == 'Fri') {
-		 	$hariindonesia = "Jumat";
-		 }
-
-    	$this->load->library('Pdf');
+    	
     	$tahun = $this->session->userdata('tahun_ajaran');
 		$semester = $this->session->userdata('semester');
 		$data['nama'] = $this->session->userdata('nama_guru');
-        $tgl = $this->input->post('tgl');
+		
         $data['jadwal'] = $this->input->post('tgl');
+		$id_kelas = $this->input->post('id_kelas');
+	    $id_siswa = implode(",",$this->input->post('id'));
+        $tgl_awal = $this->input->post('tgl_awal');//ini
+		$tgl_akhir = $this->input->post('tgl_akhir');//ini
+		
         $id_jadwal = $this->input->post('id_jadwal');
         $id_wali = $this->session->userdata('nip');
+        
         
         $row   = $this->m_wali->get_kelaswali($id_wali);
 	    $id_kelas = $row->id_kelas; 
 	    $data['kelas'] = $row->nama_kelas;
+	 
 
-	    $rowjadwal   = $this->m_wali->get_jadwal($tahun,$semester,$id_kelas,$id_jadwal);
-	    $data['jam_pelajaran'] = $rowjadwal->jam_pelajaran;
-	    $data['nama_pelajaran'] = $rowjadwal->nama_pelajaran;
+		
+	    //foreach get tanggal presensi, nama_pelajaran,jam_pelajaran sesuai tanggal
+    	$data['tgl'] = $this->m_wali->tampil_presensi_laporan($id_jadwal,$tgl_awal,$tgl_akhir,$id_siswa);//for atas
 
-
-
-    	$data['siswa'] = $this->m_wali->tampil_presensi_laporan($id_jadwal,$tgl)->result();
-    	$data['ttd'] = $this->m_wali->get_kelaswali($id_wali);
+    	//foreach siswa keterangan
+      	$data['detailsiswa'] = $this->m_wali->tampil_presensi_laporan2($id_siswa,$tgl_awal,$tgl_akhir,$id_jadwal);//for bawah
     	$data['content']   =  'view_wali/laporan-perjadwal/lihat_laporan';
 
 
-   		$html = $this->load->view('templates_wali/templates_wali',$data); 
-	    $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "laporan-presensi";
-        $this->pdf->load_view('view_wali/laporan-perjadwal/lihat_laporan', $data);
-    }
 
+   		 $this->load->library('Pdf');
+    	$html = $this->load->view('templates_wali/templates_wali',$data); 
+	    $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan-perjadwal";
+        $this->pdf->load_view('view_wali/laporan-perjadwal/lihat_laporan', $data); 
+   
+	 
+    }
 
 //ini home laporan 
 	 public function view_laporan() 
@@ -438,7 +426,7 @@ class Wali_kelas extends CI_Controller
         $this->pdf->load_view('view_wali/laporan-perhari/lihat_laporan_perhari', $data); 
     }
 
-	
+// view laporan per bulan
 
 	public function view_laporan_perbulan() 
 	{
@@ -482,9 +470,6 @@ class Wali_kelas extends CI_Controller
 
 	function detail_cetak_siswa($id_siswa){
 
-
-	
-
     	$data['siswa'] = $this->m_wali->tampil_detail_siswa($id_siswa);
     	$data['content']   =  'view_wali/laporan-persiswa/detail_cetak_siswa';
 
@@ -494,11 +479,7 @@ class Wali_kelas extends CI_Controller
      //    $this->pdf->filename = "laporan-presensi";
         $this->load->view('templates_wali/templates_wali',$data);
     }
-
-  
-
-	
-
+   
 
 // cetak laporan per semester
 	function view_laporan_persemester(){
@@ -525,7 +506,6 @@ class Wali_kelas extends CI_Controller
         $this->pdf->filename = "laporan-presensi";
         $this->pdf->load_view('view_wali/laporan-persemester/lihat_laporan_persemester', $data);
 	}
-
 
 
  		

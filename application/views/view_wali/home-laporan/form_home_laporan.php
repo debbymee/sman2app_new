@@ -27,7 +27,7 @@
 				<td><a href="<?php echo base_url();?>wali_kelas/view_laporan_perhari" class="btn btn-success">Klik Untuk Memilih</a></td>
 				<td><a href="<?php echo base_url();?>wali_kelas/view_laporan_perbulan" class="btn btn-success">Klik Untuk Memilih</a></td>
 				<td><a href="<?php echo base_url();?>wali_kelas/view_laporan_persemester" class="btn btn-success">Klik Untuk Memilih</a></td>
-				<td><a href="" class="btn btn-success">Klik Untuk Memilih</a></td>
+				<td><a href="<?php echo base_url(); ?>wali_kelas/view_laporan_perjadwal" class="btn btn-success">Klik Untuk Memilih</a></td>
 			</tr>
 			
 			</tbody>

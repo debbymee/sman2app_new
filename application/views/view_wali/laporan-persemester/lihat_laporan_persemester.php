@@ -68,11 +68,11 @@
                 foreach ($queryitunghadir as $tbitunghadir) {
                     # code...
                     $bulan=$tbitunghadir->bulan;
-                    $itungsakit=$this->db->query("select count(id_siswa_fk) as itung from presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='S' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
-                    $itungizin=$this->db->query("select count(id_siswa_fk) as itung from presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='I' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
-                    $itungabsen=$this->db->query("select count(id_siswa_fk) as itung from presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='A' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
-                    $itungdistan=$this->db->query("select count(id_siswa_fk) as itung from presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='D' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
-                    $itunghadir=$this->db->query("select count(id_siswa_fk) as itung from presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='H' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
+                    $itungsakit=$this->db->query("select count(id_siswa_fk) as itung from view_presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='S' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
+                    $itungizin=$this->db->query("select count(id_siswa_fk) as itung from view_presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='I' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
+                    $itungabsen=$this->db->query("select count(id_siswa_fk) as itung from view_presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='A' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
+                    $itungdistan=$this->db->query("select count(id_siswa_fk) as itung from view_presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='D' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
+                    $itunghadir=$this->db->query("select count(id_siswa_fk) as itung from view_presensi where id_siswa_fk='$id_siswa_fk' and kd_keterangan_fk='H' and date_format(tgl,'%m')='$bulan' and date_format(tgl,'%Y')='2020'")->first_row();
                     
                     $jumlahsakit=$jumlahsakit+$itungsakit->itung;
                     $jumlahizin=$jumlahizin+$itungizin->itung;

@@ -551,14 +551,14 @@ class Admin extends CI_Controller
 	{
 		$id_jadwal = $this->input->post('id_jadwal');
 		$hari = $this->input->post('hari');
-		$jam_pelajaran = $this->input->post('jam_pelajaran');
 		$mata_pelajaran = $this->input->post('kd_mapel');
 		$id_kelas = $this->input->post('id_kelas');
 		$id_guru = $this->input->post('id_guru');
 		$tahun = $this->input->post('id_tahun_ajaran');
+
+		$jam_pelajaran = implode(",",$this->input->post('jam_pelajaran'));
 	
 		$data = array(
-			'id_jadwal' => $id_jadwal,
 			'hari' => $hari,
 			'jam_pelajaran' =>$jam_pelajaran,
 			'kd_mapel_fk' => $mata_pelajaran,

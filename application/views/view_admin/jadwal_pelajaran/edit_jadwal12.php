@@ -55,7 +55,7 @@
             </div>
 
 
-            <input type="hidden" name="id_jadwal" value=" <?php echo $jadwal_pelajaran->id_jadwal ?> ">
+            <input type="text" name="id_jadwal" value=" <?php echo $jadwal_pelajaran->id_jadwal ?> ">
 
             <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="jam_pelajaran"> JAM PELAJARAN <span class="required">*</span>
@@ -63,150 +63,17 @@
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
-                    <select class="btn btn-default dropdown-toggle" name="jam_pelajaran" >
-                        <?php if($jadwal_pelajaran->jam_pelajaran == 'jam ke-1') {?>
-                        <option value="jam ke-1" selected>jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option>
+                    <select class="js-example-basic-single col-md-3" name="jam_pelajaran[]" multiple style="width: 150px;">
 
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-2') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2" selected>jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option>
 
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-3') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3" selected>jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option>
-
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-4') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4" selected>jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option>                              
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-5') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5" selected>jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option> 
-
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-6') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6" selected>jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option> 
-
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-7') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7" selected>jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option> 
-
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-8') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8" selected>jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option> 
-
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-9') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9" selected>jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option> 
-
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-10') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10" selected>jam ke-10</option>
-                        <option value="jam ke-11">jam ke-11</option> 
-
-                        <?php  } else if ($jadwal_pelajaran->jam_pelajaran == 'jam ke-11') { ?>
-                        <option value="jam ke-1">jam ke-1</option>
-                        <option value="jam ke-2">jam ke-2</option>
-                        <option value="jam ke-3">jam ke-3</option>
-                        <option value="jam ke-4">jam ke-4</option>
-                        <option value="jam ke-5">jam ke-5</option>
-                        <option value="jam ke-6">jam ke-6</option>
-                        <option value="jam ke-7">jam ke-7</option>
-                        <option value="jam ke-8">jam ke-8</option>
-                        <option value="jam ke-9">jam ke-9</option>
-                        <option value="jam ke-10">jam ke-10</option>
-                        <option value="jam ke-11" selected="">jam ke-11</option> 
+                        <?php for($i=1; $i<12; $i++){?>
+                        <?php $cid = explode(',',$jadwal_pelajaran->jam_pelajaran); ?>
+                        <option value="<?php echo "jam ke-".$i ?>" <?php echo in_array("jam ke-".$i, $cid) ? "selected":"" ?>><?php echo "jam ke-".$i ?></option>
 
                         <?php } ?>
+                        
+
+                       
                         
            
                     </select>

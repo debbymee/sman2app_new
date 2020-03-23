@@ -361,18 +361,39 @@ class M_wali extends CI_Model
 		$data = $this->db->query("SELECT keterangan_presensi.nama_keterangan,COUNT(presensi.kd_keterangan_fk) as jumlah FROM presensi right JOIN keterangan_presensi ON presensi.kd_keterangan_fk = keterangan_presensi.kd_keterangan GROUP BY keterangan_presensi.kd_keterangan");
 		return $data->result();
 	}
-	function tampil_presensi_laporan($id_jadwal,$tgl)
+
+		function tampil_presensi_laporan($id_jadwal,$tgl_awal,$tgl_akhir,$id_siswa)
 	{
 		$this->db->select('*');
 		$this->db->from('presensi');
 		$this->db->join('detail_kelas_siswa', 'presensi.id_siswa_fk = detail_kelas_siswa.id_siswa');
+		$this->db->join('jadwal_pelajaran','presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal');
+		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
 		$this->db->join('siswa','detail_kelas_siswa.id_siswa = siswa.id_siswa');
 		$this->db->join('keterangan_presensi', 'presensi.kd_keterangan_fk = keterangan_presensi.kd_keterangan');
-		$array = array('presensi.tgl' => $tgl, 'presensi.id_jadwal_fk' => $id_jadwal);
-        $this->db->where($array);
-		return $this->db->get();
+		$where = "presensi.id_jadwal_fk = $id_jadwal and presensi.tgl >= '$tgl_awal' and presensi.tgl <= '$tgl_akhir' and presensi.id_siswa_fk IN ($id_siswa)";
+		$this->db->where($where);
+		$this->db->group_by('presensi.tgl');
+		$this->db->group_by('presensi.id_jadwal_fk');
+				
+		return $this->db->get()->result();
+
 	
 	}
+		function tampil_presensi_laporan2($id_siswa,$tgl_awal,$tgl_akhir,$id_jadwal)//ini
+	{
+		$this->db->select('*');
+		$this->db->from('presensi');
+		$this->db->join('detail_kelas_siswa','presensi.id_siswa_fk = detail_kelas_siswa.id_siswa');
+		$this->db->join('jadwal_pelajaran','presensi.id_jadwal_fk = jadwal_pelajaran.id_jadwal');
+		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
+		$this->db->join('siswa','detail_kelas_siswa.id_siswa = siswa.id_siswa');
+		$where = "presensi.id_siswa_fk IN ($id_siswa) and presensi.tgl >= '$tgl_awal' and presensi.tgl <= '$tgl_akhir' and presensi.id_jadwal_fk = $id_jadwal";
+		$this->db->where($where);
+		return $this->db->get()->result();
+
+	}
+
 	function tampil_siswa($tahun,$semester,$id_wali)
 	{
 		$this->db->select('*');
@@ -402,6 +423,8 @@ class M_wali extends CI_Model
 		$array = array('presensi.tgl' => $tgl, 'presensi.id_jadwal_fk' => $id_jadwal, 'presensi.id_siswa_fk' => $siswa);
         $this->db->where($array);
 		return $this->db->get();
+
+		
 	
 	}
 	function tampil_detail_siswa($id_siswa)
@@ -424,7 +447,7 @@ class M_wali extends CI_Model
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
 		$where = "presensi.id_siswa_fk IN ($id_siswa) and presensi.tgl >= '$tgl_awal' and presensi.tgl <= '$tgl_akhir'";//ini
 		$this->db->where($where);
-				
+				// ini model e yg di form perhari jgn .buat lg ae taiya
 
 
 		return $this->db->get()->result();
