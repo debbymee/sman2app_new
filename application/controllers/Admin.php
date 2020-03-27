@@ -96,7 +96,7 @@ class Admin extends CI_Controller
 				$this->m_data->input_user($data, 'users');
 			
 
-				$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
 				redirect('admin/daftar_user');
 			}
 			else{ // TIDAK ISI SISWA ADMIN SAJA, TAPI NGINPUT GURU
@@ -120,7 +120,7 @@ class Admin extends CI_Controller
 				$this->m_data->input_user($data, 'users');
 			
 
-				$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
 				redirect('admin/daftar_user');
 			}
 			
@@ -147,7 +147,7 @@ class Admin extends CI_Controller
 				$this->m_data->input_user($data, 'users');
 			
 
-				$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
 				redirect('admin/daftar_user');     
 	        }
 
@@ -172,7 +172,7 @@ class Admin extends CI_Controller
 				$this->m_data->input_user($data, 'users');
 			
 
-				$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Akun Berhasil Dibuat! </div>');
 				redirect('admin/daftar_user');
 		         
 	         }
@@ -220,7 +220,7 @@ class Admin extends CI_Controller
 					);
 
 				$this->m_data->update_user($data, $id);
-				$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhasil Diubah </div>');
 				redirect('admin/daftar_user');
 				}
 
@@ -237,7 +237,7 @@ class Admin extends CI_Controller
 							);
 
 					$this->m_data->update_user($data, $id);
-					$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+					$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhasil Diubah </div>');
 					redirect('admin/daftar_user');
 					}
 				}
@@ -260,7 +260,7 @@ class Admin extends CI_Controller
 
 						);
 			   		$this->m_data->update_user($data, $id);
-					$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+					$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhasil Diubah </div>');
 					redirect('admin/daftar_user');
 					}
 
@@ -278,7 +278,7 @@ class Admin extends CI_Controller
 
 						);
 			    	$this->m_data->update_user($data, $id);
-					$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+					$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhasil Diubah </div>');
 					redirect('admin/daftar_user');
 					}
 				 }
@@ -311,7 +311,7 @@ class Admin extends CI_Controller
 					);
 
 					$this->m_data->update_user($data, $id);
-					$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+					$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhasil Diubah </div>');
 					redirect('admin/daftar_user');
 				}
 
@@ -334,7 +334,7 @@ class Admin extends CI_Controller
 					);
 
 					$this->m_data->update_user($data, $id);
-					$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+					$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhail Diubah </div>');
 					redirect('admin/daftar_user');
 					}
 			}
@@ -362,7 +362,7 @@ class Admin extends CI_Controller
 
 					);
 			    	$this->m_data->update_user($data, $id);
-					$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+					$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhasil Diubah </div>');
 					redirect('admin/daftar_user');
 				}
 
@@ -385,7 +385,7 @@ class Admin extends CI_Controller
 
 				);
 			    $this->m_data->update_user($data, $id);
-				$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data  Masuk </div>');
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data  Berhasil Diubah </div>');
 				redirect('admin/daftar_user');
 
 			}
@@ -407,12 +407,12 @@ class Admin extends CI_Controller
         $db_error = $this->db->error();
         if (!empty($db_error)) {
            if($db_error['code'] == 0){
-           	$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil Dihapus </div>');
+           	$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data Berhasil Dihapus </div>');
     		redirect('admin/daftar_user');
 			
            }
            else{
-           	$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data Tidak Bisa Di Hapus!!!! </div>');
+           	$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">Data Tidak Bisa Di Hapus!!!! </div>');
     		redirect('admin/daftar_user');
            }
             return false; // unreachable retrun statement !!!

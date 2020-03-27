@@ -32,7 +32,7 @@
 			<div class="wrap-login100">
 
 
-				<form action="<?php echo base_url('loginbaru') ?>" method="post" class="login100-form validate-form p-l-55 p-r-55 p-t-178">  
+				<form action="<?php echo base_url('loginadmin') ?>" method="post" class="login100-form validate-form p-l-55 p-r-55 p-t-178">  
 					<span class="login100-form-title">
 						LOGIN
 					</span>
@@ -68,32 +68,10 @@
                       </select>
 
                       </div>	
-					</div>					
+					</div>	 <br><br>	
 
-					<div class="text-right p-t-13 p-b-23">
-						<span class="txt1">
-							Lupa
-						</span>
-					<a href="#" data-toggle="modal" data-target="#myModal" class="txt2">
-					<b>Username / password ?</b>
-					</a>
-					
-					<div class="modal fade" id="myModal" role="dialog">
-				    <div class="modal-dialog modal-sm">
-				      <div class="modal-content">
-				
-				        <div class="modal-body">
-				          <b style="color: black">Silahkan hubungi admin untuk me-restart kembali username / password </b>
-				        </div>
-				        <div class="modal-footer">
-				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        </div>
-				      </div>
-				    </div>
-				  </div>
 
-					</div>
-	
+			
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
 							SUBMIT

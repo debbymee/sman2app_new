@@ -223,8 +223,9 @@
         </div>
         <!-- /top navigation -->
         <div class="right_col" role="main">
-          <?= $this->session->flashdata('hehe'); ?>
+         
           <?php $this->load->view($content); ?>
+           <?= $this->session->flashdata('message'); ?>
 
         </div>
 
@@ -559,6 +560,7 @@ $("#preview_gambar").change(function(){
             initComplete: function () {
             }
        });
+        });
 </script>
 
 <script type="text/javascript">
@@ -587,6 +589,44 @@ $("#preview_gambar").change(function(){
       $("#checkedAll").prop("checked", false);
     }
   });
+});
+</script>
+<script>  
+$(document).ready(function(){
+
+  if($("#role").val() == '2' || $("#role").val() == '3') {
+$("#siswa").hide();
+  $("#guruwali").show();
+  }
+
+  else if($("#role").val() == '4'){
+$("#siswa").show();
+  $("#guruwali").hide();
+  }
+
+
+  else{
+    $("#siswa").hide();
+  $("#guruwali").hide();
+  }
+
+    $('#role').on('change', function() {
+      if ( this.value == '4')
+      {
+        $("#siswa").show();
+        $("#guruwali").hide();
+      }
+      else if (this.value == '2' || this.value == '3')
+      {
+  
+        $("#siswa").hide();
+        $("#guruwali").show();
+      }else{
+          $("#siswa").hide();
+          $("#guruwali").hide();
+      }
+
+    });
 });
 </script>
 

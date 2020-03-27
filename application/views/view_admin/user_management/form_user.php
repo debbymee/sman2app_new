@@ -50,7 +50,8 @@
    						<label class="control-label col-md-4 col-sm-3 col-xs-12" for="role_id_fk">role_user<span class="required">*</span>
               </label>
                   <div class="btn-group col-md-3 col-sm-6 col-xs-12">
-	                    <select name="role" class="form-control">
+	                    <select name="role" id="role" class="form-control">
+                          <option value="" disabled selected>Pilih Role User</option>
                         <?php foreach ($role as $r): ?>
                           <option value="<?php echo $r->id_role ?>"> <?php echo $r->role; ?>
                           </option>
@@ -62,12 +63,12 @@
              
                   </div>
 
-            <div class="item form-group">
+            <div class="item form-group" id="siswa">
               <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_detail">Siswa Admin<span class="required">*</span>
               </label>
                   <div class="btn-group col-md-5 col-sm-6 col-xs-12">
-                      <select class="js-example-basic-single" name="siswa_admin">
-                        <option value="">Pilih Siswa Admin</option>
+                      <select class="js-example-basic-single" name="siswa_admin" >
+                        <option value="" disabled selected>Pilih Siswa Admin</option>
                         <?php foreach ($siswa_admin as $r): ?>
                           <option value="<?php echo $r->id_detail ?>"> <?php echo $r->nama_siswa; ?> - <?php echo $r->nama_kelas; ?> - <?php echo $r->tahun_ajaran; ?>
                           </option>
@@ -79,12 +80,12 @@
              
                   </div>
 
-            <div class="item form-group">
+            <div class="item form-group" id="guruwali">
               <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_guru_fk">GURU<span class="required">*</span>
               </label>
                   <div class="btn-group col-md-5 col-sm-6 col-xs-12">
-                    <select class="js-example-basic-single" name="guru">
-                        <option value="">Pilih Guru</option>
+                    <select class="js-example-basic-single" name="guru" >
+                        <option value="" disabled selected>Pilih Guru</option>
                            <?php foreach ($guru as $r): ?>
                            <option value="<?php echo $r->id_guru ?>"> <?php echo $r->nama_guru; ?>
                           </option>

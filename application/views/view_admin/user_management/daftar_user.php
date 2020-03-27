@@ -4,7 +4,7 @@
 		<h2 style="color: green " align="center"> DAFTAR USER</h2>
 		<hr>
 
-		<?= $this->session->flashdata('message'); ?>
+		<?= $this->session->flashdata('message2'); ?>
 	
 		<a href="<?php echo base_url(); ?>admin/tambah_user"> <button type="button" class="btn btn-success btn-lg"  > + TAMBAH USER</button> </a>
 		 <br><br>

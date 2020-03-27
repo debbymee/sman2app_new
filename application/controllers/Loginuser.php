@@ -37,21 +37,24 @@ class Loginuser extends CI_Controller
 		$pass = $this->input->post('password');
 		$password = md5($pass);
 		//$tahun_ajaran = $this->input->post('tahun_ajaran');
-			$row = $this->m_login->get_tahun_ajaran();
-			$tahun_ajaran = $row->tahun_ajaran;
-			$semester = $row->semester;
-
-			$row2 = $this->m_login->get_wali();
-			$wali_kelas = $row2->wali_kelas;
+			
 		
 		$cek = $this->m_login->cek_login($username);
 
 
 		if ($cek > 0) {
+
 			//cek akun sudah aktif
 			if ($cek['is_active'] == 1) {
 				//cek password dan menu nya
 				if ($password == $cek['password']) {
+
+					$row = $this->m_login->get_tahun_ajaran();
+					$tahun_ajaran = $row->tahun_ajaran;
+					$semester = $row->semester;
+
+					$row2 = $this->m_login->get_wali();
+					$wali_kelas = $row2->wali_kelas;
 
 					$data = [
 						'id' => $cek['id'],
@@ -70,36 +73,31 @@ class Loginuser extends CI_Controller
 					];
 					if ($cek['role_id_fk'] == '2') {
 						$this->session->set_userdata($data);
-						$this->session->set_flashdata('hehe', ' 
-						<script>
-		  				alert("Login Berhasil!");
-						</script>');
+						$this->session->set_flashdata('hehe');
 						redirect('guru'); 
 					}elseif ($cek['role_id_fk'] == '3'){
 						$this->session->set_userdata($data);
-						$this->session->set_flashdata('hehe', ' 
-						<script>
-		  				alert("Login Berhasil!");
-						</script>');
+						$this->session->set_flashdata('hehe');
+		
 						redirect('wali_kelas');
 					}elseif ($cek['role_id_fk'] == '4'){
 						$this->session->set_userdata($data);
-						$this->session->set_flashdata('hehe', ' 
-						<script>
-		  				alert("Login Berhasil!");
-						</script>');
+						$this->session->set_flashdata('hehe');
 						redirect('siswa_admin');
 					}else{
-						 $this->session->set_userdata($data);
+						//login admin di url loginuser
 						$this->session->set_flashdata('hehe', ' 
 						<script>
 		  				alert("Anda tidak punya hak akses!");
 						</script>');
 						redirect('Loginuser');
 
-						// $this->session->set_flashdata('hehe','<div class="alert alert-info" role="alert">Tidak punya hak akses masuk! </div>');
-						// redirect('Loginuser');
+					
 					}
+				} else {
+					//jika akun terdaftar tp password salah
+					$this->session->set_flashdata('hehe','<div class="alert alert-danger" role="alert"> password Salah! </div>');
+						redirect('Loginuser');
 				}
 
 			}
@@ -118,10 +116,10 @@ class Loginuser extends CI_Controller
 				
 			
 		}else{
-
-				$this->session->set_flashdata('message', ' 
+				// jika usernmae dan pass tidak terdaftar
+				$this->session->set_flashdata('hehe', ' 
 				<script>
-  				alert("Username/Password Salah!");
+  				alert("Username/Password Tidak terdaftar!");
 				</script>');
 				 redirect('Loginuser');
 

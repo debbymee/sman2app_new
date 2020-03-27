@@ -210,7 +210,7 @@ class M_data extends CI_Model
 
 	function tampil_siswa_admin()
 	{
-		$this->db->select('detail_kelas_siswa.id_detail,siswa.nama_siswa, kelas.nama_kelas, tahun_ajaran.tahun_ajaran');
+		$this->db->select('*');
 		$this->db->from('siswa');
 		$this->db->join('detail_kelas_siswa', 'siswa.id_siswa = detail_kelas_siswa.id_siswa');
 		$this->db->join('kelas', 'detail_kelas_siswa.id_kelas = kelas.id_kelas');

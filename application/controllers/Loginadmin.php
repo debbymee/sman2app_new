@@ -1,5 +1,5 @@
 <?php 
-class Loginbaru extends CI_Controller
+class Loginadmin extends CI_Controller
 {
 
 	public function __construct() {
@@ -42,7 +42,7 @@ class Loginbaru extends CI_Controller
 		if ($tahun_ajaran == null || $tahun_ajaran == '' || empty($tahun_ajaran)) 
 		{
 			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Pilih tahun ajaran </div>');
-			redirect('Loginbaru');
+			redirect('loginadmin');
 	
 		}  else {
 
@@ -72,34 +72,35 @@ class Loginbaru extends CI_Controller
 						
 					];
 					if ($cek['role_id_fk'] == '2') {
-						$this->session->set_userdata($data);
-						$this->session->set_flashdata('hehe', ' 
+				
+						$this->session->set_flashdata('message', ' 
 						<script>
-		  				alert("Login Berhasil!");
+		  				alert("Anda tidak punya hak akses!");
 						</script>');
-						redirect('guru'); 
+						redirect('loginadmin'); 
 					}elseif ($cek['role_id_fk'] == '3'){
-						$this->session->set_userdata($data);
-						$this->session->set_flashdata('hehe', ' 
+					
+						$this->session->set_flashdata('message', ' 
 						<script>
-		  				alert("Login Berhasil!");
+		  				alert("Anda tidak punya hak akses!");
 						</script>');
-						redirect('wali_kelas');
+						redirect('loginadmin');
 					}elseif ($cek['role_id_fk'] == '4'){
-						$this->session->set_userdata($data);
-						$this->session->set_flashdata('hehe', ' 
+						
+						$this->session->set_flashdata('message', ' 
 						<script>
-		  				alert("Login Berhasil!");
+		  				alert("Anda tidak punya hak akses!");
 						</script>');
-						redirect('siswa_admin');
+						redirect('loginadmin');
 					}else{
 						$this->session->set_userdata($data);
-						$this->session->set_flashdata('hehe', ' 
-						<script>
-		  				alert("Login Berhasil!");
-						</script>');
+						$this->session->set_flashdata('message');
 						redirect('admin');
 					}
+				} else {
+						//jika akun terdaftar tp password salah
+					$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> password Salah! </div>');
+						redirect('Loginadmin');
 				}
 
 			}
@@ -123,7 +124,7 @@ class Loginbaru extends CI_Controller
 				<script>
   				alert("Username/Password Salah!");
 				</script>');
-				 redirect('Loginbaru');
+				 redirect('Loginadmin');
 
 				}
 
