@@ -214,7 +214,7 @@
     <script src="<?php echo base_url('public') ?>/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('public') ?>/js/custom.min.js"></script>
-
+     <!--PILIH GABUNGAN JADWAL+MAPEL-->
     <script type="text/javascript">
     $(document).ready(function(){
         $('#jadwal').change(function(){
@@ -239,6 +239,7 @@
         });
     });
 </script>
+ <!--MENAMPILKAN CHART DASHBOARD-->
  <script type="text/javascript">
  
 $(function(){
@@ -286,6 +287,8 @@ $(function(){
 });
  
 </script>
+
+ <!--WA GATEWAY-->
 <script>
 var auto_refresh = setInterval(
 function()
@@ -293,7 +296,7 @@ function()
 $('#data').load('/sman2app/wali_kelas/wa_siswa');
 }, 3000);
 </script>
-
+ <!--LIST FILTER DROPDOWN-->
 <script type="text/javascript">
    $(document).ready(function() {
           var table=$('#exampledr').DataTable({
@@ -320,7 +323,7 @@ $('#data').load('/sman2app/wali_kelas/wa_siswa');
 
 </script>
 
-
+ <!--filter range tanggal -->
 <script type="text/javascript">
 $(function() {
 
@@ -347,6 +350,7 @@ $(function() {
 });
 </script>
 
+ <!--ceklis all kehadiran di presensi-->
 <script type="text/javascript">
   $(document).ready(function() {
   $("#checkedAll").change(function(){
@@ -375,6 +379,7 @@ $(function() {
   });
 });
 </script>
+
 
   
   </body>

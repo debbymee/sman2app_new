@@ -6,7 +6,7 @@
 		<hr>
 		<a href="<?php echo base_url(); ?>admin/form_kelas"> <button type="button" class="btn btn-success btn-lg"> + TAMBAH ROMBEL</button> </a><br><br>
 
-			<?= $this->session->flashdata('message'); ?>
+			<?= $this->session->flashdata('message2'); ?>
 		
 		<form>
 

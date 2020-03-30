@@ -4,7 +4,7 @@
                 <h3>Detail Anggota Rombongan Belajar <?php echo $kelas; ?></h3>
               </div>
 
-              <?= $this->session->flashdata('message'); ?>
+              <?= $this->session->flashdata('message2'); ?>
 
             
             </div>

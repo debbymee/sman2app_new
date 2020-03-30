@@ -34,9 +34,9 @@
  	</tr>
  	<tr>
  		<td><h2 style="color: green " id="jadwal_pelajaran"><b>JADWAL PELAJARAN</b></h2></td>
- 		<td><h2 style="color: green " id="jadwal_pelajaran"><b>  : <select class="btn btn-default dropdown-toggle" id="jadwal" name="id_jadwal" >
+ 		<td><h2 style="color: green " id="jadwal_pelajaran"><b>  : <select class="btn btn-default dropdown-toggle" required id="jadwal" name="id_jadwal" >
 
-                          <option>Pilih</option>
+                          <option value="">Pilih</option>
                         <?php foreach ($jadwalll as $dj) : ?>
                         <?php $jumlah_waktu = substr_count( $dj->jam_pelajaran, ",") +1;  ?>
  						<?php if ($jumlah_waktu == "3") { ?>
@@ -87,7 +87,8 @@
  	</tr>
  	<tr>
  		<td><h2 style="color: green" id="modul_pembahasan"><b>Modul Pembahasan</b></h2></td>
- 		<TD> <B>:</B> <input type="text" name="modul_pembahasan"></TD>
+ 		<TD> <B>:</B> <input type="text" name="modul_pembahasan" required></TD>
+ 		<span style="float: right;font-size: 20px"><input type="checkbox"  name="checkedAll" id="checkedAll" /> <b>Hadir Semua </b> </span>
  	</tr>
 
  </table>
@@ -121,13 +122,19 @@
 
 					<td>
 						<div class="col-md-8 col-sm-6 col-xs-12">
-                       
+                    
                         <?php foreach ($keterangan_presensi as $kj): ?>
                         	
-
-                        <input type="checkbox" name="kd_keterangan[]" value="<?php echo $kj->kd_keterangan ?>"><?php echo $kj->kd_keterangan ?>&nbsp;&nbsp;&nbsp;
-                        <?php endforeach ?>
-           
+                         <?php if ($kj->kd_keterangan == "H") { ?>
+                         	 <input type="radio" class="checkSingle" required name="kd_keterangan-<?php echo $data->id_siswa?>" value="<?php echo $kj->kd_keterangan ?>"><?php echo $kj->kd_keterangan ?>&nbsp;&nbsp;&nbsp;
+                     
+                         <?php } else {?>
+                         	
+                         	 <input type="radio" name="kd_keterangan-<?php echo $data->id_siswa?>" required value="<?php echo $kj->kd_keterangan ?>"><?php echo $kj->kd_keterangan ?>&nbsp;&nbsp;&nbsp;
+                       
+                         <?php }?>
+                       
+              <?php endforeach ?>
                   	
                           
                   

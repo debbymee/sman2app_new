@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2020 at 04:27 PM
+-- Generation Time: Mar 30, 2020 at 03:06 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -47,7 +47,8 @@ INSERT INTO `detail_kelas_siswa` (`id_detail`, `id_siswa`, `id_kelas`, `id_wali_
 (38, 23, 15, '196908272006042009', 18),
 (39, 24, 15, '196908272006042009', 18),
 (41, 1, 16, '196511041991032006', 18),
-(42, 17, 16, '196511041991032006', 18);
+(42, 17, 16, '196511041991032006', 18),
+(47, NULL, 17, '195908061984031015', 18);
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,7 @@ INSERT INTO `guru` (`id_guru`, `nama_guru`, `email`, `NUPTK`, `jk`, `tempat_lahi
 (957, 'Yohanes Donbosco Lobo', 'john_lobo72@yahoo.co.id', '5041750652200033', 'L', 'DERU-FLORES', '1972-07-09', '197207092006041002', 'Guru Mapel', 'Katholik', 'GRAHA JAPAN ASRI HH 03', '7', '13', '', 'JAPAN', 'Kec. Sooko', 61361, '0812335638546'),
 (958, 'Yoyok Hari Purwanto', 'yoyokhari.P2@gmail.com', '5839742643200052', 'L', 'Mojokerto', '1964-05-07', '196405071989031014', 'Guru Mapel', 'Islam', 'Jl. Riyanto No 20', '3', '2', 'Prajurit Kulon', 'Prajurit Kulon', 'Kec. Prajurit Kulon', 61326, '08155399978'),
 (959, 'Yustika Kumala', 'kumalayustika@gmail.com', '2248769670230023', 'P', 'Mojokerto', '1991-09-16', '199109162015032003', 'Guru BK', 'Islam', 'Ds. Madureso', '1', '2', 'Madureso', 'Ds. Madureso', 'Kec. Dawar Blandong', 61354, '081214278780'),
-(962, 'deby', 'debbycn22@gmail.com', '1234512345123456', 'L', 'Banjar', '0000-00-00', '123451234512345678', 'Guru Mtk', 'Islam', '   jl australi', '02', '02', 'bambu', 'balongsari', 'magersari', 12355, '081224612400');
+(962, 'deby', 'debbycn22@gmail.com', '1234512345123456', 'L', 'Banjar', '0000-00-00', '123451234512345678', 'Guru Mtk', 'Islam', '   jl australi', '02', '02', 'bambu', 'balongsari12', 'magersari', 12355, '081224612400');
 
 -- --------------------------------------------------------
 
@@ -216,13 +217,12 @@ CREATE TABLE `jadwal_pelajaran` (
 INSERT INTO `jadwal_pelajaran` (`id_jadwal`, `hari`, `jam_pelajaran`, `jam_pelajaran_dimulai`, `kd_mapel_fk`, `id_kelas_fk`, `id_tahun_ajaran_fk`, `id_guru_fk`) VALUES
 (29, 'Jumat', 'jam ke-1', '', 2, 15, 18, 954),
 (31, 'Jumat', 'jam ke-3', '', 6, 15, 18, 942),
-(32, 'Jumat', 'jam ke-1', '', 1, 16, 18, 913),
+(32, 'Senin', 'jam ke-1', 'jam ke-1', 1, 16, 18, 913),
 (33, 'Jumat', 'jam ke-3', '', 2, 16, 18, 927),
 (34, 'Minggu', 'jam ke-3', '', 2, 15, 18, 927),
 (35, 'Minggu', 'jam ke-1,jam ke-2', '', 6, 15, 18, 942),
 (39, 'Minggu', 'jam ke-7,jam ke-8,jam ke-9', '', 3, 15, 18, 909),
-(40, 'Kamis', 'jam ke-1,jam ke-2', 'jam ke-1', 5, 15, 18, 895),
-(42, 'Kamis', 'jam ke-9,jam ke-10,jam ke-11', 'jam ke-9', 1, 15, 18, 895);
+(42, 'Senin', 'jam ke-1', 'jam ke-1', 2, 15, 18, 954);
 
 -- --------------------------------------------------------
 
@@ -443,7 +443,7 @@ INSERT INTO `presensi` (`id_presensi`, `tgl`, `foto`, `modul_pembahasan`, `kd_ke
 (367, '2020-02-21', NULL, 'bab ekonomi mikro', 'H', 29, 23),
 (368, '2020-02-21', NULL, 'bab ekonomi mikro', 'H', 29, 24),
 (369, '2020-02-21', '', 'jam ke1 nih', 'S', 32, 1),
-(370, '2020-02-21', NULL, 'jam ke1 nih', 'H', 32, 17),
+(370, '2020-02-21', NULL, 'jam ke1 nih', 'I', 32, 17),
 (371, '2020-02-21', NULL, 'bahasa indonesia ke 2', 'A', 31, 21),
 (372, '2020-02-21', 'tiga-warna11.jpg', 'bahasa indonesia ke 2', 'S', 31, 22),
 (373, '2020-02-21', NULL, 'bahasa indonesia ke 2', 'D', 31, 23),
@@ -462,7 +462,10 @@ INSERT INTO `presensi` (`id_presensi`, `tgl`, `foto`, `modul_pembahasan`, `kd_ke
 (432, '2020-03-05', NULL, 'tezz geooo', 'H', 42, 21),
 (433, '2020-03-05', NULL, 'tezz geooo', 'H', 42, 22),
 (434, '2020-03-05', NULL, 'tezz geooo', 'A', 42, 23),
-(435, '2020-03-05', NULL, 'tezz geooo', 'S', 42, 24);
+(435, '2020-03-05', NULL, 'tezz geooo', 'S', 42, 24),
+(436, '2020-02-22', '', 'jam ke1 nih', 'D', 32, 1),
+(467, '2020-03-30', NULL, 'tezz', 'H', 32, 1),
+(468, '2020-03-30', '', 'tezz', 'S', 32, 17);
 
 -- --------------------------------------------------------
 
@@ -499,7 +502,7 @@ INSERT INTO `siswa` (`id_siswa`, `nama_siswa`, `nipd`, `jk`, `nisn`, `tempat_lah
 (4, 'Yulia', 1235, 'perempuan', 192292223, ' Sulawesi', '1999-04-05', 'Kristen', '', 0, 0, '', '', '', 0, '+62853-1789-4054', '2020-02-18 07:29:05'),
 (10, 'alfann firmansyah', 1233, 'laki-laki', 2147483647, 'Banjar', '2000-01-01', 'Kristen', '', 0, 0, '', '', '', 0, ' 081224612411', '2020-02-18 07:29:12'),
 (11, 'Amrina Rosada', 6712, 'perempuan', 192292222, 'Sulawesi', '2000-09-09', 'Buddha', '', 0, 0, '', '', '', 0, ' 081224612402', '2020-02-18 07:29:00'),
-(12, 'maulina', 9123, 'perempuan', 1234412345, 'Banjar', '2000-01-01', 'Kristen', '', 0, 0, '', '', '', 0, ' 081224612400', '2020-01-28 12:09:18'),
+(12, 'maulina', 9123, 'perempuan', 1234412345, 'Banjar', '2000-01-01', 'Kristen', '', 0, 0, '', '', '', 0, ' 081224612400', '2017-01-28 12:09:18'),
 (13, 'mustofa', 1212, 'laki-laki', 123456, 'klalala', '0000-00-00', 'Islam', '', 0, 0, '', '', '', 0, '81224612406', '2020-02-18 07:29:17'),
 (16, 'zaenab', 1210, 'laki-laki', 123456, 'klalala', '0000-00-00', 'Islam', 'jl apel', 0, 0, '', '', '', 0, '81224612406', '2020-02-18 07:29:20'),
 (17, 'Agustina Putri', 1219, 'Perempuan', 12121222, 'Bandung', '1999-04-01', 'Islam', 'jln semeru', 1, 2, 'bambu', 'haha', 'baba', 12121, '081223456509', '2020-02-18 07:29:24'),
@@ -558,12 +561,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `role_id_fk`, `siswa_admin`, `id_guru_fk`, `is_active`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, NULL, NULL, 1),
-(2, 'enny_nur', '202cb962ac59075b964b07152d234b70', 2, NULL, 913, 1),
+(2, 'enny_nur', '81dc9bdb52d04dc20036dbd8313ed055', 2, NULL, 913, 1),
 (87, 'wiwik_andayani', '202cb962ac59075b964b07152d234b70', 3, NULL, 954, 1),
 (88, 'aan', '202cb962ac59075b964b07152d234b70', 4, 41, NULL, 1),
 (91, 'sri_utami', '202cb962ac59075b964b07152d234b70', 3, NULL, 942, 1),
 (96, 'edy_susanto', '202cb962ac59075b964b07152d234b70', 2, NULL, 909, 1),
-(98, 'agus', '202cb962ac59075b964b07152d234b70', 2, NULL, 895, 1);
+(102, 'sunarto', '7cc532d783a7461f227a5da8ea80bfe1', 2, NULL, 945, 1);
 
 -- --------------------------------------------------------
 
@@ -585,6 +588,31 @@ INSERT INTO `user_role` (`id_role`, `role`) VALUES
 (2, 'guru'),
 (3, 'walikelas'),
 (4, 'siswa_admin');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_presensi`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_presensi` (
+`id_presensi` int(11)
+,`tgl` varchar(20)
+,`foto` varchar(200)
+,`modul_pembahasan` varchar(255)
+,`kd_keterangan_fk` varchar(11)
+,`id_jadwal_fk` int(11)
+,`id_siswa_fk` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_presensi`
+--
+DROP TABLE IF EXISTS `view_presensi`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_presensi`  AS  select `a`.`id_presensi` AS `id_presensi`,`a`.`tgl` AS `tgl`,`a`.`foto` AS `foto`,`a`.`modul_pembahasan` AS `modul_pembahasan`,(select `c`.`kd_keterangan` from `keterangan_presensi` `c` where `c`.`id_status_presensi` = min(`b`.`id_status_presensi`)) AS `kd_keterangan_fk`,`a`.`id_jadwal_fk` AS `id_jadwal_fk`,`a`.`id_siswa_fk` AS `id_siswa_fk` from (`presensi` `a` join `keterangan_presensi` `b` on(`a`.`kd_keterangan_fk` = `b`.`kd_keterangan`)) group by `a`.`tgl`,`a`.`id_siswa_fk` ;
 
 --
 -- Indexes for dumped tables
@@ -727,7 +755,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `detail_kelas_siswa`
 --
 ALTER TABLE `detail_kelas_siswa`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `guru`
@@ -751,13 +779,13 @@ ALTER TABLE `history_message`
 -- AUTO_INCREMENT for table `jadwal_pelajaran`
 --
 ALTER TABLE `jadwal_pelajaran`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `keterangan_presensi`
@@ -781,7 +809,7 @@ ALTER TABLE `mata_pelajaran`
 -- AUTO_INCREMENT for table `presensi`
 --
 ALTER TABLE `presensi`
-  MODIFY `id_presensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=436;
+  MODIFY `id_presensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=469;
 
 --
 -- AUTO_INCREMENT for table `siswa`
@@ -793,13 +821,13 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id_tahun_ajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_tahun_ajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `user_role`

@@ -36,7 +36,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="email" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="email" placeholder="masukkan email guru"  type="text" value="<?php echo set_value('email'); ?>">
+                          name="email" placeholder="masukkan email guru"  type="email" value="<?php echo set_value('email'); ?>">
                         
                           <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
@@ -78,7 +78,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="tempat_lahir" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="tempat_lahir" placeholder="masukkan tempat lahir"  type="text" value="<?php echo set_value('tempat_lahir'); ?>">
+                          name="tempat_lahir" placeholder="masukkan tempat lahir" pattern="[A-Za-z]{3,30}" required  type="text" value="<?php echo set_value('tempat_lahir'); ?>">
                          
                           <?php echo form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
@@ -89,7 +89,7 @@
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tgl_lahir"> TANGGAL LAHIR <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class='input-group date' id='myDatepickerguru' name="tgl_lahir">
+                        <div class='input-group date' id='guru'>
                             <input type='text' class="form-control" name="tgl_lahir" readonly="readonly" />
                             <span class="input-group-addon">
                                <span class="glyphicon glyphicon-calendar"></span>
@@ -121,7 +121,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="jenis_ptk" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="jenis_ptk" placeholder="masukkan jenis_ptk guru"  type="text" value="<?php echo set_value('jenis_ptk'); ?>">
+                          name="jenis_ptk" placeholder="masukkan jenis_ptk guru" pattern="[A-Za-z]{3,30}" required  type="text" value="<?php echo set_value('jenis_ptk'); ?>">
                          
                           <?php echo form_error('jenis_ptk', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
@@ -203,7 +203,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="dusun" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="dusun" placeholder="masukkan dusun guru"  type="text" value="<?php echo set_value('dusun'); ?>">
+                          name="dusun" placeholder="masukkan dusun guru"  type="text" pattern="[A-Za-z]{3,30}" required value="<?php echo set_value('dusun'); ?>">
                          
                           <?php echo form_error('dusun', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
@@ -219,7 +219,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="kelurahan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="kelurahan" placeholder="masukkan kelurahan guru"  type="text" value="<?php echo set_value('kelurahan'); ?>">
+                          name="kelurahan" placeholder="masukkan kelurahan guru" pattern="[A-Za-z]{3,30}" required  type="text" value="<?php echo set_value('kelurahan'); ?>">
                          
                           <?php echo form_error('kelurahan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 
@@ -234,7 +234,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
 
                           <input id="kecamatan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="kecamatan" placeholder="masukkan kecamatan guru"  type="text" value="<?php echo set_value('kecamatan'); ?>">
+                          name="kecamatan" placeholder="masukkan kecamatan guru" pattern="[A-Za-z]{3,30}" required type="text" value="<?php echo set_value('kecamatan'); ?>">
                          
                           <?php echo form_error('kecamatan', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
 

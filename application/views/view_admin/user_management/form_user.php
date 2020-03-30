@@ -14,7 +14,7 @@
                   
           <form action="<?php echo base_url(); ?>admin/tambah_user" method ="post"  class="form-horizontal form-label-left"  >
 
-					<?= $this->session->flashdata('message'); ?>
+					<?= $this->session->flashdata('message2'); ?>
       
     
    					<div class="item form-group">

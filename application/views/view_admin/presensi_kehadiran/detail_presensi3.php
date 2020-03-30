@@ -5,7 +5,7 @@
 		<h2 style="color: green " align="center"> DAFTAR PRESENSI SISWA KELAS 12</h2>
 		<hr>
 		 <br><br>
-		 <?= $this->session->flashdata('message'); ?>
+		 <?= $this->session->flashdata('message2'); ?>
       
 		<a href="<?php echo base_url(); ?>admin/daftarkelas_presensi3"> <button type="button" class="btn btn-success btn-lg"  > + INPUTKAN PRESENSI</button> </a>
 		 <br><br>
@@ -16,7 +16,7 @@
 		 <table>
                 <tr>
                     <label style="margin-left:1%; color:black;font-style: italic;" for="filter">Filter By Kelas</label>
-                    <th class="filterhead"></th>
+                    <th class="filterhead "></th>
                      <th class="filterhead" style="display: none" ></th>
 
                      <label style="margin-left:3%;color:black;font-style: italic;" for="filter">Filter By Tanggal</label>
@@ -25,7 +25,7 @@
                      </th>
                      <label style="margin-left:6%;color:black;font-style: italic;" for="filter">Filter By Siswa</label>
                     <th class="filterhead" style="display: none"></th>
-                    <th class="filterhead"></th>
+                    <th class="filterhead " ></th>
                     <label style="margin-left:17%;color:black;font-style: italic;" for="filter">Filter By Jadwal</label>
                     <th class="filterhead" style="display: none"></th>
                     <th class="filterhead"></th>
@@ -103,3 +103,4 @@
 </div>
 </div>
 </div>
+

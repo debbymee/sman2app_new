@@ -6,7 +6,7 @@
 
    <form action="<?php echo base_url(); ?>admin/update_jadwal12" method ="post"  class="form-horizontal form-label-left"  >
 
-       <?= $this->session->flashdata('message'); ?>
+       <?= $this->session->flashdata('message2'); ?>
         
            <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="hari">Hari <span class="required">*</span>
@@ -14,7 +14,7 @@
 
                 <div class="btn-group col-md-6 col-sm-6 col-xs-12">
              
-                    <select class="btn btn-default dropdown-toggle" name="hari" value=" <?php echo $jadwal_pelajaran->hari ?> " >
+                    <select class="js-example-basic-single" required name="hari" value=" <?php echo $jadwal_pelajaran->hari ?> " >
                         <?php if($jadwal_pelajaran->hari == 'Senin') {?>
                             <option value="Senin" selected>Senin</option>
                             <option value="Selasa" >Selasa</option>
@@ -55,7 +55,7 @@
             </div>
 
 
-            <input type="text" name="id_jadwal" value=" <?php echo $jadwal_pelajaran->id_jadwal ?> ">
+            <input type="hidden" name="id_jadwal" value=" <?php echo $jadwal_pelajaran->id_jadwal ?> ">
 
             <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="jam_pelajaran"> JAM PELAJARAN <span class="required">*</span>
@@ -63,7 +63,7 @@
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
-                    <select class="js-example-basic-single col-md-3" name="jam_pelajaran[]" multiple style="width: 150px;">
+                    <select class="js-example-basic-single" required name="jam_pelajaran[]" multiple style="width: 150px;">
 
 
                         <?php for($i=1; $i<12; $i++){?>
@@ -87,7 +87,7 @@
 
                 <div class="btn-group col-md-6 col-sm-6 col-xs-12">
              
-                    <select class="btn btn-default dropdown-toggle" name="kd_mapel" >
+                    <select class="js-example-basic-single" required name="kd_mapel" >
 
                     <?php foreach ($mata_pelajaran as $dj  ): ?>
                         <option value="<?php echo $dj->kd_mapel ?>" <?php echo ($dj->kd_mapel == $jadwal_pelajaran->kd_mapel_fk)?'selected="selected"':''?>><?php echo $dj->nama_pelajaran?></option>
@@ -105,7 +105,7 @@
 
                 <div class="btn-group col-md-6 col-sm-6 col-xs-12">
              
-                    <select class="btn btn-default dropdown-toggle" name="id_kelas" >
+                    <select class="js-example-basic-single" required name="id_kelas" >
                   
                     <?php foreach ($kelas as $rl  ): ?>
                         <option value="<?php echo $rl->id_kelas ?>" <?php echo ($rl->id_kelas == $jadwal_pelajaran->id_kelas_fk)?'selected="selected"':''?>><?php echo $rl->nama_kelas?></option>
@@ -124,7 +124,7 @@
 
                <div class="btn-group col-md-6 col-sm-6 col-xs-12" >
              
-                    <select class="btn btn-default dropdown-toggle" name="id_guru"  >
+                    <select class="js-example-basic-single" required name="id_guru"  >
 
                     <?php foreach ($guru as $gru  ): ?>
                     <option value="<?php echo $gru->id_guru ?>" <?php echo ($gru->id_guru == $jadwal_pelajaran->id_guru_fk)?'selected="selected"':''?>><?php echo $gru->nama_guru?></option>
@@ -142,7 +142,7 @@
 
                 <div class="btn-group col-md-6 col-sm-6 col-xs-12">
              
-                    <select class="btn btn-default dropdown-toggle" name="id_tahun_ajaran" >
+                    <select class="js-example-basic-single" required name="id_tahun_ajaran" >
 
                     <?php foreach ($tahun as $gru  ): ?>
                     <option value="<?php echo $gru->id_tahun_ajaran ?>" <?php echo ($gru->id_tahun_ajaran == $jadwal_pelajaran->id_tahun_ajaran_fk)?'selected="selected"':''?>><?php echo $gru->tahun_ajaran?></option>

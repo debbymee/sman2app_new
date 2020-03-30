@@ -14,14 +14,14 @@
                   
           <form action="<?php echo base_url(); ?>admin/tambah_rombel" method ="post"  class="form-horizontal form-label-left"  >
 
-					<?= $this->session->flashdata('message'); ?>
+					<?= $this->session->flashdata('message2'); ?>
       
     
    					<div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="kelas">kelas <span class="required">*</span>
                         </label>
                         <div class="btn-group col-md-5 col-sm-6 col-xs-12">
-                      <select  class="js-example-basic-single" name="id_kelas" >
+                      <select  class="js-example-basic-single" name="id_kelas" required >
                         <option value="">Pilih Kelas </option>
                         <?php foreach ($kelas as $r): ?>
                           <option value="<?php echo $r->id_kelas ?>"> <?php echo $r->nama_kelas; ?> 
@@ -39,7 +39,7 @@
    						<label class="control-label col-md-4 col-sm-3 col-xs-12" for="wali_kelas">Wali Kelas<span class="required">*</span>
               </label>
                    <div class="btn-group col-md-5 col-sm-6 col-xs-12">
-                      <select  class="js-example-basic-single" name="nip">
+                      <select  class="js-example-basic-single" name="nip" required>
                         <option value="">Pilih Wali Kelas</option>
                         <?php foreach ($wali as $r): ?>
                           <option value="<?php echo $r->nip ?>"> 
@@ -58,7 +58,7 @@
               <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tahun_ajaran">Tahun Ajaran<span class="required">*</span>
               </label>
                    <div class="btn-group col-md-5 col-sm-6 col-xs-12">
-                      <select class="js-example-basic-single" name="id_tahun_ajaran">
+                      <select class="js-example-basic-single" name="id_tahun_ajaran" required>
                         <option value="">Pilih Tahun Ajaran</option>
                         <?php foreach ($tahun as $r): ?>
                           <option  value="<?php echo $r->id_tahun_ajaran ?>" > 

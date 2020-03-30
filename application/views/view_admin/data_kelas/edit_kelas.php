@@ -8,7 +8,7 @@
 
 
 
-              <?= $this->session->flashdata('message'); ?>
+              <?= $this->session->flashdata('message2'); ?>
       
   
               <div class="item form-group">

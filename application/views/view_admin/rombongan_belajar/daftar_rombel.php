@@ -6,7 +6,7 @@
 		</h2>
 		<hr>
 
-		<?= $this->session->flashdata('message'); ?>
+		<?= $this->session->flashdata('message2'); ?>
 	
 		<a href="<?php echo base_url(); ?>admin/form_rombel"> <button type="button" class="btn btn-success btn-lg"  > + TAMBAH ROMBONGAN BELAJAR</button> </a>
 		 <br><br>

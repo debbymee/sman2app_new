@@ -317,6 +317,9 @@
     <script src="<?php echo base_url('public') ?>/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="<?php echo base_url('public') ?>/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+     <!--Footer-->
+
     <script type="text/javascript">
       $(document).ready(function() {
        $('.js-example-basic-single').select2();
@@ -472,6 +475,7 @@ $("#preview_gambar").change(function(){
             });
 
     </script>
+    <!--Rentang tahun-->
  <script>
     $('#myDatepicker').datetimepicker();
     
@@ -493,13 +497,14 @@ $("#preview_gambar").change(function(){
         minDate: new Date('2003/01/01'),
     });
 
-    $('#myDatepickerguru').datetimepicker({
+    $('#guru').datetimepicker({
               format: 'DD/MM/YYYY',
         ignoreReadonly: true,
         allowInputToggle: true,
-        maxDate: new Date('1999/12/31'),
-        minDate: new Date('1962/01/01'),
+        maxDate: new Date('2000/12/30'),
+        minDate: new Date('1965/01/01'),
     });
+
 
     $('#datetimepicker6').datetimepicker();
     
@@ -629,6 +634,20 @@ $("#siswa").show();
     });
 });
 </script>
+
+<!--alert input max file keterangan presensi -->
+<script type="text/javascript">
+  var uploadField = document.getElementById("file");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 307200){
+       alert("File foto terlalu besar!");
+       this.value = "";
+    };
+};
+</script>
+
+
 
   
   </body>

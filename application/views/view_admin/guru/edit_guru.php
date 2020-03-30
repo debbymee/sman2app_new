@@ -90,14 +90,18 @@
 
 
   <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tgl_lahir"> TANGGAL LAHIR <span class="required">*</span>
-        </label>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-              <input type="date" id="tgl_lahir" name="tgl_lahir" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" value="<?php echo $guru->tgl_lahir ?>"  >
-              <?php echo form_error('tgl_lahir', '<small class="text-danger pl-3">', '</small>'); ?> <br> 
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tgl_lahir"> TANGGAL LAHIR <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class='input-group date' id='guru'>
+                            <input type='text' class="form-control" name="tgl_lahir" value="<?php echo $guru->tgl_lahir ?>" readonly="readonly" />
+                            <span class="input-group-addon">
+                               <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        </div>
+                      </div> 
 
-       </div>
-  </div>
 
 
 

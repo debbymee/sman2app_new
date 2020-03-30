@@ -29,7 +29,7 @@
 		    <br><br>
 
 
-         <?= $this->session->flashdata('message'); ?>
+         <?= $this->session->flashdata('message2'); ?>
 
 		<table class="table" >
 			<tr> 
@@ -68,7 +68,7 @@
                       	</div>
 					</td>
 					<td>
-						<input type="file" name="gambar">
+						<input type="file" id="file" name="gambar">
 						<?php echo "file jpeg max 3 mb"; ?>
 					</td>
 

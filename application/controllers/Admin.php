@@ -479,6 +479,9 @@ class Admin extends CI_Controller
 
 		
 		if ($this->form_validation->run() == false) {
+		$row = $this->m_data->count_pemberitahuan();
+		$data['pemberitahuan'] = $this->m_data->pemberitahuan();
+		$data['count_pemberitahuan'] = $row->jumlah;
 
 		$data['kelas'] = $this->m_data->tampil_kelas();
 		$data['guru'] = $this->m_data->tampil_guruu()->result();
@@ -498,15 +501,17 @@ class Admin extends CI_Controller
 		$id_kelas = $this->input->post('id_kelas');
 		$id_guru = $this->input->post('id_guru');
 		$tahun = $this->input->post('id_tahun_ajaran');
-		$convert = implode(", " ,$this->input->post('jam_pelajaran')); //memecah array
-		$mulai = explode(", " ,$convert); //menggabungkan dalam bentuk koma
+		$convert = implode("," ,$this->input->post('jam_pelajaran')); //memecah array
+		$mulai = explode("," ,$convert); //menggabungkan dalam bentuk koma
 
-       $cek = $this->m_data->cek_insert_jadwal($hari,$jam_pelajaran,$mata_pelajaran,$id_kelas,$tahun);
+		
+
+       $jumlah = $this->m_data->cek_insert_jadwal($hari,$convertD,$mata_pelajaran,$id_kelas,$tahun);
 
 
-		if ($cek > 0) 
+		if ($jumlah->cek > 0) 
 		{
-			$this->session->set_flashdata('message','<div class="alert alert-warning" role="alert">Jadwal Sudah Ada </div>');
+			$this->session->set_flashdata('message2','<div class="alert alert-warning" role="alert">Jadwal Sudah Ada </div>');
 			redirect('admin/daftar_jadwal12');
 		} else
 			{
@@ -523,7 +528,7 @@ class Admin extends CI_Controller
 				$this->m_data->input_jadwal($data);
 				
 
-				$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Jadwal Berhasil Dibuat! </div>');
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Jadwal Berhasil Dibuat! </div>');
 				redirect('admin/daftar_jadwal12');
 			}
 		}
@@ -555,23 +560,34 @@ class Admin extends CI_Controller
 		$id_kelas = $this->input->post('id_kelas');
 		$id_guru = $this->input->post('id_guru');
 		$tahun = $this->input->post('id_tahun_ajaran');
+		$convert = implode("," ,$this->input->post('jam_pelajaran')); //memecah array
+		$mulai = explode("," ,$convert); //menggabungkan dalam bentuk koma
 
-		$jam_pelajaran = implode(",",$this->input->post('jam_pelajaran'));
+
+		 $jumlah = $this->m_data->cek_insert_jadwal($hari,$convert,$mata_pelajaran,$id_kelas,$tahun);
+
+
+		if ($jumlah->cek > 0) 
+		{
+			$this->session->set_flashdata('message2','<div class="alert alert-warning" role="alert">Jadwal Sudah Ada </div>');
+			redirect('admin/daftar_jadwal12');
+		}else{
 	
 		$data = array(
 			'hari' => $hari,
-			'jam_pelajaran' =>$jam_pelajaran,
+			'jam_pelajaran' =>implode(",",$this->input->post('jam_pelajaran')),
 			'kd_mapel_fk' => $mata_pelajaran,
 			'id_kelas_fk' => $id_kelas,
 			'id_guru_fk' => $id_guru,
-			'id_tahun_ajaran_fk' => $tahun
+			'id_tahun_ajaran_fk' => $tahun,
+			'jam_pelajaran_dimulai' => $mulai[0]
 
 			);
-	 
+	 	
 		$this->m_data->update_jadwal($data, $id_jadwal);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Jadwal Berhasil Diubah! </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Jadwal Berhasil Diubah! </div>');
 		redirect('admin/daftar_jadwal12');
-	
+	}
 		
 	}
 
@@ -580,7 +596,7 @@ class Admin extends CI_Controller
 	{
 
 		$this->db->delete('jadwal_pelajaran', array('id_jadwal'=> $this->input->get('id_jadwal', FALSE)));
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Jadwal Tidak Dapat Dihapus! </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Jadwal Tidak Dapat Dihapus! </div>');
 		redirect('admin/daftar_jadwal12');
 	}
 
@@ -698,11 +714,11 @@ class Admin extends CI_Controller
 			}
 		
 		$this->m_data->input_presensi12($result);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert"> Berhasil Dibuat! </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert"> Berhasil Dibuat! </div>');
 		redirect('admin/lihat_presensi12');
 	}
 	else{
-		$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> Data Presensi Sudah Ada </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert"> Data Presensi Sudah Ada </div>');
 		redirect('admin/lihat_presensi12');
 	}
     }
@@ -714,7 +730,9 @@ class Admin extends CI_Controller
 		$id_prensensi = $this->uri->segment(3);
 		$data['siswa'] = $this->m_data->eTampilPresensi($id_prensensi);
 		$data['keterangan_presensi'] = $this->m_data->tampil_keterangan()->result();
-	
+	$row = $this->m_data->count_pemberitahuan();
+		$data['pemberitahuan'] = $this->m_data->pemberitahuan();
+		$data['count_pemberitahuan'] = $row->jumlah;
 		$data['content']   =  'view_admin/presensi_kehadiran/edit_presensi12';
 		$this->load->view('templates/templates',$data);
 		
@@ -747,7 +765,7 @@ class Admin extends CI_Controller
 		
 	 
 		$this->m_data->update_presensi12( $id_presensi,$data);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Presensi Berhasil Diubah! </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data Presensi Berhasil Diubah! </div>');
 		redirect('admin/lihat_presensi12');
 	
 		
@@ -892,6 +910,11 @@ class Admin extends CI_Controller
 			'is_unique' => 'nomer hp tidak boleh sama !'
 			]);
 		$this->form_validation->set_rules('kode_pos', 'kode_pos','required|trim|numeric|min_length[5]|max_length[5]');
+		$this->form_validation->set_rules('jenis_ptk', 'jenis_ptk', 'required|trim');
+		$this->form_validation->set_rules('RT', 'RT', 'required|trim|numeric');
+		$this->form_validation->set_rules('RW', 'RW', 'required|trim|numeric');
+
+		
 
 		 $jkv = $this->input->post('jk');
 		// $iduserv = $this->input->post('id_user');
@@ -900,6 +923,11 @@ class Admin extends CI_Controller
 		
 		if ($this->form_validation->run() == false) 
 		{
+			$row = $this->m_data->count_pemberitahuan();
+			$data['pemberitahuan'] = $this->m_data->pemberitahuan();
+			$data['count_pemberitahuan'] = $row->jumlah;
+			$data['pemberitahuan_detail'] = $this->m_data->pemberitahuan_detail();
+
 			$data['judul'] = 'Halaman Tambah Guru';
 			$data['content'] = 'view_admin/guru/form_guru_validasi';
 			//$data['users'] = $this->m_data->tampil_username()->result();
@@ -1060,7 +1088,7 @@ class Admin extends CI_Controller
 
 
 		);
-	 	$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil Diubah </div>');
+	 	$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data Berhasil Diubah </div>');
 	
 		$this->m_data->update_guru($kode2,$data);
 		redirect('admin/daftar_guru');
@@ -1577,21 +1605,41 @@ class Admin extends CI_Controller
 		$semester = $this->input->post('semester');
 		$status = $this->input->post('status');
 
-	
-		$data = array(
-			
-			'tahun_ajaran' => $tahun_ajaran,
-			'status' =>$status,
-			'kd_semester' =>$semester
-			
+		$jumlah = $this->m_data->cek_tahun_semester($semester, $tahun_ajaran);
 
-			);
-	 
-		$this->m_data->update_tahun($data, $kode2);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil diubah </div>');
-		redirect('admin/daftar_tahunajaran');
+			if ($jumlah->cek > 0 )
+			{
+
+				if ($this->input->post('status_awal') == $this->input->post('status'))
+				{
+					$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">Tahun Ajaran Sudah terdaftar! </div>');
+					redirect('admin/daftar_tahunajaran');
+				}
+				else if($this->input->post('semester_awal') != $this->input->post('semester') && $this->input->post('status_awal') != $this->input->post('status') )
+				{
+							$data2 = array(
+					'status' =>$status
+			
+					);
 	
-		
+					$this->m_data->update_tahun($data2, $kode2);
+					$this->session->set_flashdata('message2','<div class="alert alert-" role="alert">Tahun Ajaran Sudah terdaftar! tapi status telah berhasil diubah! </div>');
+					redirect('admin/daftar_tahunajaran');
+				}
+				else 
+				{
+					$data2 = array(
+					'status' =>$status
+			
+					);
+	
+					$this->m_data->update_tahun($data2, $kode2);
+					$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Status Berhasil diubah! </div>');
+					redirect('admin/daftar_tahunajaran');
+				}
+
+			
+			} 
 	}
 	public function form_tahun()
 	{
@@ -1611,38 +1659,54 @@ class Admin extends CI_Controller
 	
 	
 
-		$this->form_validation->set_rules('tahun_ajaran', 'tahun_ajaran', 'required|trim');
+		$this->form_validation->set_rules('tahun1', 'tahun1', 'required|trim');
+		$this->form_validation->set_rules('tahun2', 'tahun2', 'required|trim|differs[tahun1]');
+
 
 		
 		if ($this->form_validation->run() == false) 
 		{
-		$data['judul'] = 'Halaman Tambah Tahun Ajaran';
 
-		$data['content']   =  'view_admin/tahun_ajaran/form_tahun';
+			
+		$row = $this->m_data->count_pemberitahuan();
+		$data['pemberitahuan'] = $this->m_data->pemberitahuan();
+		$data['count_pemberitahuan'] = $row->jumlah;
+
+		$data['tahun_ajaran'] = $this->m_data->tampil_tahun()->result();
+		$data['semester'] = $this->m_data->tampil_semester();
+		$data['content'] = 'view_admin/tahun_ajaran/form_tahun';
+
         $this->load->view('templates/templates',$data);
 			
 		}else{
 
-		$tahun_ajaran = $this->input->post('tahun_ajaran');
+		//$tahun_ajaran = $this->input->post('tahun_ajaran');
+		$tahun_ajaran1 = $this->input->post('tahun1');
+		$tahun_ajaran2 = $this->input->post('tahun2');
+		$hasil_tahun = $tahun_ajaran1.'/'.$tahun_ajaran2;
 		$status = $this->input->post('status');
 		$semester = $this->input->post('semester');
 		
+		$jumlah = $this->m_data->cek_tahun_semester($semester, $hasil_tahun);
 
-		$data = array(
-			
-			'tahun_ajaran' => $tahun_ajaran,
-			'status' =>$status,
-			'kd_semester' =>$semester
-			
+			if ($jumlah->cek > 0 )
+			{
 
-			);
+			
+				$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">Tahun Ajaran Sudah terdaftar! </div>');
+				redirect('admin/form_tahun');
+			} else {
+				$data = array(
+				'tahun_ajaran' => $hasil_tahun,
+				'status' =>$status,
+				'kd_semester' =>$semester
+				);
 	 
-		$this->m_data->input_tahun($data, 'tahun_ajaran');
+				$this->m_data->input_tahun($data, 'tahun_ajaran');
 		
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Tahun Ajaran Baru Berhasil Ditambah! </div>');
-		redirect('admin/daftar_tahunajaran');
-
-
+				$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Tahun Ajaran Baru Berhasil Ditambah! </div>');
+				redirect('admin/daftar_tahunajaran');
+			}
 		}
 	}
 
@@ -1684,18 +1748,25 @@ class Admin extends CI_Controller
 	{
 		$this->form_validation->set_rules('nama_kelas', 'nama_kelas','required|trim|is_unique[kelas.nama_kelas]', [
 			'is_unique' => 'Nama Kelas ini sudah terdaftar!']);
+		$this->form_validation->set_rules('ruangan', 'ruangan','required|trim|is_unique[kelas.ruangan]', [
+			'is_unique' => 'Ruangan Kelas ini sudah terdaftar!']);
 		
 		
 		if ($this->form_validation->run() == false) 
 		{
+			$row = $this->m_data->count_pemberitahuan();
+			$data['pemberitahuan'] = $this->m_data->pemberitahuan();
+			$data['count_pemberitahuan'] = $row->jumlah;
+			$data['pemberitahuan_detail'] = $this->m_data->pemberitahuan_detail();
+
 			$data['judul'] = 'Halaman Tambah Rombel';
 			$data['content'] = 'view_admin/data_kelas/form_kelas';
 
 
-		$this->load->view('templates/templates', $data);
+			$this->load->view('templates/templates', $data);
 		} else {
 			$this->m_data->input_kelas($this->input->post());
-			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil Ditambah! </div>');
+			$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data Berhasil Ditambah! </div>');
 			redirect('admin/daftar_kelas');
 		}
 		
@@ -1716,19 +1787,24 @@ class Admin extends CI_Controller
 	}
 	public function update_kelas()
 	{
-	
+		$this->form_validation->set_rules('ruangan', 'ruangan','required|trim|is_unique[kelas.ruangan]', [
+			'is_unique' => 'Ruangan Kelas ini sudah terdaftar!']);
+
 		$id_kelas = $this->input->post('id_kelas');
 		$nama_kelas = $this->input->post('nama_kelas');
-		// $jumlah_siswa = $this->input->post('jumlah_siswa');
-		// $jurusan = $this->input->post('jurusan');
 		$tingkat_kelas = $this->input->post('tingkat_kelas');
 		$ruangan = $this->input->post('ruangan');
-		 
+
+		if ($this->form_validation->run() == false) 
+		{
+			$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">Ruangan yang dipilih telah terdaftar </div>');
+			redirect('admin/daftar_kelas');
+
+		} else {
+
 		$data = array(
 			'id_kelas' => $id_kelas,
 			'nama_kelas' => $nama_kelas,
-			// 'jumlah_siswa' => $jumlah_siswa,
-			// 'jurusan' => $jurusan,
 			'tingkat_kelas' => $tingkat_kelas,
 			'ruangan' => $ruangan,
 		
@@ -1738,17 +1814,40 @@ class Admin extends CI_Controller
 	 
 		$this->m_data->update_kelas($data, $id_kelas);
 
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Kelas Baru Berhasil Ditambah! </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Kelas Baru Berhasil Ditambah! </div>');
 		redirect('admin/daftar_kelas');
-	
+		}
 	}
 	public function hapus_kelas()
 	{
+		try {
+        $this->db->delete('kelas', array('id_kelas'=> $this->input->get('id_kelas', FALSE)));
 
-		$this->db->delete('kelas', array('id_kelas'=> $this->input->get('id_kelas', FALSE)));
 
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil Dihapus! </div>');
-		redirect('admin/daftar_kelas');
+        // documentation at
+        // https://www.codeigniter.com/userguide3/database/queries.html#handling-errors
+        // says; "the error() method will return an array containing its code and message"
+        $db_error = $this->db->error();
+        if (!empty($db_error)) {
+           if($db_error['code'] == 0){
+           	$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data Berhasil Dihapus </div>');
+    		redirect('admin/daftar_kelas');
+			
+           }
+           else{
+           	$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">KELAS Tidak Bisa Di Hapus karena sudah memiliki siswa </div>');
+    		redirect('admin/daftar_kelas');
+           }
+            return false; // unreachable retrun statement !!!
+        }
+        return TRUE;
+    } catch (Exception $e) {
+        // this will not catch DB related errors. But it will include them, because this is more general. 
+        echo $e->getMessage();
+        return;
+    }
+
+		
 	}	
 
 	// CONTROLLER DETAIL KELAS SISWA
@@ -1794,6 +1893,19 @@ class Admin extends CI_Controller
 	}
 	public function tambah_rombel()
 	{
+		
+			$kelas = $this->input->post('id_kelas');
+			$tahun = $this->input->post('id_tahun_ajaran');
+			$jumlah = $this->m_data->cek_wali_rombel($kelas, $tahun);
+
+			if ($jumlah->cek > 0 )
+			{
+
+			
+				$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">Kelas Sudah terdaftar di tahun ajaran ini! </div>');
+				redirect('admin/form_rombel');
+			} else {
+
 	
 			if($this->input->post('id_siswa') == '' || $this->input->post('id_siswa') == null)
 			{
@@ -1816,7 +1928,7 @@ class Admin extends CI_Controller
 		 
 			$this->m_data->input_detail($data,'detail_kelas_siswa');
 			
-			$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Tahun Ajaran Baru Berhasil Ditambah! </div>');
+			$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data Berhasil Ditambah! Silahkan login dengan tahun ajaran tersebut </div>');
 			redirect('admin/daftar_rombel');	         
 
        		}
@@ -1841,9 +1953,10 @@ class Admin extends CI_Controller
 		 
 			$this->m_data->input_detail($data,'detail_kelas_siswa');
 			
-			$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Tahun Ajaran Baru Berhasil Ditambah! </div>');
+			$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">Data Berhasil Ditambah! </div>');
 			redirect('admin/daftar_rombel');
 			}
+		}
 		
 	}
 	public function detail_anggota()
@@ -1919,7 +2032,7 @@ class Admin extends CI_Controller
 			);
 	 
 		$this->m_data->update_rombel_siswa($id, $data);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Data Berhasil diubah </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Data Berhasil diubah </div>');
 		redirect('admin/daftar_rombel');
 	
 		
@@ -1944,7 +2057,7 @@ class Admin extends CI_Controller
 			);
 
 		$this->m_data->input_detail($data);
-		$this->session->set_flashdata('message','<div class="alert alert-info" role="alert">Siswa Berhasil Diregistrasi.. </div>');
+		$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Siswa Berhasil Diregistrasi.. </div>');
 		redirect('admin/detail_anggota/'.$kelas.'/'.$nama_guru.'/'.$nama_kelas.'/'.$wali);
 		
 	}
@@ -1957,10 +2070,34 @@ class Admin extends CI_Controller
 		$wali  = $this->input->post('id_wali_fk');
 		$tahun = $this->input->post('id_tahun_ajaran_fk');
 
-		$this->db->delete('detail_kelas_siswa', array('id_detail'=> $id_detail));
+		
+		try {
+        $this->db->delete('detail_kelas_siswa', array('id_detail'=> $id_detail));
 
-		$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Siswa Berhasil Dikeluarkan! </div>');
-		redirect('admin/detail_anggota/'.$kelas.'/'.$nama_guru.'/'.$nama_kelas.'/'.$wali);
+        // documentation at
+        // https://www.codeigniter.com/userguide3/database/queries.html#handling-errors
+        // says; "the error() method will return an array containing its code and message"
+        $db_error = $this->db->error();
+        if (!empty($db_error)) {
+           if($db_error['code'] == 0){
+           	$this->session->set_flashdata('message2','<div class="alert alert-info" role="alert">Siswa Berhasil Dikeluarkan! </div>');
+    		redirect('admin/detail_anggota/'.$kelas.'/'.$nama_guru.'/'.$nama_kelas.'/'.$wali);
+			
+           }
+           else{
+           	$this->session->set_flashdata('message2','<div class="alert alert-danger" role="alert">Siswa Tidak Dapat Di Hapus karena sudah terdapat data presensi. </div>');
+    		redirect('admin/detail_anggota/'.$kelas.'/'.$nama_guru.'/'.$nama_kelas.'/'.$wali);
+           }
+            return false; // unreachable retrun statement !!!
+        }
+        return TRUE;
+    } catch (Exception $e) {
+        // this will not catch DB related errors. But it will include them, because this is more general. 
+        echo $e->getMessage();
+        return;
+    }
+
+		
 	}
 
 	// CONTROLLER NOTIFIKASI

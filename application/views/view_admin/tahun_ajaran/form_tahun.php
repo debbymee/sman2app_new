@@ -12,18 +12,39 @@
         <?php } ?>
                   
           <form action="<?php echo base_url(); ?>admin/tambah_tahun" method ="post"  class="form-horizontal form-label-left"  >
+        <?= $this->session->flashdata('message2'); ?>
       
          
    					<div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tahun_ajaran">Tahun Ajaran <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-6 col-xs-12">
-
-                          <input id="tahun_ajaran" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" 
-                          name="tahun_ajaran" placeholder="Masukkan Tahun Ajaran Baru"  type="text"> 
-                          <input type="hidden" name="id_tahun_ajaran">
+            <select name="tahun1" id="tahun1">
+                <option value="">Please Select</option>
+                <?php
+                $thn_skr = date('Y');
+                for ($x = $thn_skr; $x <= 2025; $x++) {
+                ?>
+                    <option value="<?php echo $x ?>"><?php echo $x ?></option>
+                <?php
+                }
+                ?>
+            </select> 
+            /
+             <select name="tahun2" id="tahun2">
+                <option value="">Please Select</option>
+                <?php
+                $thn_skr = date('Y');
+                for ($x = $thn_skr; $x <= 2025; $x++) {
+                ?>
+                    <option value="<?php echo $x ?>"><?php echo $x ?></option>
+                <?php
+                }
+                ?>
+            </select> 
                         </div><?php echo "Contoh : 2019/2020 "; ?>
             </div>
+           
 
             <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="semester">Semester <span class="required">*</span>

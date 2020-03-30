@@ -35,6 +35,23 @@ class M_data extends CI_Model
     $this->db->where($where);
 	return $this->db->get()->row();
     }
+	//model cek unique tahun_ajaran
+     function cek_tahun_semester($kd_semester, $tahun_ajaran){
+    $this->db->select('count(tahun_ajaran) as cek');
+    $this->db->from('tahun_ajaran');
+    $where = "kd_semester = '$kd_semester' and tahun_ajaran = '$tahun_ajaran'";
+    $this->db->where($where);
+	return $this->db->get()->row();
+    }
+    //model cek unique ROMBEL
+     function cek_wali_rombel($id_kelas, $id_tahun_ajaran_fk){
+    $this->db->select('count(id_kelas) as cek');
+    $this->db->from('detail_kelas_siswa');
+    $where = "id_kelas = '$id_kelas' and id_tahun_ajaran_fk = '$id_tahun_ajaran_fk'";
+    $this->db->where($where);
+	return $this->db->get()->row();
+    }
+
 
     function update_notif_model($id_history_guru){
     	  $this->db->set('status', 1);
@@ -452,6 +469,7 @@ class M_data extends CI_Model
 
 		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
 		$this->db->where('keterangan_semester.semester', $semester);
+		$this->db->order_by('jadwal_pelajaran.id_jadwal', 'desc');
 
 
 		
@@ -626,13 +644,13 @@ class M_data extends CI_Model
 
 		function tampil_jadwalll($id_kelas_fk,$hariindonesia,$tahun,$semester)
 	{
-		$this->db->select("(CHAR_LENGTH(jadwal_pelajaran.jam_pelajaran) - CHAR_LENGTH(REPLACE(jadwal_pelajaran.jam_pelajaran, ',', '')) + 1) as total,
+		$this->db->select("TIMEDIFF (CURRENT_TIME,master_jam_pelajaran.waktu_mulai) as batas_input,
 			jadwal_pelajaran.*,mata_pelajaran.*");
 		$this->db->from('jadwal_pelajaran');
 		$this->db->join('mata_pelajaran', 'jadwal_pelajaran.kd_mapel_fk = mata_pelajaran.kd_mapel');
 		$this->db->join('tahun_ajaran', 'jadwal_pelajaran.id_tahun_ajaran_fk = tahun_ajaran.id_tahun_ajaran');
 		$this->db->join('keterangan_semester', 'tahun_ajaran.kd_semester = keterangan_semester.kd_semester');
-	
+	$this->db->join('master_jam_pelajaran', 'jadwal_pelajaran.jam_pelajaran_dimulai = master_jam_pelajaran.jam_pelajaran_dimulai');
 		$this->db->where('jadwal_pelajaran.id_kelas_fk', $id_kelas_fk);
 		$this->db->where('jadwal_pelajaran.hari', $hariindonesia);
 		$this->db->where('tahun_ajaran.tahun_ajaran', $tahun);
@@ -815,9 +833,11 @@ class M_data extends CI_Model
 	}
 
 	public function cek_insert_jadwal($hari,$jam_pelajaran,$kd_mapel_fk,$id_kelas_fk,$id_tahun_ajaran_fk){
-		$sql = "SELECT * FROM `jadwal_pelajaran` WHERE hari = '$hari' AND jam_pelajaran = '$jam_pelajaran' AND kd_mapel_fk = '$kd_mapel_fk' and id_kelas_fk = '$id_kelas_fk' and id_tahun_ajaran_fk = '$id_tahun_ajaran_fk'";
-			$cek = $this->db->query($sql);
-			return $cek->row_array();
+		$this->db->select('count(jam_pelajaran) as cek');
+    $this->db->from('jadwal_pelajaran');
+    $where = "hari = '$hari' AND jam_pelajaran = '$jam_pelajaran' AND kd_mapel_fk = '$kd_mapel_fk' and id_kelas_fk = '$id_kelas_fk' and id_tahun_ajaran_fk = '$id_tahun_ajaran_fk'";
+    $this->db->where($where);
+	return $this->db->get()->row();
 	}
 
 

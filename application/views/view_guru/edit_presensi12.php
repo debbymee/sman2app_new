@@ -15,12 +15,7 @@
 				    <?php } ?>
                  
 		    
-			<div class="cari" style="float: right;">
-
-			<input type="text"name="cari" placeholder="cari"> <input type="submit"class="btn btn-success" name="submit" value="cari" ><br><br><br>
-			</div>
-		      
-
+			
  
 		
 		 <form action="<?php echo base_url(); ?>guru/update_presensi12" method ="post"  class="form-horizontal form-label-left"  enctype="multipart/form-data">
@@ -67,10 +62,11 @@
 									<?php if($kj->kd_keterangan==$data->kd_keterangan_fk) echo "checked" ?>>
 									<?php echo $kj->kd_keterangan ?>
 	                        <?php endforeach ?>
+
                       	</div>
 					</td>
 					<td>
-						<input type="file" name="gambar">
+						<input type="file" id="file" name="gambar"> <p>File Foto Max 3mb</p>
 					</td>
 
 				

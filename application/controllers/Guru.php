@@ -219,6 +219,7 @@ class Guru extends CI_Controller
 		$id_kelas_fk = $this->uri->segment(3); // mengambil get url urutan slice ke 3
 		$data['kelas'] = urldecode($urikelas);
 		$id_kelas = $id_kelas_fk;
+
 		$data['siswa'] = $this->m_guru->tampil_namasiswa($id_kelas,$tahun,$semester)->result();
 		$data['jadwalll'] = $this->m_guru->tampil_jadwalll($id_kelas,$id_guru,$tahun,$semester,$hariindonesia)->result();
 		$data['keterangan_presensi'] = $this->m_guru->tampil_keterangan()->result();
@@ -252,11 +253,12 @@ class Guru extends CI_Controller
 			$tanggal = $this->input->post('tgl');
 		    $result = array();
 		    foreach($nm AS $key => $val){
+		    	$id = $_POST['id_siswa'][$key];
 			    $result[] = array(
 				    "tgl"  => $tanggal,
-				    "kd_keterangan_fk"  => $_POST['kd_keterangan'][$key],
+				    "kd_keterangan_fk"  => $_POST['kd_keterangan-'.$id],
 				    "id_jadwal_fk"  => $id_jadwal,
-				     "modul_pembahasan" => $modul_pembahasan,
+				    "modul_pembahasan" => $modul_pembahasan,
 				    "id_siswa_fk"  => $_POST['id_siswa'][$key]
 			    );
 			}

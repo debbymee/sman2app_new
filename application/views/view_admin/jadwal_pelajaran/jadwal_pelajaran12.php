@@ -4,7 +4,7 @@
 
 		<h2 style="color: green " align="center"> JADWAL PEMBELAJARAN KELAS XII SMAN 2 </h2>
 		<hr>
-		<?= $this->session->flashdata('message'); ?>
+		<?= $this->session->flashdata('message2'); ?>
 		
 		<a href="<?php echo base_url(); ?>admin/form_jadwal12"> <button type="button" class="btn btn-success btn-lg"  > + TAMBAH JADWAL</button> </a>
 		 <br><br>

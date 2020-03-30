@@ -14,17 +14,17 @@
 
              <form action="<?php echo base_url(); ?>admin/tambah_kelas" method ="post"  class="form-horizontal form-label-left"  >
 
-              <?= $this->session->flashdata('message'); ?>
+              <?= $this->session->flashdata('message2'); ?>
   
               <div class="item form-group">
                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama_kelas">NAMA KELAS <span class="required">*</span>
                    </label>
-                   <div class="col-md-6 col-sm-6 col-xs-12">
+                   <div class="col-md-2 col-sm-6 col-xs-12">
                     <input id="nama_kelas" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="nama_kelas" placeholder="masukkan nama kelas" type="text" value=" <?php echo set_value('nama_kelas'); ?>">
 
 
                     <?php echo form_error('nama_kelas', '<small class="text-danger pl-3">', '</small>'); ?> <br>  
-                  </div>
+                  </div> <?php echo "contoh : X IPS 1 "; ?>
               </div>
   
              
@@ -45,10 +45,10 @@
                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ruangan">RUANGAN<span class="required">*</span>
                     </label>
 
-                     <div class="col-md-6 col-sm-6 col-xs-12">
+                     <div class="col-md-2 col-sm-6 col-xs-12">
                     <input id="ruangan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="ruangan" placeholder="masukkan ruangan" type="text" value=" <?php echo set_value('ruangan'); ?>">
 
-                      </div>
+                      </div><?php echo "contoh : X-IPS1 "; ?>
                       
 
                 </div>

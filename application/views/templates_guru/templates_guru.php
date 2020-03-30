@@ -312,6 +312,46 @@ $(function(){
 
 </script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+  $("#checkedAll").change(function(){
+    if(this.checked){
+      $(".checkSingle").each(function(){
+        this.checked=true;
+      })              
+    }else{
+      $(".checkSingle").each(function(){
+        this.checked=false;
+      })              
+    }
+  });
+
+  $(".checkSingle").click(function () {
+    if ($(this).is(":checked")){
+      var isAllChecked = 0;
+      $(".checkSingle").each(function(){
+        if(!this.checked)
+           isAllChecked = 1;
+      })              
+      if(isAllChecked == 0){ $("#checkedAll").prop("checked", true); }     
+    }else {
+      $("#checkedAll").prop("checked", false);
+    }
+  });
+});
+</script>
+<!--alert input max file keterangan presensi -->
+<script type="text/javascript">
+  var uploadField = document.getElementById("file");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 307200){
+       alert("File foto terlalu besar!");
+       this.value = "";
+    };
+};
+</script>
+
 </body>
 
 </html>

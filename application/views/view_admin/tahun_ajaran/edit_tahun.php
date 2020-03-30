@@ -28,7 +28,7 @@
         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="semester">Semester <span class="required">*</span>
         </label>
                   <div class="col-md-3 col-sm-6 col-xs-12">
-
+                    <input type="hidden" name="semester_awal" value="<?php echo $tahun_ajaran->kd_semester ?>">
                      <select name="semester" class="form-control">
                     <?php foreach ($semester as $r): ?>
                       <option value="<?php echo $r->kd_semester ?>" <?php echo ($r->kd_semester== $tahun_ajaran->kd_semester)?'selected="selected"':''?>><?php echo $r->semester?></option>
@@ -42,9 +42,10 @@
            </div>
           
     <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="Status">Status <span class="required">*</span>
+        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="status">Status <span class="required">*</span>
         </label>
                   <div class="col-md-3 col-sm-6 col-xs-12">
+                    <input type="hidden" name="status_awal" value="<?php echo $tahun_ajaran->status ?>">
 
                     <select class="btn btn-default dropdown-toggle" name="status" >
                     
